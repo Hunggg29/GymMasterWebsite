@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "vXdFfGYegWvujKVwlpV1dfQgQywWbYbJ3nH94ZHiu4M=",
+  "Source": "GymMaster.API",
+  "BasePath": "_content/GymMaster.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
