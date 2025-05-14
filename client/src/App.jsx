@@ -20,8 +20,8 @@ const App = () => {
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
-        <Route path='/exercise' element={auth?.user ? <Exercise /> : <Login />} />
-        <Route path='/exercise/:id' element={auth?.user ? <ExerciseDetail /> : <Login />} />
+        {/* <Route path='/exercise' element={auth?.user ? <Exercise /> : <Login />} />
+        <Route path='/exercise/:id' element={auth?.user ? <ExerciseDetail /> : <Login />} /> */}
         <Route path='/plan-subscribe/:planid' element={<PlanSubscription/>} />
         <Route path='/plan-detail/:planid' element={<PlanDetails/>} />
         <Route path='/trainer/:trainerId' element={<TrainerDetails/>} />

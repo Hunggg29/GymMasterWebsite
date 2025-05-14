@@ -46,11 +46,11 @@ const Header = () => {
                 Home
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/exercise" className="text-white hover:text-yellow-400 transition-all duration-300">
                 Exercises
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/feedback" className="text-white hover:text-yellow-400 transition-all duration-300">
                 Feedback
