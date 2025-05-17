@@ -2,6 +2,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using GymMaster.API.Models;
 using GymMaster.API.Services.Interfaces;
+using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
+using GymMaster.API.Data;
+using GymMaster.API.DTO;
 
 namespace GymMaster.API.Controllers
 {
@@ -10,10 +14,12 @@ namespace GymMaster.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
+        private readonly ApplicationDbContext _context;
 
-        public AuthController(IAuthService authService)
+        public AuthController(IAuthService authService, ApplicationDbContext context)
         {
             _authService = authService;
+            _context = context;
         }
 
         [HttpPost("login")]
@@ -60,19 +66,57 @@ namespace GymMaster.API.Controllers
             return Ok(user);
         }
 
-        [Authorize]
         [HttpPut("profile")]
-        public async Task<IActionResult> UpdateProfile([FromBody] User user)
+        [Authorize]
+        public async Task<IActionResult> UpdateProfile([FromBody] UpdateProfileDto updateProfileDto)
         {
-            var userId = int.Parse(User.FindFirst("id")?.Value);
-            if (userId != user.Id)
-                return Forbid();
+            try
+            {
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (string.IsNullOrEmpty(userId))
+                {
+                    return Unauthorized();
+                }
 
-            var success = await _authService.UpdateUserAsync(user);
-            if (!success)
-                return NotFound();
+                var user = await _context.Users
+                    .FirstOrDefaultAsync(u => u.Id == int.Parse(userId));
 
-            return Ok();
+                if (user == null)
+                {
+                    return NotFound("User not found");
+                }
+
+                // Check if username is taken by another user
+                if (await _context.Users.AnyAsync(u => u.Username == updateProfileDto.Username && u.Id != user.Id))
+                {
+                    return BadRequest("Username already exists");
+                }
+
+                // Update only the allowed fields
+                user.Username = updateProfileDto.Username;
+                user.FullName = updateProfileDto.FullName;
+                user.Phone = updateProfileDto.Phone;
+                user.Birthday = updateProfileDto.Birthday;
+
+                await _context.SaveChangesAsync();
+
+                // Return updated user without sensitive information
+                return Ok(new
+                {
+                    user.Id,
+                    user.Username,
+                    user.Email,
+                    user.FullName,
+                    user.Phone,
+                    user.Birthday,
+                    user.Role,
+                    user.CreatedAt
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred while updating the profile");
+            }
         }
 
         [Authorize(Roles = "admin")]

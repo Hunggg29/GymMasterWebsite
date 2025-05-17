@@ -1,7 +1,120 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|c:\\users\\hungm\\onedrive\\documents\\github\\gymmasterwebsite\\gymmaster.api\\controllers\\subscriptioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|solutionrelative:gymmaster.api\\controllers\\subscriptioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|c:\\users\\hungm\\onedrive\\documents\\github\\gymmasterwebsite\\gymmaster.api\\models\\dto\\updateprofiledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|solutionrelative:gymmaster.api\\models\\dto\\updateprofiledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|c:\\users\\hungm\\onedrive\\documents\\github\\gymmasterwebsite\\gymmaster.api\\models\\dto\\subcriptiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|solutionrelative:gymmaster.api\\models\\dto\\subcriptiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|c:\\users\\hungm\\onedrive\\documents\\github\\gymmasterwebsite\\gymmaster.api\\models\\dto\\createsubcriptiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|solutionrelative:gymmaster.api\\models\\dto\\createsubcriptiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|c:\\users\\hungm\\onedrive\\documents\\github\\gymmasterwebsite\\gymmaster.api\\controllers\\paymentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|solutionrelative:gymmaster.api\\controllers\\paymentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|c:\\users\\hungm\\onedrive\\documents\\github\\gymmasterwebsite\\gymmaster.api\\models\\dto\\createpaymentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|solutionrelative:gymmaster.api\\models\\dto\\createpaymentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|c:\\users\\hungm\\onedrive\\documents\\github\\gymmasterwebsite\\gymmaster.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|solutionrelative:gymmaster.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|c:\\users\\hungm\\onedrive\\documents\\github\\gymmasterwebsite\\gymmaster.api\\services\\implementations\\subscriptionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|solutionrelative:gymmaster.api\\services\\implementations\\subscriptionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|c:\\users\\hungm\\onedrive\\documents\\github\\gymmasterwebsite\\gymmaster.api\\models\\plan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|solutionrelative:gymmaster.api\\models\\plan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|c:\\users\\hungm\\onedrive\\documents\\github\\gymmasterwebsite\\gymmaster.api\\controllers\\feedbackcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|solutionrelative:gymmaster.api\\controllers\\feedbackcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|c:\\users\\hungm\\onedrive\\documents\\github\\gymmasterwebsite\\gymmaster.api\\models\\dto\\createfeedbackdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|solutionrelative:gymmaster.api\\models\\dto\\createfeedbackdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|c:\\users\\hungm\\onedrive\\documents\\github\\gymmasterwebsite\\gymmaster.api\\models\\feedback.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|solutionrelative:gymmaster.api\\models\\feedback.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|c:\\users\\hungm\\onedrive\\documents\\github\\gymmasterwebsite\\gymmaster.api\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|solutionrelative:gymmaster.api\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|c:\\users\\hungm\\onedrive\\documents\\github\\gymmasterwebsite\\gymmaster.api\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|solutionrelative:gymmaster.api\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|c:\\users\\hungm\\onedrive\\documents\\github\\gymmasterwebsite\\gymmaster.api\\models\\trainningsession.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|solutionrelative:gymmaster.api\\models\\trainningsession.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|c:\\users\\hungm\\onedrive\\documents\\github\\gymmasterwebsite\\gymmaster.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|solutionrelative:gymmaster.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|c:\\users\\hungm\\onedrive\\documents\\github\\gymmasterwebsite\\gymmaster.api\\services\\implementations\\planservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|solutionrelative:gymmaster.api\\services\\implementations\\planservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|c:\\users\\hungm\\onedrive\\documents\\github\\gymmasterwebsite\\gymmaster.api\\controllers\\plancontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|solutionrelative:gymmaster.api\\controllers\\plancontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|c:\\users\\hungm\\onedrive\\documents\\github\\gymmasterwebsite\\gymmaster.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|solutionrelative:gymmaster.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|c:\\users\\hungm\\onedrive\\documents\\github\\gymmasterwebsite\\gymmaster.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|solutionrelative:gymmaster.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|c:\\users\\hungm\\onedrive\\documents\\github\\gymmasterwebsite\\gymmaster.api\\models\\payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|solutionrelative:gymmaster.api\\models\\payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|c:\\users\\hungm\\onedrive\\documents\\github\\gymmasterwebsite\\gymmaster.api\\models\\traininghistory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|solutionrelative:gymmaster.api\\models\\traininghistory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|c:\\users\\hungm\\onedrive\\documents\\github\\gymmasterwebsite\\gymmaster.api\\models\\contactus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|solutionrelative:gymmaster.api\\models\\contactus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|c:\\users\\hungm\\onedrive\\documents\\github\\gymmasterwebsite\\gymmaster.api\\models\\equipmentmaintenance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|solutionrelative:gymmaster.api\\models\\equipmentmaintenance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|c:\\users\\hungm\\onedrive\\documents\\github\\gymmasterwebsite\\gymmaster.api\\models\\gymroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|solutionrelative:gymmaster.api\\models\\gymroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|c:\\users\\hungm\\onedrive\\documents\\github\\gymmasterwebsite\\gymmaster.api\\models\\subscription.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|solutionrelative:gymmaster.api\\models\\subscription.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|c:\\users\\hungm\\onedrive\\documents\\github\\gymmasterwebsite\\gymmaster.api\\gymmaster.api.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|solutionrelative:gymmaster.api\\gymmaster.api.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|c:\\users\\hungm\\onedrive\\documents\\github\\gymmasterwebsite\\gymmaster.api\\models\\equipment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2BFBA96-842F-C09E-4F1D-440885CB1FD7}|GymMaster.API\\GymMaster.API.csproj|solutionrelative:gymmaster.api\\models\\equipment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,15 +122,366 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{0174dea2-fdbe-4ef1-8f99-c0beae78880f}"
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CreateSubcriptionDto.cs",
+              "DocumentMoniker": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\DTO\\CreateSubcriptionDto.cs",
+              "RelativeDocumentMoniker": "GymMaster.API\\Models\\DTO\\CreateSubcriptionDto.cs",
+              "ToolTip": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\DTO\\CreateSubcriptionDto.cs",
+              "RelativeToolTip": "GymMaster.API\\Models\\DTO\\CreateSubcriptionDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-17T16:39:24.84Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SubcriptionDto.cs",
+              "DocumentMoniker": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\DTO\\SubcriptionDto.cs",
+              "RelativeDocumentMoniker": "GymMaster.API\\Models\\DTO\\SubcriptionDto.cs",
+              "ToolTip": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\DTO\\SubcriptionDto.cs",
+              "RelativeToolTip": "GymMaster.API\\Models\\DTO\\SubcriptionDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-17T16:38:22.32Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CreatePaymentDto.cs",
+              "DocumentMoniker": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\DTO\\CreatePaymentDto.cs",
+              "RelativeDocumentMoniker": "GymMaster.API\\Models\\DTO\\CreatePaymentDto.cs",
+              "ToolTip": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\DTO\\CreatePaymentDto.cs",
+              "RelativeToolTip": "GymMaster.API\\Models\\DTO\\CreatePaymentDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-17T16:31:07.6Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "FeedbackController.cs",
+              "DocumentMoniker": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Controllers\\FeedbackController.cs",
+              "RelativeDocumentMoniker": "GymMaster.API\\Controllers\\FeedbackController.cs",
+              "ToolTip": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Controllers\\FeedbackController.cs",
+              "RelativeToolTip": "GymMaster.API\\Controllers\\FeedbackController.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAwDcAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-17T09:36:01.928Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SubscriptionController.cs",
+              "DocumentMoniker": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Controllers\\SubscriptionController.cs",
+              "RelativeDocumentMoniker": "GymMaster.API\\Controllers\\SubscriptionController.cs",
+              "ToolTip": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Controllers\\SubscriptionController.cs",
+              "RelativeToolTip": "GymMaster.API\\Controllers\\SubscriptionController.cs",
+              "ViewState": "AgIAAJgAAAAAAAAAAAAgwHMAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T18:38:17.163Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Payment.cs",
+              "DocumentMoniker": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\Payment.cs",
+              "RelativeDocumentMoniker": "GymMaster.API\\Models\\Payment.cs",
+              "ToolTip": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\Payment.cs",
+              "RelativeToolTip": "GymMaster.API\\Models\\Payment.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T16:04:44.757Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UpdateProfileDto.cs",
+              "DocumentMoniker": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\DTO\\UpdateProfileDto.cs",
+              "RelativeDocumentMoniker": "GymMaster.API\\Models\\DTO\\UpdateProfileDto.cs",
+              "ToolTip": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\DTO\\UpdateProfileDto.cs",
+              "RelativeToolTip": "GymMaster.API\\Models\\DTO\\UpdateProfileDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-17T12:53:53.745Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PaymentController.cs",
+              "DocumentMoniker": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Controllers\\PaymentController.cs",
+              "RelativeDocumentMoniker": "GymMaster.API\\Controllers\\PaymentController.cs",
+              "ToolTip": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Controllers\\PaymentController.cs",
+              "RelativeToolTip": "GymMaster.API\\Controllers\\PaymentController.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABoAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-17T16:31:59.628Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "GymMaster.API\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "GymMaster.API\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-17T12:06:43.692Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Plan.cs",
+              "DocumentMoniker": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\Plan.cs",
+              "RelativeDocumentMoniker": "GymMaster.API\\Models\\Plan.cs",
+              "ToolTip": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\Plan.cs",
+              "RelativeToolTip": "GymMaster.API\\Models\\Plan.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAYwB4AAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T15:50:44.74Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SubscriptionService.cs",
+              "DocumentMoniker": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Services\\Implementations\\SubscriptionService.cs",
+              "RelativeDocumentMoniker": "GymMaster.API\\Services\\Implementations\\SubscriptionService.cs",
+              "ToolTip": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Services\\Implementations\\SubscriptionService.cs",
+              "RelativeToolTip": "GymMaster.API\\Services\\Implementations\\SubscriptionService.cs",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAjwFcAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T19:08:54.773Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "GymMaster.API\\Data\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "GymMaster.API\\Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAAAgwE4AAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T16:47:37.581Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "PlanController.cs",
+              "DocumentMoniker": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Controllers\\PlanController.cs",
+              "RelativeDocumentMoniker": "GymMaster.API\\Controllers\\PlanController.cs",
+              "ToolTip": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Controllers\\PlanController.cs",
+              "RelativeToolTip": "GymMaster.API\\Controllers\\PlanController.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwBwAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T19:15:20.581Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "TrainningSession.cs",
+              "DocumentMoniker": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\TrainningSession.cs",
+              "RelativeDocumentMoniker": "GymMaster.API\\Models\\TrainningSession.cs",
+              "ToolTip": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\TrainningSession.cs",
+              "RelativeToolTip": "GymMaster.API\\Models\\TrainningSession.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T16:37:10.444Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Feedback.cs",
+              "DocumentMoniker": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\Feedback.cs",
+              "RelativeDocumentMoniker": "GymMaster.API\\Models\\Feedback.cs",
+              "ToolTip": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\Feedback.cs",
+              "RelativeToolTip": "GymMaster.API\\Models\\Feedback.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAA3wBoAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T15:46:58.103Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "CreateFeedbackDto.cs",
+              "DocumentMoniker": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\DTO\\CreateFeedbackDto.cs",
+              "RelativeDocumentMoniker": "GymMaster.API\\Models\\DTO\\CreateFeedbackDto.cs",
+              "ToolTip": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\DTO\\CreateFeedbackDto.cs",
+              "RelativeToolTip": "GymMaster.API\\Models\\DTO\\CreateFeedbackDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-17T10:20:28.595Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\User.cs",
+              "RelativeDocumentMoniker": "GymMaster.API\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\User.cs",
+              "RelativeToolTip": "GymMaster.API\\Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T15:40:58.646Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Program.cs",
+              "RelativeDocumentMoniker": "GymMaster.API\\Program.cs",
+              "ToolTip": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Program.cs",
+              "RelativeToolTip": "GymMaster.API\\Program.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T16:47:02.055Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "PlanService.cs",
+              "DocumentMoniker": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Services\\Implementations\\PlanService.cs",
+              "RelativeDocumentMoniker": "GymMaster.API\\Services\\Implementations\\PlanService.cs",
+              "ToolTip": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Services\\Implementations\\PlanService.cs",
+              "RelativeToolTip": "GymMaster.API\\Services\\Implementations\\PlanService.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-17T05:14:23.052Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\appsettings.json",
+              "RelativeDocumentMoniker": "GymMaster.API\\appsettings.json",
+              "ToolTip": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\appsettings.json",
+              "RelativeToolTip": "GymMaster.API\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-16T16:46:58.621Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "GymMaster.API\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Properties\\launchSettings.json",
+              "RelativeToolTip": "GymMaster.API\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-16T16:46:48.184Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "TrainingHistory.cs",
+              "DocumentMoniker": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\TrainingHistory.cs",
+              "RelativeDocumentMoniker": "GymMaster.API\\Models\\TrainingHistory.cs",
+              "ToolTip": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\TrainingHistory.cs",
+              "RelativeToolTip": "GymMaster.API\\Models\\TrainingHistory.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAYwAwAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T16:42:09.578Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "EquipmentMaintenance.cs",
+              "DocumentMoniker": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\EquipmentMaintenance.cs",
+              "RelativeDocumentMoniker": "GymMaster.API\\Models\\EquipmentMaintenance.cs",
+              "ToolTip": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\EquipmentMaintenance.cs",
+              "RelativeToolTip": "GymMaster.API\\Models\\EquipmentMaintenance.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T16:31:51.037Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "ContactUs.cs",
+              "DocumentMoniker": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\ContactUs.cs",
+              "RelativeDocumentMoniker": "GymMaster.API\\Models\\ContactUs.cs",
+              "ToolTip": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\ContactUs.cs",
+              "RelativeToolTip": "GymMaster.API\\Models\\ContactUs.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T16:13:32.88Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "GymRoom.cs",
+              "DocumentMoniker": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\GymRoom.cs",
+              "RelativeDocumentMoniker": "GymMaster.API\\Models\\GymRoom.cs",
+              "ToolTip": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\GymRoom.cs",
+              "RelativeToolTip": "GymMaster.API\\Models\\GymRoom.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T16:17:07.277Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "Subscription.cs",
+              "DocumentMoniker": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\Subscription.cs",
+              "RelativeDocumentMoniker": "GymMaster.API\\Models\\Subscription.cs",
+              "ToolTip": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\Subscription.cs",
+              "RelativeToolTip": "GymMaster.API\\Models\\Subscription.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAswBoAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T16:01:48.317Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "GymMaster.API.http",
+              "DocumentMoniker": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\GymMaster.API.http",
+              "RelativeDocumentMoniker": "GymMaster.API\\GymMaster.API.http",
+              "ToolTip": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\GymMaster.API.http",
+              "RelativeToolTip": "GymMaster.API\\GymMaster.API.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2025-05-16T16:47:02.937Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "Equipment.cs",
+              "DocumentMoniker": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\Equipment.cs",
+              "RelativeDocumentMoniker": "GymMaster.API\\Models\\Equipment.cs",
+              "ToolTip": "C:\\Users\\hungm\\OneDrive\\Documents\\GitHub\\GymMasterWebsite\\GymMaster.API\\Models\\Equipment.cs",
+              "RelativeToolTip": "GymMaster.API\\Models\\Equipment.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T16:22:40.695Z"
             }
           ]
         }

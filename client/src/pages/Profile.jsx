@@ -2,135 +2,275 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { Input} from "../components";
 import { useAuth } from '../context/auth';
 import { BASE_URL } from '../utils/fetchData';
+import { Heading, Loader } from '../components';
+
 const Profile = () => {
   const navigate = useNavigate();
   const { auth, setAuth } = useAuth();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [city, setCity] = useState("");
-  const [contact, setContact] = useState("");
-
-
-  // const [goal, setGoal] = useState("");
-  // let g = localStorage.getItem("goal");
+  const [loading, setLoading] = useState(false);
+  const [profileData, setProfileData] = useState({
+    username: '',
+    email: '',
+    birthday: '',
+    fullName: '',
+    phone: ''
+  });
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    if (auth && auth?.user) {
-      const { name, email, city, contact} = auth?.user;
-      setName(name);
-      setEmail(email);
-      setCity(city);
-      setContact(contact);
-      // setGoal(g);
+    if (auth?.user) {
+      const { username, email, birthday, fullName, phone } = auth.user;
+      setProfileData({
+        username: username || '',
+        email: email || '',
+        birthday: birthday && birthday !== '0001-01-01T00:00:00' 
+          ? new Date(birthday).toISOString().split('T')[0] 
+          : '',
+        fullName: fullName || '',
+        phone: phone || ''
+      });
     }
   }, [auth]);
 
-  const updateUser = async (e) => {
+  const validateUsername = (username) => {
+    if (!username) return 'Username is required';
+    if (username.length < 3) return 'Username must be at least 3 characters';
+    if (username.length > 20) return 'Username must be less than 20 characters';
+    if (!/^[a-zA-Z0-9_]+$/.test(username)) return 'Username can only contain letters, numbers and underscores';
+    return '';
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setProfileData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
+
+    // Validate username as user types
+    if (name === 'username') {
+      const error = validateUsername(value);
+      if (error) {
+        setErrors(prev => ({
+          ...prev,
+          username: error
+        }));
+      }
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!/^[A-Za-z]+$/.test(name)) {
-      toast.error("Name must contain only alphabets");
+    // Validate username before submission
+    const usernameError = validateUsername(profileData.username);
+    if (usernameError) {
+      setErrors(prev => ({
+        ...prev,
+        username: usernameError
+      }));
+      toast.error(usernameError);
       return;
     }
 
-
-
-    // Validation for City field
-    if (!/^[A-Za-z ]+$/.test(city)) {
-      toast.error("City must contain only alphabets and spaces");
-      return;
-    }
-    
-
-
-    const phoneNumberPattern = /^(9|8|7|6)\d{9}$/;
-    if (!phoneNumberPattern.test(contact)) {
-      toast.error("Phone number must start with 9, 8, 7, or 6 and contain exactly 10 digits");
-      return;
-    }
-
-    console.log(name, email, city, contact);
-
+    setLoading(true);
     try {
-      const { data } = await axios.put(`${BASE_URL}/api/auth/profile`, {
-        username: name,
-        email,
-        city,
-        contact
-      });
-      if (data) {
-        toast.success("Profile updated successfully!");
+      // Format the data according to the DTO
+      const formattedData = {
+        username: profileData.username,
+        email: profileData.email,
+        birthday: profileData.birthday ? new Date(profileData.birthday).toISOString() : null,
+        fullName: profileData.fullName || null,
+        phone: profileData.phone || null
+      };
+
+      const response = await axios.put(
+        `${BASE_URL}/api/auth/profile`,
+        formattedData,
+        {
+          headers: {
+            'Authorization': `Bearer ${auth.token}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
+      if (response.status === 200) {
+        // Update the auth context with the new user data
+        setAuth(prev => ({
+          ...prev,
+          user: response.data
+        }));
+        toast.success('Profile updated successfully!');
         navigate("/");
       }
-    } catch (err) {
-      console.log(err);
-      toast.error(err.response?.data?.message || "Something went wrong");
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      const errorMessage = error.response?.data || 'Failed to update profile';
+      if (typeof errorMessage === 'string') {
+        toast.error(errorMessage);
+      } else {
+        toast.error('Failed to update profile');
+      }
+      
+      if (errorMessage === 'Username already exists') {
+        setErrors(prev => ({
+          ...prev,
+          username: 'Username already taken'
+        }));
+      }
+    } finally {
+      setLoading(false);
     }
+  };
 
+  if (loading) {
+    return <Loader />;
   }
 
+  if (!auth.user) {
+    return (
+      <div className="flex justify-center items-center h-screen text-white">
+        Please log in to view your profile.
+      </div>
+    );
+  }
 
   return (
-    <section className='bg-gray-900'>
+    <section className="bg-gray-900 min-h-screen py-12">
+      <div className="max-w-3xl mx-auto px-4">
+        <div className="text-center mb-12">
+          <Heading name="Profile Settings" />
+          <p className="text-gray-400 text-lg mt-2">Update your personal information</p>
+        </div>
+        
+        <form onSubmit={handleSubmit} className="mt-8 space-y-8 bg-gray-800 p-8 rounded-lg shadow-lg">
+          <div className="space-y-6">
+            {/* Username */}
+            <div>
+              <label htmlFor="username" className="block text-lg font-medium text-gray-200 mb-2">
+                Username
+              </label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                value={profileData.username}
+                onChange={handleInputChange}
+                className={`mt-1 block w-full rounded-lg border px-4 py-3 text-lg
+                  ${errors.username 
+                    ? 'border-red-500 bg-red-50/10' 
+                    : 'border-gray-600 bg-gray-700'} 
+                  text-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50
+                  transition duration-150 ease-in-out`}
+                placeholder="Enter username"
+              />
+              {errors.username && (
+                <p className="mt-2 text-sm text-red-500">{errors.username}</p>
+              )}
+            </div>
 
-    <div className='container mx-auto px-6'>
-      <form className='flex w-full h-screen justify-center items-center flex-col gap-5' onSubmit={updateUser}>
-        <h2 className='text-center text-4xl text-white font-bold'>Profile</h2>
+            {/* Email */}
+            <div>
+              <label htmlFor="email" className="block text-lg font-medium text-gray-200 mb-2">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={profileData.email}
+                onChange={handleInputChange}
+                className="mt-1 block w-full rounded-lg border border-gray-600 bg-gray-700 px-4 py-3 text-lg
+                  text-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50
+                  transition duration-150 ease-in-out opacity-75"
+                disabled
+              />
+              <p className="mt-2 text-sm text-gray-400">Email cannot be changed</p>
+            </div>
 
+            {/* Full Name */}
+            <div>
+              <label htmlFor="fullName" className="block text-lg font-medium text-gray-200 mb-2">
+                Full Name
+              </label>
+              <input
+                type="text"
+                id="fullName"
+                name="fullName"
+                value={profileData.fullName}
+                onChange={handleInputChange}
+                className="mt-1 block w-full rounded-lg border border-gray-600 bg-gray-700 px-4 py-3 text-lg
+                  text-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50
+                  transition duration-150 ease-in-out"
+                placeholder="Enter your full name"
+              />
+            </div>
 
-        <Input type="text"
-          placeholder="Name"
-          name="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          minLength="4"
-          // pattern="[A-Za-z ]+"
-          maxLength="30"
-          // title="Please enter only letters. no other characters are allowed"
-        />
+            {/* Birthday */}
+            <div>
+              <label htmlFor="birthday" className="block text-lg font-medium text-gray-200 mb-2">
+                Birthday
+              </label>
+              <input
+                type="date"
+                id="birthday"
+                name="birthday"
+                value={profileData.birthday}
+                onChange={handleInputChange}
+                className="mt-1 block w-full rounded-lg border border-gray-600 bg-gray-700 px-4 py-3 text-lg
+                  text-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50
+                  transition duration-150 ease-in-out"
+                min="1900-01-01"
+                max={new Date().toISOString().split('T')[0]}
+              />
+            </div>
 
+            {/* Phone */}
+            <div>
+              <label htmlFor="phone" className="block text-lg font-medium text-gray-200 mb-2">
+                Phone Number
+              </label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                value={profileData.phone}
+                onChange={handleInputChange}
+                className="mt-1 block w-full rounded-lg border border-gray-600 bg-gray-700 px-4 py-3 text-lg
+                  text-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50
+                  transition duration-150 ease-in-out"
+                placeholder="Enter your phone number"
+              />
+            </div>
+          </div>
 
-        <Input type="email"
-          placeholder="Email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          // pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
-        />
-
-
-        <Input type="text"
-          placeholder="City"
-          name="city"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          // pattern="[A-Za-z ]+"
-          minLength="4"
-          maxLength="35"
-        />
-
-        <Input type="text"
-          placeholder="Phone"
-          name="phone"
-          value={contact}
-          onChange={(e) => setContact(e.target.value)}
-          // pattern="9[0-9]{9}" // Ensure the number starts with 9 and contains a total of 10 digits
-          // title="Please enter a valid 10-digit phone number starting with 9"
-          // pattern="[0-9]+"
-          // minLength="10"
-          // maxLength="10"
-        />
-
-        <button type='submit' className='btn px-5 py-2 font-normal outline-none border border-white rounded-sm text-xl text-white hover:text-black hover:bg-white transition-all ease-in w-full max-w-[750px]' >Update</button>
-      </form>
-    </div>
+          <div className="flex justify-end pt-6 border-t border-gray-700">
+            <button
+              type="submit"
+              className="px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg
+                hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+                focus:ring-offset-gray-900 transition duration-150 ease-in-out
+                transform hover:scale-105"
+            >
+              Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
     </section>
-
-  )
-}
+  );
+};
 
 export default Profile;
 

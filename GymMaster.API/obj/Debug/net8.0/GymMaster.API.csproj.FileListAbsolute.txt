@@ -282,10 +282,11 @@ C:\Users\hungm\OneDrive\Documents\GitHub\GymMasterWebsite\GymMaster.API\obj\Debu
 C:\Users\hungm\OneDrive\Documents\GitHub\GymMasterWebsite\GymMaster.API\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.GymMaster.API.props
 C:\Users\hungm\OneDrive\Documents\GitHub\GymMasterWebsite\GymMaster.API\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.GymMaster.API.props
 C:\Users\hungm\OneDrive\Documents\GitHub\GymMasterWebsite\GymMaster.API\obj\Debug\net8.0\staticwebassets.pack.json
-C:\Users\hungm\OneDrive\Documents\GitHub\GymMasterWebsite\GymMaster.API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\hungm\OneDrive\Documents\GitHub\GymMasterWebsite\GymMaster.API\obj\Debug\net8.0\GymMaste.3FD1B0C8.Up2Date
 C:\Users\hungm\OneDrive\Documents\GitHub\GymMasterWebsite\GymMaster.API\obj\Debug\net8.0\GymMaster.API.dll
 C:\Users\hungm\OneDrive\Documents\GitHub\GymMasterWebsite\GymMaster.API\obj\Debug\net8.0\refint\GymMaster.API.dll
 C:\Users\hungm\OneDrive\Documents\GitHub\GymMasterWebsite\GymMaster.API\obj\Debug\net8.0\GymMaster.API.pdb
 C:\Users\hungm\OneDrive\Documents\GitHub\GymMasterWebsite\GymMaster.API\obj\Debug\net8.0\GymMaster.API.genruntimeconfig.cache
 C:\Users\hungm\OneDrive\Documents\GitHub\GymMasterWebsite\GymMaster.API\obj\Debug\net8.0\ref\GymMaster.API.dll
+C:\Users\hungm\OneDrive\Documents\GitHub\GymMasterWebsite\GymMaster.API\obj\Debug\net8.0\GymMaster.API.sourcelink.json
+C:\Users\hungm\OneDrive\Documents\GitHub\GymMasterWebsite\GymMaster.API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

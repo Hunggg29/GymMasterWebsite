@@ -15,6 +15,13 @@ namespace GymMaster.API.Data
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<ContactUs> ContactUs { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
+        public DbSet<Equipment> Equipment { get; set; }
+        public DbSet<EquipmentMaintenance> EquipmentMaintenance { get; set; }
+        public DbSet<GymRoom> GymRoom { get; set; }
+        public DbSet<Payment> Payment { get; set; }
+        public DbSet<TrainingHistory> TrainingHistories { get; set; }
+        public DbSet<TrainningSession> TrainingSessions { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -42,16 +49,17 @@ namespace GymMaster.API.Data
             });
 
             // Configure Subscription entity
-            modelBuilder.Entity<Subscription>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.HasOne(e => e.User)
-                    .WithMany()
-                    .HasForeignKey(e => e.UserId);
-                entity.HasOne(e => e.Plan)
-                    .WithMany()
-                    .HasForeignKey(e => e.PlanId);
-            });
+            modelBuilder.Entity<Subscription>()
+                .HasOne(s => s.User)
+                .WithMany(u => u.Subscriptions)
+                .HasForeignKey(s => s.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Subscription>()
+                .HasOne(s => s.Plan)
+                .WithMany(p => p.Subscriptions)
+                .HasForeignKey(s => s.PlanId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             // Configure ContactUs entity
             modelBuilder.Entity<ContactUs>(entity =>
@@ -70,6 +78,51 @@ namespace GymMaster.API.Data
                 entity.HasOne(e => e.User)
                     .WithMany()
                     .HasForeignKey(e => e.UserId);
+            });
+
+            // Configure TrainingHistory entity
+            modelBuilder.Entity<TrainingHistory>()
+                .HasOne(th => th.User)
+                .WithMany(u => u.TrainingHistories)
+                .HasForeignKey(th => th.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<TrainingHistory>()
+                .HasOne(th => th.TrainningSession)
+                .WithMany(ts => ts.TrainingHistories)
+                .HasForeignKey(th => th.SessionId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<TrainningSession>()
+                .HasOne(ts => ts.Trainer)
+                .WithMany(u => u.TrainingSessions)
+                .HasForeignKey(ts => ts.TrainerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<TrainningSession>()
+                .HasOne(ts => ts.GymRoom)
+                .WithMany(gr => gr.TrainningSessions)
+                .HasForeignKey(ts => ts.RoomId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Configure Payment entity
+            modelBuilder.Entity<Payment>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Amount)
+                    .IsRequired()
+                    .HasPrecision(18, 2);
+                entity.Property(e => e.PaymentMethod)
+                    .IsRequired()
+                    .HasMaxLength(50);
+                entity.Property(e => e.Status)
+                    .IsRequired()
+                    .HasMaxLength(50);
+                
+                // Configure one-to-one relationship with Subscription
+                entity.HasOne(p => p.Subscription)
+                    .WithOne(s => s.Payment)
+                    .HasForeignKey<Subscription>(s => s.PaymentId);
             });
         }
     }

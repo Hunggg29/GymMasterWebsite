@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using GymMaster.API.Models;
 using GymMaster.API.Services.Interfaces;
 using System.Security.Claims;
+using GymMaster.API.Models.DTO;
 
 namespace GymMaster.API.Controllers
 {
@@ -45,10 +46,16 @@ namespace GymMaster.API.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> CreateFeedback([FromBody] Feedback feedback)
+        public async Task<IActionResult> CreateFeedback([FromBody] CreateFeedbackDto dto)
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            feedback.UserId = userId;
+
+            var feedback = new Feedback
+            {
+                UserId = userId,
+                Message = dto.Message,
+                Rating = dto.Rating
+            };
 
             var createdFeedback = await _feedbackService.CreateFeedbackAsync(feedback);
             return CreatedAtAction(nameof(GetFeedbackById), new { id = createdFeedback.Id }, createdFeedback);

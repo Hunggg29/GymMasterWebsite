@@ -18,10 +18,25 @@ namespace GymMaster.API.Models
         [Required]
         public string PasswordHash { get; set; }
 
+   
+        [StringLength(10)]
+        public string? Phone { get;set; }
+
         [Required]
         [StringLength(20)]
         public string Role { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime Birthday { get; set; }
+
+        [StringLength(100)]
+        public string? FullName { get; set; }
+
+        public ICollection<Feedback> Feedbacks { get; set; }
+        public ICollection<Subscription> Subscriptions { get; set; }
+        public ICollection<Payment> Payments { get; set; }
+        public ICollection<TrainingHistory> TrainingHistories { get; set; }
+        public ICollection<TrainningSession> TrainingSessions { get; set; }
+
     }
 } 

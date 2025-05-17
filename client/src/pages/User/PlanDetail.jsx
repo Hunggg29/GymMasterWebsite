@@ -1,154 +1,149 @@
-// import React,{useEffect,useState} from 'react';
-// import { Link } from 'react-router-dom';
-// import axios from "axios";
-// import { Heading, Subscription } from '../../components';
-// import {toast} from "react-hot-toast";
-// import { userImg } from '../../images';
-
-
-// const formatDate = (timestamp) => {
-//   const date = new Date(timestamp);
-//   const day = date.getDate();
-//   const month = date.getMonth() + 1; // Adding 1 because getMonth() returns zero-based index
-//   const year = date.getFullYear();
-//   return { day, month, year };
-// };
-
-// const PlanDetail = () => {
-//   const [userName, setUserName] = useState("");
-//   const [planName, setPlanName] = useState("");
-//   const [planAmount, setPlanAmount] = useState("");
-//   const [planType, setPlanType] = useState("");
-//   const [createdAt, setCreatedAt] = useState(null);
-//   const [dateComponents, setDateComponents] = useState({ day: null, month: null, year: null });
-//   // const [updatedAt, setUpdatedAt] = useState(null);
-
-//   const getUserSubscription = async () => {
-  
-//     try {
-//       const res = await axios.get("http://localhost:5000/api/v1/auth/get-user-plan");
-//       if (res.data && res.data.success) {
-//         console.log(res.data.subscription);
-//         console.log(res.data);
-//         setUserName(res.data.subscription.userName);
-//         setPlanName(res.data.subscription.plan.planName);
-//         setPlanAmount(res.data.subscription.planAmount);
-//         setPlanType(res.data.subscription.planType);
-//         setCreatedAt(res.data.subscription.createdAt);
-//         console.log(res.data.subscription.createdAt);
-//         // setUpdatedAt(res.data.subscription.updatedAt);
-//       }
-//     }
-//     catch (err) {
-//       console.log(err);
-//       toast.error("something went wrong in getting subscription");
-//     }
-  
-//   }
-
-
-//   useEffect(() => {
-//     const components = formatDate(createdAt);
-//     setDateComponents(components);
-//     getUserSubscription();
-//   },[createdAt])
-
-
-
-//   return (
-//     <section className='pt-10'>
-//     <Heading name="Current User Plan"/>
-//     <div className="container mx-auto px-6 py-20">
-//       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-stretch">
-//       <Subscription userImg={userImg} userName={userName} planName={planName} planAmount={planAmount} planType={planType} day={dateComponents.day} month={dateComponents.month} year={dateComponents.year}/>
-//       </div>
-//     </div>
-//   </section>
-//   )
-// }
-
-// export default PlanDetail;
-
-
-
-
-
-
-
-
-
-// ================================================
-
-
-
-
-import React,{useEffect,useState} from 'react';
-import { Link } from 'react-router-dom';
-import axios from "axios";
-import { Heading, Subscription,Loader } from '../../components';
-import {toast} from "react-hot-toast";
-import { userImg } from '../../images';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useAuth } from '../../context/auth';
 import { BASE_URL } from '../../utils/fetchData';
-
-
-
+import { Heading, Loader } from '../../components';
+import { format } from 'date-fns';
 
 const PlanDetail = () => {
-  const [allUserSubscription, setAllUserSubscription] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const getAllUserSubscription = async () => {
-  
-    try {
-      setLoading(true);
-      const res = await axios.get(`${BASE_URL}/api/v1/auth/get-all-user-plan`);
-      if (res.data && res.data.success) {
-        console.log(res.data.subscription);
-        console.log(res.data);
-        setAllUserSubscription(res.data.subscription);
-      }
-      setLoading(false);
-    }
-    catch (err) {
-      console.log(err);
-      toast.error("something went wrong in getting all subscription");
-      setLoading(false);
-    }
-  
-  }
-
-
+  const { auth } = useAuth();
+  const [subscriptions, setSubscriptions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    
-    getAllUserSubscription();
-  },[])
+    const fetchSubscriptions = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          `${BASE_URL}/api/subscription/my-subscriptions`,
+          {
+            headers: {
+              Authorization: `Bearer ${auth.token}`
+            }
+          }
+        );
 
+        setSubscriptions(response.data);
+      } catch (err) {
+        console.error('Error fetching subscriptions:', err);
+        setError('Failed to load subscription details');
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  if(allUserSubscription.length === 0){
-    return <h1 className=' text-3xl sm:text-5xl text-white flex justify-center items-center h-screen'>No Plan Choosen</h1>
+    if (auth.token) {
+      fetchSubscriptions();
+    }
+  }, [auth.token]);
+
+  if (loading) return <Loader />;
+
+  if (error) {
+    return (
+      <div className="bg-gray-900 min-h-screen py-12">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center text-red-500">{error}</div>
+        </div>
+      </div>
+    );
   }
 
-  if(loading){
-    return <Loader/>
+  if (!subscriptions.length) {
+    return (
+      <div className="bg-gray-900 min-h-screen py-12">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center text-white text-xl">
+            You don't have any active subscriptions.
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <section className='pt-10 bg-gray-900'>
-    <Heading name="Current User Plan"/>
-    <div className="container mx-auto px-6 py-20">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-stretch">
-        {allUserSubscription.map((u,i) =>(
-          <Subscription userImg={userImg} userName={u.userName} planName={u.plan.planName} planAmount={u.planAmount} planType={u.planType} i={i} key={i} createdAt={u.createdAt} planid={u.plan._id}/>
-        ))}
+    <section className="bg-gray-900 min-h-screen py-12">
+      <div className="max-w-4xl mx-auto px-4">
+        <div className="text-center mb-12">
+          <Heading name="Your Subscription Plans" />
+          <p className="text-gray-400 text-lg mt-2">View your subscription details</p>
+        </div>
+
+        <div className="grid gap-8">
+          {subscriptions.map((subscription) => (
+            <div 
+              key={subscription.id} 
+              className="bg-gray-800 rounded-lg shadow-lg overflow-hidden"
+            >
+              <div className="md:flex">
+                {/* Plan Image */}
+                <div className="md:w-1/3">
+                  <img 
+                    src={subscription.plan.imageUrl || '/default-plan-image.jpg'} 
+                    alt={subscription.plan.name}
+                    className="w-full h-48 md:h-full object-cover"
+                  />
+                </div>
+
+                {/* Plan Details */}
+                <div className="p-6 md:w-2/3">
+                  <div className="flex justify-between items-start mb-4">
+                    <h3 className="text-2xl font-bold text-white">
+                      {subscription.plan.name}
+                    </h3>
+                    <span 
+                      className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                        subscription.isActive 
+                          ? 'bg-green-500/20 text-green-400' 
+                          : 'bg-red-500/20 text-red-400'
+                      }`}
+                    >
+                      {subscription.isActive ? 'Active' : 'Inactive'}
+                    </span>
+                  </div>
+
+                  <div className="space-y-3 text-gray-300">
+                    <div className="flex justify-between border-b border-gray-700 pb-2">
+                      <span className="text-gray-400">Start Date:</span>
+                      <span>{format(new Date(subscription.startDate), 'MMM dd, yyyy')}</span>
+                    </div>
+                    
+                    <div className="flex justify-between border-b border-gray-700 pb-2">
+                      <span className="text-gray-400">End Date:</span>
+                      <span>{format(new Date(subscription.endDate), 'MMM dd, yyyy')}</span>
+                    </div>
+
+                    <div className="flex justify-between border-b border-gray-700 pb-2">
+                      <span className="text-gray-400">Payment Date:</span>
+                      <span>{format(new Date(subscription.payment.paymentDate), 'MMM dd, yyyy')}</span>
+                    </div>
+
+                    <div className="flex justify-between border-b border-gray-700 pb-2">
+                      <span className="text-gray-400">Amount Paid:</span>
+                      <span>${subscription.payment.amount}</span>
+                    </div>
+
+                    <div className="flex justify-between pb-2">
+                      <span className="text-gray-400">Payment Status:</span>
+                      <span className={`${
+                        subscription.payment.status === 'Completed' 
+                          ? 'text-green-400' 
+                          : 'text-yellow-400'
+                      }`}>
+                        {subscription.payment.status}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-
-
-
-    </div>
-  </section>
-  )
-}
+    </section>
+  );
+};
 
 export default PlanDetail;
 

@@ -60,12 +60,12 @@ const Plans = () => {
              data-aos="zoom-in" 
            >
             <Plan
-              img={planImg1} 
+              img={p.imageUrl} 
               alt={`plan-img-${i}`}
-              name={p.planName}
-              id={p._id}
-              monthlyPrice={p.monthlyPlanAmount}
-              yearlyPrice={p.yearlyPlanAmount}
+              name={p.name}
+              p_id={p.id}
+              price={p.price}
+              durationInDays={p.durationInDays}
               key={i}
             />
              </div>

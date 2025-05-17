@@ -39,7 +39,7 @@ const Feedback = () => {
         <div className="bg-white p-8 rounded-lg shadow-md text-center flex flex-col gap-5">
           <h2 className="text-2xl font-bold mb-4">Thank you for your feedback!</h2>
           <p>Your feedback has been submitted successfully.</p>
-          <Link className='bg-blue-500 text-white px-4 py-2 ' to="/">Go Back</Link>
+          <Link className='bg-blue-500 text-white px-4 py-2' to="/">Go Back</Link>
         </div>
       </div>
     );

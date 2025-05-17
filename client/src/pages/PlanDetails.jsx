@@ -2,60 +2,44 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
-import { Input, ButtonOutline, Loader } from '../components';
+import Loader from '../components/Loader';
 import { useAuth } from '../context/auth';
-import { TiTick } from "react-icons/ti";
-import { IoClose } from "react-icons/io5";
 import { BASE_URL } from '../utils/fetchData';
-import AOS from 'aos';
-import 'aos/dist/aos.css'; // Import AOS styles
+import { planImg1 } from '../images'; // Ảnh mặc định
 
 const PlanDetails = () => {
   const { auth } = useAuth();
   const [loading, setLoading] = useState(false);
   const { planid } = useParams();
-  const [planName, setPlanName] = useState("");
-  const [monthlyPlanAmount, setMonthlyPlanAmount] = useState("");
-  const [yearlyPlanAmount, setYearlyPlanAmount] = useState("");
-  const [waterStations, setWaterStations] = useState("");
-  const [wifiService, setWifiService] = useState("");
-  const [cardioClass, setCardioClass] = useState("");
-  const [refreshment, setRefreshment] = useState("");
-  const [groupFitnessClasses, setGroupFitnessClasses] = useState("");
-  const [personalTrainer, setPersonalTrainer] = useState("");
-  const [specialEvents, setSpecialEvents] = useState("");
-  const [lockerRooms, setLockerRooms] = useState("");
-  const [cafeOrLounge, setCafeOrLounge] = useState("");
+  const [planDetails, setPlanDetails] = useState({
+    name: "",
+    description: "",
+    price: "",
+    durationInDays: ""
+  });
 
-  const getSinglePlan = async () => {
+  const getPlanDetails = async () => {
+    if (!planid) {
+      toast.error("Plan ID is missing");
+      return;
+    }
+
     try {
       setLoading(true);
       const res = await axios.get(`${BASE_URL}/api/plan/${planid}`);
       if (res.data) {
-        setPlanName(res.data.planName);
-        setMonthlyPlanAmount(res.data.monthlyPlanAmount);
-        setYearlyPlanAmount(res.data.yearlyPlanAmount);
-        setWaterStations(res.data.waterStations);
-        setWifiService(res.data.wifiService);
-        setCardioClass(res.data.cardioClass);
-        setRefreshment(res.data.refreshment);
-        setGroupFitnessClasses(res.data.groupFitnessClasses);
-        setPersonalTrainer(res.data.personalTrainer);
-        setSpecialEvents(res.data.specialEvents);
-        setLockerRooms(res.data.lockerRooms);
-        setCafeOrLounge(res.data.cafeOrLounge);
+        setPlanDetails(res.data);
       }
       setLoading(false);
     } catch (err) {
       console.log(err);
-      toast.error(err.response?.data?.message || "Something went wrong");
+      toast.error("Something went wrong while fetching plan details");
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    getSinglePlan();
-    AOS.init({ duration: 1000 }); // Initialize AOS
+    getPlanDetails();
   }, [planid]);
 
   if (loading) {
@@ -63,47 +47,49 @@ const PlanDetails = () => {
   }
 
   return (
-    <section className='py-20 flex flex-col justify-center items-center bg-gray-900'>
-      <h2 className='text-white text-3xl sm:text-4xl font-bold text-center mb-6' data-aos="fade-up">
-        What You Will Get In This Pack?
-      </h2>
-      <div className="container mx-auto px-6 py-4">
-        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5 pt-10'>
-          {[
-            { label: "Water Stations", value: waterStations },
-            { label: "Locker Rooms", value: lockerRooms },
-            { label: "Special Events", value: specialEvents },
-            { label: "Wifi Service", value: wifiService },
-            { label: "Cardio Class", value: cardioClass },
-            { label: "Café or Lounge", value: cafeOrLounge },
-            { label: "Personal Trainer", value: personalTrainer },
-            { label: "Group Fitness Classes", value: groupFitnessClasses },
-            { label: "Refreshment", value: refreshment },
-          ].map((item, index) => (
-            <div 
-              key={index} 
-              className='flex items-center justify-center gap-3 p-4 bg-gray-800 rounded-lg shadow-lg' 
-              data-aos="zoom-in" // Add AOS attribute here
-            >
-              <ButtonOutline text={item.label} />
-              {item.value === "Available" ? (
-                <TiTick className='text-green-500 text-4xl' />
-              ) : (
-                <IoClose className='text-red-600 text-4xl' />
-              )}
-            </div>
-          ))}
+    <section className="py-16 min-h-screen flex items-center justify-center bg-gray-900">
+      <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-2xl w-full flex flex-col items-center relative">
+        {/* Ribbon */}
+        <div className="absolute -top-6 left-1/2 -translate-x-1/2">
+          <span className="bg-blue-600 text-white px-6 py-2 rounded-full shadow-lg text-lg font-semibold tracking-wide uppercase">
+            Plan Detail
+          </span>
         </div>
+        {/* Ảnh */}
+        <img
+          src={planDetails.imageUrl}
+          alt={planDetails.name}
+          className="w-40 h-40 object-cover rounded-2xl border-4 border-blue-400 shadow-lg mt-8"
+        />
+        {/* Tên gói */}
+        <h2 className="text-4xl font-extrabold text-blue-700 mt-6 mb-2 text-center drop-shadow">
+          {planDetails.name}
+        </h2>
+        {/* Mô tả */}
+        <p className="text-gray-600 text-lg mb-8 text-center max-w-lg">
+          {planDetails.description}
+        </p>
+        {/* Giá & Thời gian */}
+        <div className="flex flex-col sm:flex-row gap-6 w-full justify-center mb-8">
+          <div className="flex-1 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl p-6 flex flex-col items-center shadow">
+            <span className="text-blue-600 font-bold text-lg mb-2">Price</span>
+            <span className="text-3xl font-extrabold text-blue-800">{planDetails.price}$</span>
+          </div>
+          <div className="flex-1 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-xl p-6 flex flex-col items-center shadow">
+            <span className="text-yellow-600 font-bold text-lg mb-2">Duration</span>
+            <span className="text-3xl font-extrabold text-yellow-800">{planDetails.durationInDays} days</span>
+          </div>
+        </div>
+        {/* Nút mua */}
+        <Link
+          to={auth.user ? `/plan-subscribe/${planid}` : "/login"}
+          className="mt-2 bg-blue-600 hover:bg-blue-800 text-white font-bold text-lg rounded-full px-10 py-3 shadow-lg transition-colors duration-200"
+        >
+          Buy Now
+        </Link>
       </div>
-      <Link
-        to={auth.user ? `/plan-subscribe/${planid}` : "/login"}
-        className='mt-8 bg-blue-500 text-white font-medium text-lg rounded-md hover:opacity-90 transition-all px-8 py-3 shadow-lg'
-        data-aos="fade-up" // Add AOS attribute here
-      >
-        Buy Now
-      </Link>
     </section>
   );
-}
+};
 
 export default PlanDetails;
