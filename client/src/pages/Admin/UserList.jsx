@@ -35,8 +35,8 @@ const UserList = () => {
       <Heading name="User List" />
       <div className="container mx-auto px-6 py-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {users.map((u, i) => (
-            <User userImg={userImg} name={u.username} email={u.email} contact={u.contact} city={u.city} i={i} key={i}/>
+          {users.map((u, i) => ( u.role==="user" &&
+            <User id={u.id} fullname={u.fullName} userImg={userImg} name={u.username} email={u.email} contact={u.phone}  i={i} key={i}/>
           ))}
         </div>
       </div>

@@ -81,12 +81,15 @@ const PlanDetails = () => {
           </div>
         </div>
         {/* Nút mua */}
+       {auth?.user?.role==="user" &&(
+
         <Link
           to={auth.user ? `/plan-subscribe/${planid}` : "/login"}
           className="mt-2 bg-blue-600 hover:bg-blue-800 text-white font-bold text-lg rounded-full px-10 py-3 shadow-lg transition-colors duration-200"
         >
           Buy Now
         </Link>
+       )}
       </div>
     </section>
   );

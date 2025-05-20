@@ -13,16 +13,13 @@ const Register = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [city, setCity] = useState("");
+  const [fullname, setFullName] = useState("");
   const [contact, setContact] = useState("");
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    if (!/^[A-Za-z]+$/.test(name)) {
-      toast.error("Name must contain only alphabets");
-      return;
-    }
+ 
 
     if (!/^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$/.test(email)) {
       toast.error("Please enter a valid email address");
@@ -35,25 +32,22 @@ const Register = () => {
       return;
     }
 
-    if (!/^[A-Za-z ]+$/.test(city)) {
-      toast.error("City must contain only alphabets and spaces");
-      return;
-    }
+  
 
-    const phoneNumberPattern = /^(9|8|7|6)\d{9}$/;
+    const phoneNumberPattern = /^(0)\d{9}$/;
     if (!phoneNumberPattern.test(contact)) {
-      toast.error("Phone number must start with 9, 8, 7, or 6 and contain exactly 10 digits");
+      toast.error("Phone number must start with 0 and contain exactly 10 digits");
       return;
     }
 
-    console.log(name, password, email, city, contact);
+    console.log(name, password, email, fullname, contact);
 
     try {
       const res = await axios.post(`${BASE_URL}/api/auth/register`, {
         username: name,
         email,
         password,
-        city,
+        fullname,
         contact
       });
       if (res.data) {
@@ -115,12 +109,10 @@ const Register = () => {
 
           <Input 
             type="text"
-            placeholder="City"
-            name="city"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            minLength="4"
-            maxLength="35"
+            placeholder="FullName"
+            name="fullname"
+            value={fullname}
+            onChange={(e) => setFullName(e.target.value)}
             data-aos="zoom-in" // Add AOS animation
           />
 

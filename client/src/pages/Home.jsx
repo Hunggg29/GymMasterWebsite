@@ -2,8 +2,10 @@ import React,{useEffect} from 'react';
 import { Hero, Plans, Trainers, Reviews, FAQ } from '../components';
 import Contact from "./Contact";
 import About from './About';
+import { useAuth } from '../context/auth';
+
 const Home = () => {
-  
+   const { auth, setAuth } = useAuth();
   useEffect(() => {
     window.scrollTo({top:0, left:0, behavior:"smooth"})    
 }, [])
@@ -11,6 +13,7 @@ const Home = () => {
   return (
     <div>
     <Hero/>
+   
     <Plans/>
     <Trainers/>
     <Reviews/>

@@ -41,7 +41,7 @@ return (
     <div className="container mx-auto px-6 py-10">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 items-center">
         {plans.length > 0 && plans.map((p, i) => (
-         <Plan planName={p.planName} monthlyPlanAmount={p.monthlyPlanAmount} yearlyPlanAmount={p.yearlyPlanAmount} p_id={p.id} key={i}/>
+         <Plan  planName={p.name} price={p.price} duration={p.durationInDays} p_id={p.id} key={i} planImage={p.imageUrl}/>
         ))}
       </div>
     </div>

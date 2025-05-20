@@ -51,12 +51,16 @@ const Header = () => {
                 Exercises
               </Link>
             </li> */}
-            <li>
+            {auth?.user?.role === "user"&&(
+
+              <li>
               <Link to="/feedback" className="text-white hover:text-yellow-400 transition-all duration-300">
                 Feedback
               </Link>
             </li>
-            {auth?.user?.username === "admin" && (
+            )
+            }
+            {auth?.user?.role === "admin" && (
               <li>
                 <Link to="/dashboard/admin/create-plane" className="text-white hover:text-yellow-400 transition-all duration-300">
                   Create Plan

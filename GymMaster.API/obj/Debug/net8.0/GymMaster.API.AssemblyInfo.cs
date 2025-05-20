@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GymMaster.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8fd837091f88dfde14311e225dafe46b2ff7aa7a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b33ed8096099dad829df36f9eb277d3c48353c89")]
 [assembly: System.Reflection.AssemblyProductAttribute("GymMaster.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GymMaster.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

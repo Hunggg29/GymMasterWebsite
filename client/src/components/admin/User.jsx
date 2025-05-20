@@ -1,8 +1,18 @@
-
+import { BASE_URL } from '../../utils/fetchData'
 import React from 'react';
-
-const User = ({ userImg, name, email, contact, city, i }) => {
+import axios from "axios";
+const User = ({ userImg, name, email, contact, i,fullname,id }) => {
+  const handleRemove =async (e) =>{
+    e.preventDefault();
+    try{
+      await axios.delete(`${BASE_URL}/api/users/${id}`,)
+    }catch(error)
+    {
+      console.log(error)
+    }
+  }
   return (
+    
     <div 
       key={i} 
       className='flex flex-col gap-6 justify-center items-center border-2 border-gray-200 rounded-lg p-6 transition-all ease-in-out duration-300 group shadow-md hover:shadow-lg hover:bg-gray-50 w-full max-w-lg mx-auto'
@@ -23,8 +33,15 @@ const User = ({ userImg, name, email, contact, city, i }) => {
           <span className='font-semibold text-teal-600'>Contact: </span>{contact}
         </p>
         <p className='text-gray-700 text-md bg-pink-100 rounded-lg p-3'>
-          <span className='font-semibold text-pink-600'>City: </span>{city}
+          <span className='font-semibold text-pink-600'>FullName: </span>{fullname}
         </p>
+
+      </div>
+      <div className="justify-end flex w-full">
+       
+        <button onClick={handleRemove}  class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+        Delete
+        </button>
       </div>
     </div>
   );
