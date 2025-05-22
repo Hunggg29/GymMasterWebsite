@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GymMaster.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ab02110d75395115cfcf2c41703b6ebb015003db")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+045b3167b5af27629e4b0b23a956dc6a3f67c0bb")]
 [assembly: System.Reflection.AssemblyProductAttribute("GymMaster.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GymMaster.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -25,7 +25,10 @@ const UserList = () => {
     getAllUsers();
   }, []);
 
-
+const handleDelete= async () =>{
+  const res = await axios.get(`${BASE_URL}/api/users`);
+  setUsers(Array.isArray(res.data) ? res.data : []);
+}
   if(loading){
     return <Loader/>
   }
@@ -36,7 +39,7 @@ const UserList = () => {
       <div className="container mx-auto px-6 py-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {users.map((u, i) => ( u.role==="user" &&
-            <User id={u.id} fullname={u.fullName} userImg={userImg} name={u.username} email={u.email} contact={u.phone}  i={i} key={i}/>
+            <User onDelete={handleDelete} id={u.id} fullname={u.fullName} userImg={userImg} name={u.username} email={u.email} contact={u.phone}  i={i} key={i}/>
           ))}
         </div>
       </div>

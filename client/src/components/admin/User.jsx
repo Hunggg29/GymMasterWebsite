@@ -1,14 +1,40 @@
 import { BASE_URL } from '../../utils/fetchData'
 import React from 'react';
 import axios from "axios";
-const User = ({ userImg, name, email, contact, i,fullname,id }) => {
-  const handleRemove =async (e) =>{
-    e.preventDefault();
+import toast from 'react-hot-toast';
+import { useAuth } from '../../context/auth';
+
+const User = ({ userImg, name, email, contact, i,fullname,id,onDelete }) => {
+  const { auth } = useAuth();
+  
+  const handleRemove = async (e) =>{
+    e.preventDefault(); 
     try{
-      await axios.delete(`${BASE_URL}/api/users/${id}`,)
-    }catch(error)
-    {
-      console.log(error)
+      // Ask for confirmation using the browser's confirm dialog
+      const isConfirmed = window.confirm("Are you sure you want to delete this user?");
+      
+      if (!isConfirmed) {
+        return; // Exit if user cancels
+      }
+
+      const response = await axios.delete(`${BASE_URL}/api/users/${id}`, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`
+        }
+      });
+      
+      // Backend returns 204 No Content on success
+      if (response.status === 204) {
+        toast.success('User deleted successfully');
+        if (onDelete) {
+          onDelete(); // Refresh the user list
+        }
+      } else {
+        toast.error('Failed to delete user');
+      }
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      toast.error(error.response?.data?.message || 'Error deleting user');
     }
   }
   return (
