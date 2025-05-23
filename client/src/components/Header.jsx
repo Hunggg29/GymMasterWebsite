@@ -60,7 +60,7 @@ const Header = () => {
             </li>
             )
             }
-            {auth?.user?.role === "admin" && (
+            {auth?.user?.role != "user" && (
               <li>
                 <Link to="/dashboard/admin/create-plane" className="text-white hover:text-yellow-400 transition-all duration-300">
                   Create Plan
@@ -71,9 +71,11 @@ const Header = () => {
 
           {auth?.user ? (
             <>
-              <Link to={auth.user.username === "admin" ? "/dashboard/admin" : "/dashboard/user"} className="text-white font-semibold hover:text-yellow-400 transition-all duration-300 capitalize">
+              <Link to={ `/dashboard/${auth.user.role}` } className="text-white font-semibold hover:text-yellow-400 transition-all duration-300 capitalize">
                 {auth.user.username}
               </Link>
+              
+             
               <button onClick={handleLogout} className="text-white hover:text-yellow-400 transition-all duration-300">
                 Logout
               </button>

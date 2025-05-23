@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Header, Footer, ScrollButton, PrivateRoute, AdminRoute} from "./components";
-import { Register, Login, ForgotPassword, Home, PlanSubscription, Error, Profile, UserDashBoard, PlanDetail, AdminDashBoard, CreatePlan, UpdatePlan, Plans, SubscriberList, UserList, FavouriteExercises, PlanDetails, PlanFullDetail, ContactUs, TrainerDetails, Feedback, Feedbacks, FeedbackList, Payment} from "./pages";
+import { Header, Footer, ScrollButton, PrivateRoute, AdminRoute,StaffRoute} from "./components";
+import { Register, Login, ForgotPassword, Home, PlanSubscription, Error, Profile, UserDashBoard, PlanDetail, AdminDashBoard,StaffDashBoard, CreatePlan, UpdatePlan, Plans, SubscriberList, UserList, FavouriteExercises, PlanDetails, PlanFullDetail, ContactUs, TrainerDetails, Feedback, Feedbacks, FeedbackList, Payment} from "./pages";
 // import PlanFullDetail from './pages/User/planFullDetail';
 import { Toaster } from 'react-hot-toast';
 import { useAuth } from "./context/auth";
@@ -51,6 +51,19 @@ const App = () => {
           <Route path='admin/contact-us' element={<ContactUs />} />
           <Route path='admin/subscriber-list' element={<SubscriberList />} />
           <Route path='admin/feedbacks' element={<FeedbackList />} />
+         
+        </Route>
+         {/* staff routes ================================== */}
+         <Route path='/dashboard' element={<StaffRoute/>}>
+          <Route path='staff' element={<StaffDashBoard />} />
+          <Route path='admin/profile' element={<Profile />} />
+          <Route path='admin/create-plane' element={<CreatePlan />} />
+          <Route path='admin/plan/:planid' element={<UpdatePlan />} />
+          <Route path='staff/plans' element={<Plans />} />
+          <Route path='staff/user-list' element={<UserList />} />
+          <Route path='admin/contact-us' element={<ContactUs />} />
+          <Route path='admin/subscriber-list' element={<SubscriberList />} />
+          <Route path='staff/feedbacks' element={<FeedbackList />} />
          
         </Route>
 

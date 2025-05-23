@@ -5,21 +5,26 @@ import axios from 'axios';
 import {Spinner} from "../"
 import { BASE_URL } from '../../utils/fetchData';
 
-const AdminRoute = () => {
+const StaffRoute = () => {
     const [ok, setOk] = useState(false);
     const {auth} = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
         const authCheck = async () => {
-            try { console.log('auth',auth)
+            try {
                 if (!auth?.token) {
                     setOk(false);
                     return;
                 }
 
-                const res = await axios.get(`${BASE_URL}/api/auth/admin-auth`);
-                setOk(true);
+                const res = await axios.get(`${BASE_URL}/api/auth/staff-auth`,
+                   { headers: {
+              Authorization: `Bearer ${auth.token}`
+            }}
+                );
+                console.log(res)
+                setOk(res.data.ok);
             } catch (err) {
                 console.error("Auth check error:", err);
                 setOk(false);
@@ -36,4 +41,4 @@ const AdminRoute = () => {
     return ok ? <Outlet/> : <Spinner path='login'/>;
 }
 
-export default AdminRoute;
+export default StaffRoute;

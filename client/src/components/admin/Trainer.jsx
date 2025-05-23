@@ -4,7 +4,7 @@ import axios from "axios";
 import toast from 'react-hot-toast';
 import { useAuth } from '../../context/auth';
 
-const User = ({ userImg, name, email, contact, i,fullname,id,onDelete,role }) => {
+const Trainer = ({ userImg, name, email, contact, i,fullname,id,onDelete }) => {
   const { auth } = useAuth();
   
   const handleRemove = async (e) =>{
@@ -61,9 +61,6 @@ const User = ({ userImg, name, email, contact, i,fullname,id,onDelete,role }) =>
         <p className='text-gray-700 text-md bg-pink-100 rounded-lg p-3'>
           <span className='font-semibold text-pink-600'>FullName: </span>{fullname}
         </p>
-        <p className='text-gray-700 text-md bg-indigo-100 rounded-lg p-3'>
-          <span className='font-semibold text-indigo-600'>role: </span>{role}
-        </p>
 
       </div>
       <div className="justify-end flex w-full">
@@ -76,4 +73,4 @@ const User = ({ userImg, name, email, contact, i,fullname,id,onDelete,role }) =>
   );
 }
 
-export default User;
+export default Trainer;

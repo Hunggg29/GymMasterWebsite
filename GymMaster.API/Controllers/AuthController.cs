@@ -125,6 +125,12 @@ namespace GymMaster.API.Controllers
         {
             return Ok(new { ok = true });
         }
+        [Authorize(Roles = "staff")]
+        [HttpGet("staff-auth")]
+        public IActionResult StaffAuth()
+        {
+            return Ok(new { ok = true });
+        }
 
         [Authorize]
         [HttpGet("user-auth")]

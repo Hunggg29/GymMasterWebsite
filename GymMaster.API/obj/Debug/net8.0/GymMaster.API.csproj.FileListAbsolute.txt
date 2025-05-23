@@ -433,3 +433,4 @@ C:\Users\ADMIN\OneDrive\Desktop\GymWeb\GymMasterWebsite\GymMaster.API\obj\Debug\
 C:\Users\ADMIN\OneDrive\Desktop\GymWeb\GymMasterWebsite\GymMaster.API\obj\Debug\net8.0\GymMaster.API.genruntimeconfig.cache
 C:\Users\ADMIN\OneDrive\Desktop\GymWeb\GymMasterWebsite\GymMaster.API\obj\Debug\net8.0\ref\GymMaster.API.dll
 C:\Users\hungm\OneDrive\Documents\GitHub\GymMasterWebsite\GymMaster.API\bin\Debug\net8.0\appsettings.example.json
+C:\Users\ADMIN\OneDrive\Desktop\GymWeb\GymMasterWebsite\GymMaster.API\bin\Debug\net8.0\appsettings.example.json

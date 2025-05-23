@@ -5,14 +5,14 @@ import axios from 'axios';
 import {Spinner} from "../"
 import { BASE_URL } from '../../utils/fetchData';
 
-const AdminRoute = () => {
+const StaffRoute = () => {
     const [ok, setOk] = useState(false);
     const {auth} = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
         const authCheck = async () => {
-            try { console.log('auth',auth)
+            try {
                 if (!auth?.token) {
                     setOk(false);
                     return;
@@ -36,4 +36,4 @@ const AdminRoute = () => {
     return ok ? <Outlet/> : <Spinner path='login'/>;
 }
 
-export default AdminRoute;
+export default StaffRoute;
