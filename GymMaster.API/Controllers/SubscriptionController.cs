@@ -28,6 +28,7 @@ namespace GymMaster.API.Controllers
         {
             var subcriptions = await _subscriptionService.GetAllSubscriptionsAsync();
             return Ok(subcriptions);
+
         }
 
         [Authorize]

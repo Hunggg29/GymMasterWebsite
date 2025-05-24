@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using GymMaster.API.Data;
 using GymMaster.API.Models;
 using GymMaster.API.Services.Interfaces;
+using GymMaster.API.Models.DTO;
 
 namespace GymMaster.API.Services.Implementations
 {
@@ -14,12 +15,33 @@ namespace GymMaster.API.Services.Implementations
             _context = context;
         }
 
-        public async Task<IEnumerable<Subscription>> GetAllSubscriptionsAsync()
+        public async Task<IEnumerable<GetAllSubscriptionDto>> GetAllSubscriptionsAsync()
         {
-            return await _context.Subscriptions
-                .Include(s => s.User)
-                .Include(s => s.Plan)
-                .ToListAsync();
+            var subscriptions = await _context.Subscriptions
+                                .Include(s => s.Plan)
+                                .Include(s => s.User)
+                                .Include(s => s.Payment)
+                                .Select(s => new GetAllSubscriptionDto
+        {
+            Id = s.Id,
+            StartDate = s.StartDate,
+            EndDate = s.EndDate,
+            IsActive = s.IsActive,
+
+            Username = s.User.Username,
+
+            PlanName = s.Plan.Name,
+            PlanImageUrl = s.Plan.ImageUrl,
+            PlanDescription = s.Plan.Description,
+            PlanPrice = s.Plan.Price,
+
+            PaymentDate = s.Payment.PaymentDate,
+            PaymentAmount = s.Payment.Amount,
+            PaymentStatus = s.Payment.Status
+        })
+        .ToListAsync();
+
+            return subscriptions;
         }
 
         public async Task<Subscription> GetSubscriptionByIdAsync(int id)

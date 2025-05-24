@@ -1,10 +1,11 @@
 using GymMaster.API.Models;
+using GymMaster.API.Models.DTO;
 
 namespace GymMaster.API.Services.Interfaces
 {
     public interface ISubscriptionService
     {
-        Task<IEnumerable<Subscription>> GetAllSubscriptionsAsync();
+        Task<IEnumerable<GetAllSubscriptionDto>> GetAllSubscriptionsAsync();
         Task<Subscription> GetSubscriptionByIdAsync(int id);
         Task<IEnumerable<Subscription>> GetUserSubscriptionsAsync(int userId);
         Task<Subscription> CreateSubscriptionAsync(Subscription subscription);
