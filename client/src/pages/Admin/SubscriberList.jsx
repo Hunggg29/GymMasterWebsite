@@ -14,7 +14,7 @@ console.log(subscriber);
   const getAllSubscribers = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${BASE_URL}/api/subscription`);
+      const res = await axios.get(`${BASE_URL}/api/Subscription`);
       setSubscriber(Array.isArray(res.data) ? res.data : []);
       setLoading(false); 
     } catch (err) {

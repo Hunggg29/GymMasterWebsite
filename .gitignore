@@ -66,9 +66,9 @@ Thumbs.db
 bin/
 obj/
 out/
-/GymMaster.API/bin/
-/GymMaster.API/obj/
-/GymMaster.API/out/
+/GymMaster.API/bin
+/GymMaster.API/obj
+/GymMaster.API/out
 
 ## Rider project files
 .idea/
@@ -80,10 +80,10 @@ out/
 *.sln.docstates
 
 ## Visual Studio Code
-.vscode/
+.vscode
 
 ## Visual Studio
-.vs/
+.vs
 
 ## ASP.NET Scaffolding
 ScaffoldingReadMe.txt
@@ -97,11 +97,11 @@ ScaffoldingReadMe.txt
 
 ## NuGet
 *.nupkg
-packages/
+packages
 *.snupkg
 project.lock.json
 project.fragment.lock.json
-artifacts/
+artifacts
 
 ## Entity Framework Core Migrations (if using snapshot only)
 /GymMaster.API/Migrations/*Snapshot.cs
@@ -111,13 +111,14 @@ secrets.json
 /GymMaster.API/secrets.json
 
 ## Publish output
-wwwroot/dist/
-wwwroot/node_modules/
-publish/
-App_Data/
-/GymMaster.API/wwwroot/dist/
-/GymMaster.API/publish/
-/GymMaster.API/App_Data/
+wwwroot/dist
+wwwroot/node_modules
+publish
+App_Data
+/GymMaster.API/wwwroot/dist
+/GymMaster.API/publish
+/GymMaster.API/App_Data
+/GymMaster.API/obj
 
 ## Logs
 *.log
@@ -132,6 +133,13 @@ yarn-error.log*
 *.db
 .dotnet-tools/
 
-## Mac and Linux system files
+
 .DS_Store
 Thumbs.db
+*.bin
+*.bin
+.vs/ProjectEvaluation/gymmaster.metadata.v9.bin
+/GymMaster.API/obj
+/.vs
+
+GymMaster.API/appsettings.json

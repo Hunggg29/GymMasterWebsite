@@ -5,6 +5,7 @@ using GymMaster.API.Data;
 using GymMaster.API.Models;
 using GymMaster.API.Models.DTO;
 using System.Security.Claims;
+using GymMaster.API.Services.Interfaces;
 
 namespace GymMaster.API.Controllers
 {
@@ -13,10 +14,20 @@ namespace GymMaster.API.Controllers
     public class SubscriptionController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly ISubscriptionService _subscriptionService;
 
-        public SubscriptionController(ApplicationDbContext context)
+        public SubscriptionController(ApplicationDbContext context, ISubscriptionService subcriptionService)
         {
             _context = context;
+            _subscriptionService = subcriptionService;
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> GetAllSubCription()
+        {
+            var subcriptions = await _subscriptionService.GetAllSubscriptionsAsync();
+            return Ok(subcriptions);
         }
 
         [Authorize]
