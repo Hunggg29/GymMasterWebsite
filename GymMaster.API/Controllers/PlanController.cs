@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using GymMaster.API.Models;
 using GymMaster.API.Services.Interfaces;
+using AutoMapper;
+using GymMaster.API.Models.DTO;
 
 namespace GymMaster.API.Controllers
 {
@@ -10,10 +12,12 @@ namespace GymMaster.API.Controllers
     public class PlanController : ControllerBase
     {
         private readonly IPlanService _planService;
+        private readonly IMapper _mapper;
 
-        public PlanController(IPlanService planService)
+        public PlanController(IPlanService planService, IMapper mapper)
         {
             _planService = planService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -43,16 +47,25 @@ namespace GymMaster.API.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdatePlan(int id, [FromBody] Plan plan)
+        public async Task<IActionResult> UpdatePlan(int id, [FromBody] UpdatePlanDto updatePlanDto)
         {
-            if (id != plan.Id)
-                return BadRequest();
+            try
+            {
+                if (updatePlanDto == null)
+                    return BadRequest("Invalid plan data");
 
-            var success = await _planService.UpdatePlanAsync(plan);
-            if (!success)
-                return NotFound();
+                var plan = _mapper.Map<Plan>(updatePlanDto);
+                var updatedPlan = await _planService.UpdatePlanAsync(id, plan);
 
-            return NoContent();
+                if (updatedPlan == null)
+                    return NotFound(new { success = false, message = "Plan not found" });
+
+                return Ok(new { success = true, message = "Plan updated successfully", data = updatedPlan });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { success = false, message = $"Error updating plan: {ex.Message}" });
+            }
         }
 
         [Authorize(Roles = "admin")]

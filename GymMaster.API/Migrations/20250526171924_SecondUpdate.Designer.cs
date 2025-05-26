@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GymMaster.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250517152354_3rdUpgrade")]
-    partial class _3rdUpgrade
+    [Migration("20250526171924_SecondUpdate")]
+    partial class SecondUpdate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -93,35 +93,6 @@ namespace GymMaster.API.Migrations
                     b.ToTable("Equipment");
                 });
 
-            modelBuilder.Entity("GymMaster.API.Models.EquipmentMaintenance", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("EquipmentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("IssueDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EquipmentId");
-
-                    b.ToTable("EquipmentMaintenance");
-                });
-
             modelBuilder.Entity("GymMaster.API.Models.Feedback", b =>
                 {
                     b.Property<int>("Id")
@@ -192,6 +163,7 @@ namespace GymMaster.API.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("Amount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Notes")
@@ -328,7 +300,35 @@ namespace GymMaster.API.Migrations
                     b.ToTable("Subscriptions");
                 });
 
-            modelBuilder.Entity("GymMaster.API.Models.TrainingHistory", b =>
+            modelBuilder.Entity("GymMaster.API.Models.Trainer", b =>
+                {
+                    b.Property<int>("TrainerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TrainerId"));
+
+                    b.Property<int>("Experience")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PricePerHour")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Specialty")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TrainerId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Trainers");
+                });
+
+            modelBuilder.Entity("GymMaster.API.Models.TrainningSession", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -340,38 +340,15 @@ namespace GymMaster.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Notes")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SessionId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SessionId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("TrainingHistories");
-                });
-
-            modelBuilder.Entity("GymMaster.API.Models.TrainningSession", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
@@ -385,11 +362,16 @@ namespace GymMaster.API.Migrations
                     b.Property<int>("TrainerId")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RoomId");
 
                     b.HasIndex("TrainerId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("TrainingSessions");
                 });
@@ -451,17 +433,6 @@ namespace GymMaster.API.Migrations
                     b.Navigation("GymRoom");
                 });
 
-            modelBuilder.Entity("GymMaster.API.Models.EquipmentMaintenance", b =>
-                {
-                    b.HasOne("GymMaster.API.Models.Equipment", "Equipment")
-                        .WithMany("EquipmentMaintenances")
-                        .HasForeignKey("EquipmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Equipment");
-                });
-
             modelBuilder.Entity("GymMaster.API.Models.Feedback", b =>
                 {
                     b.HasOne("GymMaster.API.Models.User", "User")
@@ -515,21 +486,13 @@ namespace GymMaster.API.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("GymMaster.API.Models.TrainingHistory", b =>
+            modelBuilder.Entity("GymMaster.API.Models.Trainer", b =>
                 {
-                    b.HasOne("GymMaster.API.Models.TrainningSession", "TrainningSession")
-                        .WithMany("TrainingHistories")
-                        .HasForeignKey("SessionId")
+                    b.HasOne("GymMaster.API.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("GymMaster.API.Models.User", "User")
-                        .WithMany("TrainingHistories")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("TrainningSession");
 
                     b.Navigation("User");
                 });
@@ -542,20 +505,23 @@ namespace GymMaster.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GymMaster.API.Models.User", "Trainer")
+                    b.HasOne("GymMaster.API.Models.Trainer", "Trainer")
                         .WithMany("TrainingSessions")
                         .HasForeignKey("TrainerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("GymMaster.API.Models.User", "User")
+                        .WithMany("TrainingSessions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("GymRoom");
 
                     b.Navigation("Trainer");
-                });
 
-            modelBuilder.Entity("GymMaster.API.Models.Equipment", b =>
-                {
-                    b.Navigation("EquipmentMaintenances");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("GymMaster.API.Models.GymRoom", b =>
@@ -576,9 +542,9 @@ namespace GymMaster.API.Migrations
                     b.Navigation("Subscriptions");
                 });
 
-            modelBuilder.Entity("GymMaster.API.Models.TrainningSession", b =>
+            modelBuilder.Entity("GymMaster.API.Models.Trainer", b =>
                 {
-                    b.Navigation("TrainingHistories");
+                    b.Navigation("TrainingSessions");
                 });
 
             modelBuilder.Entity("GymMaster.API.Models.User", b =>
@@ -588,8 +554,6 @@ namespace GymMaster.API.Migrations
                     b.Navigation("Payments");
 
                     b.Navigation("Subscriptions");
-
-                    b.Navigation("TrainingHistories");
 
                     b.Navigation("TrainingSessions");
                 });

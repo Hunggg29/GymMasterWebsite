@@ -35,7 +35,6 @@ namespace GymMaster.API.Models
         public ICollection<Feedback> Feedbacks { get; set; }
         public ICollection<Subscription> Subscriptions { get; set; }
         public ICollection<Payment> Payments { get; set; }
-        public ICollection<TrainingHistory> TrainingHistories { get; set; }
         public ICollection<TrainningSession> TrainingSessions { get; set; }
 
     }

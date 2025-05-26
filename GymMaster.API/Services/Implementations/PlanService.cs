@@ -31,15 +31,31 @@ namespace GymMaster.API.Services.Implementations
             return plan;
         }
 
-        public async Task<bool> UpdatePlanAsync(Plan plan)
+        public async Task<Plan?> UpdatePlanAsync(int id, Plan updatedPlan)
         {
-            var existingPlan = await _context.Plans.FindAsync(plan.Id);
-            if (existingPlan == null)
-                return false;
+            try 
+            {
+                var existingPlan = await _context.Plans.FirstOrDefaultAsync(p => p.Id == id);
+                if (existingPlan == null)
+                    return null;
 
-            _context.Entry(existingPlan).CurrentValues.SetValues(plan);
-            await _context.SaveChangesAsync();
-            return true;
+                // Chỉ cập nhật các trường cần thiết
+                existingPlan.Name = updatedPlan.Name;
+                existingPlan.Description = updatedPlan.Description;
+                existingPlan.Price = updatedPlan.Price;
+                existingPlan.DurationInDays = updatedPlan.DurationInDays;
+                existingPlan.ImageUrl = updatedPlan.ImageUrl;
+                existingPlan.PlanType = updatedPlan.PlanType;
+                existingPlan.MaxMembers = updatedPlan.MaxMembers;
+
+                await _context.SaveChangesAsync();
+                return existingPlan;
+            }
+            catch (Exception ex)
+            {
+                // Log lỗi ở đây
+                throw new Exception($"Error updating plan: {ex.Message}");
+            }
         }
 
         public async Task<bool> DeletePlanAsync(int id)

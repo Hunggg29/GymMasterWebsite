@@ -5,6 +5,7 @@ using GymMaster.API.Services.Implementations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using GymMaster.API.Mappings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -63,12 +64,17 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// Add AutoMapper
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
+
 // Add Services
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IPlanService, PlanService>();
 builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<IFeedbackService, FeedbackService>();
+builder.Services.AddScoped<ITrainerService, TrainerService>();
+builder.Services.AddScoped<IGymRoomService, GymRoomService>();
 
 var app = builder.Build();
 

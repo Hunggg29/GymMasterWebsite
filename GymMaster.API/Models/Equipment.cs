@@ -18,6 +18,5 @@ namespace GymMaster.API.Models
         [ForeignKey("RoomId")]
         public GymRoom GymRoom { get; set; }
 
-        public ICollection<EquipmentMaintenance> EquipmentMaintenances { get; set; }
     }
 }

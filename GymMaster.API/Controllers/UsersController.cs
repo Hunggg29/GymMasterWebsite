@@ -20,7 +20,7 @@ namespace GymMaster.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users.Include("Feedbacks").ToListAsync();
         }
 
         // GET: api/Users/5

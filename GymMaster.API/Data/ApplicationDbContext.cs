@@ -16,11 +16,11 @@ namespace GymMaster.API.Data
         public DbSet<ContactUs> ContactUs { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
         public DbSet<Equipment> Equipment { get; set; }
-        public DbSet<EquipmentMaintenance> EquipmentMaintenance { get; set; }
         public DbSet<GymRoom> GymRoom { get; set; }
         public DbSet<Payment> Payment { get; set; }
-        public DbSet<TrainingHistory> TrainingHistories { get; set; }
         public DbSet<TrainningSession> TrainingSessions { get; set; }
+
+        public DbSet<Trainer> Trainers { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -79,19 +79,6 @@ namespace GymMaster.API.Data
                     .WithMany()
                     .HasForeignKey(e => e.UserId);
             });
-
-            // Configure TrainingHistory entity
-            modelBuilder.Entity<TrainingHistory>()
-                .HasOne(th => th.User)
-                .WithMany(u => u.TrainingHistories)
-                .HasForeignKey(th => th.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<TrainingHistory>()
-                .HasOne(th => th.TrainningSession)
-                .WithMany(ts => ts.TrainingHistories)
-                .HasForeignKey(th => th.SessionId)
-                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<TrainningSession>()
                 .HasOne(ts => ts.Trainer)
