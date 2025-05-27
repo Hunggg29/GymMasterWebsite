@@ -57,5 +57,12 @@ namespace GymMaster.API.Services.Implementations
             await _context.SaveChangesAsync();
             return room;
         }
+
+        public async Task<IEnumerable<Equipment>> GetEquipmentByRoomIdAsync(int roomId)
+        {
+            return await _context.Equipment
+                .Where(e => e.RoomId == roomId)
+                .ToListAsync();
+        }
     }
 }

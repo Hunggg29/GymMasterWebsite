@@ -37,18 +37,25 @@ namespace GymMaster.API.Controllers
             return Ok(gymRoom);
         }
 
+        [HttpGet("{id}/equipment")]
+        public async Task<IActionResult> GetEquipmentByRoomId(int id)
+        {
+            var equipment = await _gymRoomService.GetEquipmentByRoomIdAsync(id);
+            return Ok(equipment);
+        }
+
         [HttpPost]
-        public async Task<IActionResult> CreateGymRoom(CreateGymRoomDto createGymRoomDto)
+        public async Task<IActionResult> CreateGymRoom([FromBody] CreateGymRoomDto createGymRoomDto)
         {
             var gymRoom = mapper.Map<GymRoom>(createGymRoomDto);
 
             await _gymRoomService.CreateGymRoomAsync(gymRoom);
-            return Ok(gymRoom);
+            return CreatedAtAction(nameof(GetGymRoomById), new {id = gymRoom.Id}, gymRoom);
             
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult>UpdateGymRoomAsync(int id, UpdateGymRoomDto updateGymRoomDto)
+        public async Task<IActionResult>UpdateGymRoomAsync(int id,[FromBody] UpdateGymRoomDto updateGymRoomDto)
         {
             var gymRoom = mapper.Map<GymRoom>(updateGymRoomDto);
             gymRoom = await _gymRoomService.UpdateGymRoomAsync(id, gymRoom);

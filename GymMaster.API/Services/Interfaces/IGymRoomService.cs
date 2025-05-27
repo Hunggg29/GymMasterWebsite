@@ -13,5 +13,7 @@ namespace GymMaster.API.Services.Interfaces
         Task<GymRoom?> UpdateGymRoomAsync(int id, GymRoom room);
 
         Task<GymRoom?> DeleteGymRoomAsync(int id);
+
+        Task<IEnumerable<Equipment>> GetEquipmentByRoomIdAsync(int roomId);
     }
 }

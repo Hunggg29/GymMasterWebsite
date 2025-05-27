@@ -24,9 +24,9 @@ namespace GymMaster.API.Controllers
         //Get all trainer
         //GET: https://localhost:portnumber/api/trainer
         [HttpGet]
-        public async Task<IActionResult> GetAllTrainer()
+        public async Task<IActionResult> GetAllTrainers()
         {
-            var trainers = await _trainerService.GetAllTrainerAsync();
+            var trainers = await _trainerService.GetAllTrainersAsync();
             return Ok(trainers);
         }
 
@@ -41,12 +41,26 @@ namespace GymMaster.API.Controllers
             return Ok(trainer);
         }
 
+        [HttpGet("{id}/users")]
+        public async Task<IActionResult> GetUsersTrainedByTrainer(int id)
+        {
+            var users = await _trainerService.GetUsersTrainedByTrainerAsync(id);
+            return Ok(users);
+        }
+
+        [HttpGet("{id}/sessions")]
+        public async Task<IActionResult> GetTrainingSessionsByTrainerId(int id)
+        {
+            var sessions = await _trainerService.GetTrainingSessionsByTrainerIdAsync(id);
+            return Ok(sessions);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateTrainer([FromBody] CreateTrainerDto createTrainerDto)
         {
             var trainer = mapper.Map<Trainer>(createTrainerDto);
             await _trainerService.CreateTrainerAsync(trainer);
-            return Ok(trainer);
+            return CreatedAtAction(nameof(GetTrainerById), new {id = trainer.TrainerId}, trainer);
             
         }
 

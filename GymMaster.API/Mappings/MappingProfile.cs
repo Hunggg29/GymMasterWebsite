@@ -30,10 +30,16 @@ namespace GymMaster.API.Mappings
             CreateMap<Trainer, UpdateTrainerDto>().ReverseMap();
 
             // Training Session mappings
+            CreateMap<TrainningSession, CreateTrainningSessionDto>().ReverseMap();
+            CreateMap<TrainningSession, UpdateTrainningSessionDto>().ReverseMap();
 
             // GymRoom mappings
             CreateMap<GymRoom, UpdateGymRoomDto>().ReverseMap();
             CreateMap<GymRoom, CreateGymRoomDto>().ReverseMap();
+            
+            //Equipment mappings
+            CreateMap<Equipment, CreateEquipmentDto>().ReverseMap();
+            CreateMap<Equipment,  UpdateEquipmentDto>().ReverseMap();
         }
     }
 } 

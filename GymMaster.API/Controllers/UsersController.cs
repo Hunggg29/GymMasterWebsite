@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using GymMaster.API.Data;
 using GymMaster.API.Models;
+using GymMaster.API.Services.Interfaces;
 
 namespace GymMaster.API.Controllers
 {
@@ -10,10 +11,12 @@ namespace GymMaster.API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly IUserService _userService;
 
-        public UsersController(ApplicationDbContext context)
+        public UsersController(ApplicationDbContext context, IUserService userService)
         {
             _context = context;
+            _userService = userService;
         }
 
         // GET: api/Users
@@ -96,6 +99,13 @@ namespace GymMaster.API.Controllers
         private bool UserExists(int id)
         {
             return _context.Users.Any(e => e.Id == id);
+        }
+
+        [HttpGet("{id}/trainningsession")]
+        public async Task<IActionResult> GetTrainningSessionByUserId(int id)
+        {
+            var trainningSession = await _userService.GetTrainningSessionByUserIdASync(id);
+            return Ok(trainningSession);
         }
     }
 } 

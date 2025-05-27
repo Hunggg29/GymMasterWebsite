@@ -12,14 +12,18 @@ namespace GymMaster.API.Services.Implementations
         {
             _context = context;
         }
-        public async Task<IEnumerable<Trainer?>> GetAllTrainerAsync()
+        public async Task<IEnumerable<Trainer>> GetAllTrainersAsync()
         {
-            return await _context.Trainers.Include("User").ToListAsync();
+            return await _context.Trainers
+                .Include(t => t.User)
+                .ToListAsync();
         }
 
         public async Task<Trainer?> GetTrainerByIdAsync(int id)
         {
-            return await _context.Trainers.Include("User").FirstOrDefaultAsync(p => p.TrainerId == id);
+            return await _context.Trainers
+                .Include(t => t.User)
+                .FirstOrDefaultAsync(t => t.TrainerId == id);
         }
 
         public async Task<Trainer> CreateTrainerAsync(Trainer trainer)
@@ -56,6 +60,22 @@ namespace GymMaster.API.Services.Implementations
             _context.Trainers.Remove(trainer);
             await _context.SaveChangesAsync();
             return trainer;
+        }
+
+        public async Task<IEnumerable<User>> GetUsersTrainedByTrainerAsync(int trainerId)
+        {
+            return await _context.TrainingSessions
+                .Where(ts => ts.TrainerId == trainerId)
+                .Select(ts => ts.User)
+                .Distinct()
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<TrainningSession>> GetTrainingSessionsByTrainerIdAsync(int trainerId)
+        {
+            return await _context.TrainingSessions
+                .Where(ts => ts.TrainerId == trainerId)
+                .ToListAsync();
         }
     }
 }

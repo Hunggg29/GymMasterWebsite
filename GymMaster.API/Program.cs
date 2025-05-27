@@ -75,6 +75,9 @@ builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<IFeedbackService, FeedbackService>();
 builder.Services.AddScoped<ITrainerService, TrainerService>();
 builder.Services.AddScoped<IGymRoomService, GymRoomService>();
+builder.Services.AddScoped<IEquipmentService, EquipmentService>();
+builder.Services.AddScoped<ITrainningSessionService, TrainningSessionService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 
