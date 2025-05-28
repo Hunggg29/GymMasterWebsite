@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GymMaster.API.Models
 {
@@ -31,7 +32,10 @@ namespace GymMaster.API.Models
 
         [StringLength(100)]
         public string? FullName { get; set; }
+        public int? TrainerId { get; set; }
 
+        [ForeignKey("TrainerId")]
+        public Trainer Trainer { get; set; }
         public ICollection<Feedback> Feedbacks { get; set; }
         public ICollection<Subscription> Subscriptions { get; set; }
         public ICollection<Payment> Payments { get; set; }

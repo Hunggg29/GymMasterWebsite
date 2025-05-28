@@ -19,8 +19,8 @@ namespace GymMaster.API.Models
         public string? SessionType { get; set; }
 
         // Attendance fields from TrainingHistory
-        public string AttendanceStatus { get; set; }
-        public string Notes { get; set; }
+        public string? AttendanceStatus { get; set; }
+        public string? Notes { get; set; }
 
         [ForeignKey("UserId")]
         public User User { get; set; }

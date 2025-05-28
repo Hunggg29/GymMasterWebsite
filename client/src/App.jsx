@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Header, Footer, ScrollButton, PrivateRoute, AdminRoute,StaffRoute} from "./components";
 import { Register, Login, ForgotPassword, Home, PlanSubscription, Error, Profile, UserDashBoard, PlanDetail, AdminDashBoard,StaffDashBoard, CreatePlan, UpdatePlan, Plans, SubscriberList, UserList, FavouriteExercises, PlanDetails, PlanFullDetail, ContactUs, TrainerDetails, Feedback, Feedbacks, FeedbackList, Payment} from "./pages";
+import RegisterTrainingSession from './pages/User/RegisterTrainingSession';
 // import PlanFullDetail from './pages/User/planFullDetail';
 import { Toaster } from 'react-hot-toast';
 import { useAuth } from "./context/auth";
@@ -36,6 +37,7 @@ const App = () => {
           <Route path='user/favourite-exercises' element={<FavouriteExercises/>} />
           <Route path='user/feedbacks' element={<Feedbacks/>} />
           <Route path='user/payment' element={<Payment/>} />
+          <Route path='user/register-training' element={<RegisterTrainingSession />} />
         </Route>
 
 

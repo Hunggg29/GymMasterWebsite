@@ -15,14 +15,12 @@ namespace GymMaster.API.Services.Implementations
         public async Task<IEnumerable<Trainer>> GetAllTrainersAsync()
         {
             return await _context.Trainers
-                .Include(t => t.User)
                 .ToListAsync();
         }
 
         public async Task<Trainer?> GetTrainerByIdAsync(int id)
         {
             return await _context.Trainers
-                .Include(t => t.User)
                 .FirstOrDefaultAsync(t => t.TrainerId == id);
         }
 
@@ -64,10 +62,8 @@ namespace GymMaster.API.Services.Implementations
 
         public async Task<IEnumerable<User>> GetUsersTrainedByTrainerAsync(int trainerId)
         {
-            return await _context.TrainingSessions
+            return await _context.Users
                 .Where(ts => ts.TrainerId == trainerId)
-                .Select(ts => ts.User)
-                .Distinct()
                 .ToListAsync();
         }
 
