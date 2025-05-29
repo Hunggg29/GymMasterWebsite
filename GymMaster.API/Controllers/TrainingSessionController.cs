@@ -23,7 +23,8 @@ namespace GymMaster.API.Controllers
         public async Task<IActionResult> GetAllSessions()
         {
             var sessions = await _sessionService.GetAllSessionsAsync();
-            return Ok(sessions);
+            var sessionDtos = _mapper.Map<IEnumerable<TrainingSessionDto>>(sessions);
+            return Ok(sessionDtos);
         }
 
         [HttpGet("{id}")]
@@ -34,7 +35,8 @@ namespace GymMaster.API.Controllers
             {
                 return NotFound();
             }
-            return Ok(session);
+            var sessionDto = _mapper.Map<TrainingSessionDto>(session);
+            return Ok(sessionDto);
         }
 
         [HttpPost]
@@ -44,7 +46,8 @@ namespace GymMaster.API.Controllers
             {
                 var session = _mapper.Map<TrainningSession>(createSessionDto);
                 var createdSession = await _sessionService.CreateSessionAsync(session);
-                return CreatedAtAction(nameof(GetSessionById), new { id = createdSession.Id }, createdSession);
+                var createdSessionDto = _mapper.Map<TrainingSessionDto>(createdSession);
+                return CreatedAtAction(nameof(GetSessionById), new { id = createdSession.Id }, createdSessionDto);
             }
             catch (Exception ex)
             {
@@ -63,7 +66,8 @@ namespace GymMaster.API.Controllers
                 {
                     return NotFound();
                 }
-                return Ok(updatedSession);
+                var updatedSessionDto = _mapper.Map<TrainingSessionDto>(updatedSession);
+                return Ok(updatedSessionDto);
             }
             catch (Exception ex)
             {
@@ -79,21 +83,24 @@ namespace GymMaster.API.Controllers
             {
                 return NotFound();
             }
-            return Ok(session);
+            var sessionDto = _mapper.Map<TrainingSessionDto>(session);
+            return Ok(sessionDto);
         }
 
         [HttpGet("trainer/{trainerId}")]
         public async Task<IActionResult> GetSessionsByTrainerId(int trainerId)
         {
             var sessions = await _sessionService.GetSessionsByTrainerIdAsync(trainerId);
-            return Ok(sessions);
+            var sessionDtos = _mapper.Map<IEnumerable<TrainingSessionDto>>(sessions);
+            return Ok(sessionDtos);
         }
 
         [HttpGet("user/{userId}")]
         public async Task<IActionResult> GetSessionsByUserId(int userId)
         {
             var sessions = await _sessionService.GetSessionsByUserIdAsync(userId);
-            return Ok(sessions);
+            var sessionDtos = _mapper.Map<IEnumerable<TrainingSessionDto>>(sessions);
+            return Ok(sessionDtos);
         }
     }
 } 

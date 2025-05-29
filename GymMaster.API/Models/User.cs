@@ -19,7 +19,6 @@ namespace GymMaster.API.Models
         [Required]
         public string PasswordHash { get; set; }
 
-   
         [StringLength(10)]
         public string? Phone { get;set; }
 
@@ -32,14 +31,10 @@ namespace GymMaster.API.Models
 
         [StringLength(100)]
         public string? FullName { get; set; }
-        public int? TrainerId { get; set; }
 
-        [ForeignKey("TrainerId")]
-        public Trainer Trainer { get; set; }
         public ICollection<Feedback> Feedbacks { get; set; }
         public ICollection<Subscription> Subscriptions { get; set; }
         public ICollection<Payment> Payments { get; set; }
         public ICollection<TrainningSession> TrainingSessions { get; set; }
-
     }
 } 
