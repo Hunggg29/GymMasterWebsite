@@ -1,5 +1,6 @@
 ﻿using GymMaster.API.Data;
 using GymMaster.API.Models;
+using GymMaster.API.Models.DTO;
 using GymMaster.API.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -60,11 +61,22 @@ namespace GymMaster.API.Services.Implementations
             return trainer;
         }
 
-        public async Task<IEnumerable<User>> GetUsersTrainedByTrainerAsync(int trainerId)
+        public async Task<IEnumerable<UserDto>> GetUsersTrainedByTrainerAsync(int userId)
         {
+            var trainer = await _context.Trainers.FirstOrDefaultAsync(t => t.UserId == userId);
+            if (trainer == null)
+                return new List<UserDto>();
+
             return await _context.Users
-                .Where(ts => ts.TrainerId == trainerId)
-                .ToListAsync();
+                .Where(u => u.TrainerId == trainer.TrainerId)
+                .Select(u => new UserDto
+                {
+                    Id = u.Id,
+                    Username = u.Username,
+                    Email = u.Email,
+                    Phone = u.Phone,
+                    FullName = u.FullName
+                }).ToListAsync();
         }
 
         public async Task<IEnumerable<TrainningSession>> GetTrainingSessionsByTrainerIdAsync(int trainerId)

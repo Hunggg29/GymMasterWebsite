@@ -14,6 +14,9 @@ namespace GymMaster.API.Models.DTO
         public int RoomId { get; set; }
 
         [Required]
+        public DateTime Date {  get; set; }
+
+        [Required]
         public DateTime StartTime { get; set; }
 
         [Required]

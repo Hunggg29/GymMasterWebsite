@@ -128,22 +128,10 @@ namespace GymMaster.API.Services.Implementations
 
         public async Task<bool> IsUserEligibleAsync(int userId)
         {
-            // Kiểm tra xem user có đủ điều kiện không
-            // Ví dụ: kiểm tra subscription còn hạn
-            var user = await _context.Users
-                .Include(u => u.Subscriptions)
-                .FirstOrDefaultAsync(u => u.Id == userId);
-
-            if (user == null)
-            {
-                return false;
-            }
-
-            // Kiểm tra subscription còn hạn
-            var activeSubscription = user.Subscriptions
-                .Any(s => s.EndDate > DateTime.UtcNow);
-
-            return activeSubscription;
+            var hasActiveSubcription = await _context.Subscriptions
+                                                .AnyAsync(s => s.UserId == userId && s.EndDate > DateTime.UtcNow);
+   
+            return hasActiveSubcription;
         }
 
         public async Task<IEnumerable<TrainningSession>> GetSessionsByTrainerIdAsync(int trainerId)

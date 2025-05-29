@@ -110,7 +110,21 @@ const RegisterTrainingSession = () => {
     }
 
     try {
-      const userId = localStorage.getItem('userId') || '1';
+      const authData = localStorage.getItem('auth');
+      let userId = '1'; // Default value
+
+      if (authData) {
+        try {
+          const parsedAuthData = JSON.parse(authData);
+          if (parsedAuthData && parsedAuthData.user && parsedAuthData.user.id) {
+            userId = parsedAuthData.user.id.toString(); // Get user ID from auth data
+          }
+        } catch (parseError) {
+          console.error('Error parsing auth data from localStorage:', parseError);
+          // Optionally set an error for the user
+        }
+      }
+      
       const startDateTime = new Date(startTime);
       const endDateTime = new Date(endTime);
       
@@ -118,12 +132,10 @@ const RegisterTrainingSession = () => {
         userId: parseInt(userId),
         trainerId: parseInt(selectedTrainer),
         roomId: parseInt(selectedRoom),
-        date: startDateTime.toISOString().split('T')[0], // Get date part only
+        date: startDateTime.toISOString().split('T')[0],
         startTime: startDateTime.toISOString(),
         endTime: endDateTime.toISOString(),
         sessionType: sessionType || null,
-        attendanceStatus: null, // Will be set by admin/staff later
-        notes: null // Optional notes field
       };
 
       console.log('Sending request:', requestBody);

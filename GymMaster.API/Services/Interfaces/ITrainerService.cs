@@ -1,4 +1,5 @@
 ﻿using GymMaster.API.Models;
+using GymMaster.API.Models.DTO;
 
 namespace GymMaster.API.Services.Interfaces
 {
@@ -12,7 +13,7 @@ namespace GymMaster.API.Services.Interfaces
         Task<Trainer?> UpdateTrainerAsync(int id, Trainer trainer);
         Task<Trainer?> DeleteTrainerAsync(int id);
 
-        Task<IEnumerable<User>> GetUsersTrainedByTrainerAsync(int trainerId);
+        Task<IEnumerable<UserDto>> GetUsersTrainedByTrainerAsync(int userId);
         Task<IEnumerable<TrainningSession>> GetTrainingSessionsByTrainerIdAsync(int trainerId);
     }
 }
