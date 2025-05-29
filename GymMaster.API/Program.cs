@@ -10,12 +10,7 @@ using GymMaster.API.Mappings;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-        options.JsonSerializerOptions.MaxDepth = 32;
-    });
+builder.Services.AddControllers();
 
 // Configure SQL Server connection
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");

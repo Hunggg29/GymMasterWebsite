@@ -12,7 +12,7 @@ namespace GymMaster.API.Models.DTO
 
         public string? SessionType { get; set; }
 
-        public bool AttendanceStatus { get; set; }
+        public string? AttendanceStatus { get; set; }
 
         public string? Notes { get; set; }
     }

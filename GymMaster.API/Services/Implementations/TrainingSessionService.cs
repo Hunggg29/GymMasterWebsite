@@ -17,20 +17,12 @@ namespace GymMaster.API.Services.Implementations
         public async Task<IEnumerable<TrainningSession>> GetAllSessionsAsync()
         {
             return await _context.TrainingSessions
-                .Include(ts => ts.User)
-                .Include(ts => ts.Trainer)
-                    .ThenInclude(t => t.User)
-                .Include(ts => ts.GymRoom)
                 .ToListAsync();
         }
 
         public async Task<TrainningSession?> GetSessionByIdAsync(int id)
         {
             return await _context.TrainingSessions
-                .Include(ts => ts.User)
-                .Include(ts => ts.Trainer)
-                    .ThenInclude(t => t.User)
-                .Include(ts => ts.GymRoom)
                 .FirstOrDefaultAsync(ts => ts.Id == id);
         }
 
@@ -54,12 +46,7 @@ namespace GymMaster.API.Services.Implementations
 
         public async Task<TrainningSession?> UpdateSessionAsync(int id, TrainningSession session)
         {
-            var existingSession = await _context.TrainingSessions
-                .Include(ts => ts.User)
-                .Include(ts => ts.Trainer)
-                .Include(ts => ts.GymRoom)
-                .FirstOrDefaultAsync(ts => ts.Id == id);
-                
+            var existingSession = await _context.TrainingSessions.FirstOrDefaultAsync(ts => ts.Id == id);
             if (existingSession == null)
             {
                 return null;
@@ -91,12 +78,7 @@ namespace GymMaster.API.Services.Implementations
 
         public async Task<TrainningSession?> DeleteSessionAsync(int id)
         {
-            var session = await _context.TrainingSessions
-                .Include(ts => ts.User)
-                .Include(ts => ts.Trainer)
-                .Include(ts => ts.GymRoom)
-                .FirstOrDefaultAsync(ts => ts.Id == id);
-                
+            var session = await _context.TrainingSessions.FirstOrDefaultAsync(ts => ts.Id == id);
             if (session == null)
             {
                 return null;
@@ -144,10 +126,6 @@ namespace GymMaster.API.Services.Implementations
         public async Task<IEnumerable<TrainningSession>> GetSessionsByTrainerIdAsync(int trainerId)
         {
             return await _context.TrainingSessions
-                .Include(ts => ts.User)
-                .Include(ts => ts.Trainer)
-                    .ThenInclude(t => t.User)
-                .Include(ts => ts.GymRoom)
                 .Where(ts => ts.TrainerId == trainerId)
                 .ToListAsync();
         }
@@ -155,10 +133,6 @@ namespace GymMaster.API.Services.Implementations
         public async Task<IEnumerable<TrainningSession>> GetSessionsByUserIdAsync(int userId)
         {
             return await _context.TrainingSessions
-                .Include(ts => ts.User)
-                .Include(ts => ts.Trainer)
-                    .ThenInclude(t => t.User)
-                .Include(ts => ts.GymRoom)
                 .Where(ts => ts.UserId == userId)
                 .ToListAsync();
         }
