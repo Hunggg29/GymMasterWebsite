@@ -14,6 +14,6 @@ namespace GymMaster.API.Services.Interfaces
         Task<Trainer?> DeleteTrainerAsync(int id);
 
         Task<IEnumerable<UserDto>> GetUsersTrainedByTrainerAsync(int userId);
-        Task<IEnumerable<TrainningSession>> GetTrainingSessionsByTrainerIdAsync(int trainerId);
+        Task<IEnumerable<TrainningSession>> GetTrainingSessionsByTrainerIdAsync(int userId);
     }
 }

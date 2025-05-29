@@ -14,7 +14,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [fullname, setFullName] = useState("");
-  const [contact, setContact] = useState("");
+  const [phone, setPhone] = useState("");
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -35,12 +35,12 @@ const Register = () => {
   
 
     const phoneNumberPattern = /^(0)\d{9}$/;
-    if (!phoneNumberPattern.test(contact)) {
+    if (!phoneNumberPattern.test(phone)) {
       toast.error("Phone number must start with 0 and contain exactly 10 digits");
       return;
     }
 
-    console.log(name, password, email, fullname, contact);
+    console.log(name, password, email, fullname, phone);
 
     try {
       const res = await axios.post(`${BASE_URL}/api/auth/register`, {
@@ -48,7 +48,7 @@ const Register = () => {
         email,
         password,
         fullname,
-        contact
+        phone
       });
       if (res.data) {
         toast.success("Registration successful!");
@@ -120,8 +120,8 @@ const Register = () => {
             type="text"
             placeholder="Phone"
             name="phone"
-            value={contact}
-            onChange={(e) => setContact(e.target.value)}
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
             data-aos="zoom-in" // Add AOS animation
           />
 

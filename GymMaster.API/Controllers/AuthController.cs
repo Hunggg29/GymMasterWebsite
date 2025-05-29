@@ -44,6 +44,8 @@ namespace GymMaster.API.Controllers
             {
                 Username = request.Username,
                 Email = request.Email,
+                Phone = request.Phone,
+                FullName = request.FullName,
                 Role = "user"
             };
 
@@ -151,5 +153,8 @@ namespace GymMaster.API.Controllers
         public string Username { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+
+        public string Phone { get; set; }
+        public string FullName { get; set; }
     }
 } 

@@ -67,22 +67,32 @@ namespace GymMaster.API.Services.Implementations
             if (trainer == null)
                 return new List<UserDto>();
 
-            return await _context.Users
-                .Where(u => u.TrainerId == trainer.TrainerId)
-                .Select(u => new UserDto
-                {
-                    Id = u.Id,
-                    Username = u.Username,
-                    Email = u.Email,
-                    Phone = u.Phone,
-                    FullName = u.FullName
-                }).ToListAsync();
+            return await _context.TrainingSessions
+                .Where(ts => ts.TrainerId == trainer.TrainerId)
+                .Join(_context.Users,
+                    ts => ts.UserId,
+                    u => u.Id,
+                    (ts, u) => new UserDto
+                    {
+                        Id = u.Id,
+                        Username = u.Username,
+                        Email = u.Email,
+                        Phone = u.Phone,
+                        FullName = u.FullName
+                    })
+                .Distinct()
+                .ToListAsync();
         }
 
-        public async Task<IEnumerable<TrainningSession>> GetTrainingSessionsByTrainerIdAsync(int trainerId)
+        public async Task<IEnumerable<TrainningSession>> GetTrainingSessionsByTrainerIdAsync(int userId)
         {
+            var trainer = await _context.Trainers.FirstOrDefaultAsync(t => t.UserId == userId);
+            if(trainer == null)
+            {
+                return new List<TrainningSession>();
+            }
             return await _context.TrainingSessions
-                .Where(ts => ts.TrainerId == trainerId)
+                .Where(ts => ts.TrainerId == trainer.TrainerId)
                 .ToListAsync();
         }
     }

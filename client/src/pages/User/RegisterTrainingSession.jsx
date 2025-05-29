@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Clock, User, MapPin, Dumbbell, CheckCircle, AlertCircle } from 'lucide-react';
+import { Calendar, Clock, User, MapPin, Dumbbell, CheckCircle, AlertCircle, Info } from 'lucide-react';
 
 const RegisterTrainingSession = () => {
   const [trainers, setTrainers] = useState([]);
   const [rooms, setRooms] = useState([]);
   const [selectedTrainer, setSelectedTrainer] = useState('');
   const [selectedRoom, setSelectedRoom] = useState('');
+  const [date, setDate] = useState('');
   const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
   const [sessionType, setSessionType] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -97,17 +97,15 @@ const RegisterTrainingSession = () => {
     setSuccess('');
     setIsSubmitting(true);
 
-    if (!selectedTrainer || !selectedRoom || !startTime || !endTime) {
+    if (!selectedTrainer || !selectedRoom || !date || !startTime) {
       setError('Please fill in all required fields');
       setIsSubmitting(false);
       return;
     }
 
-    if (new Date(startTime) >= new Date(endTime)) {
-      setError('End time must be after start time');
-      setIsSubmitting(false);
-      return;
-    }
+    // Calculate end time (start time + 2 hours)
+    const startDateTime = new Date(`${date}T${startTime}`);
+    const endDateTime = new Date(startDateTime.getTime() + (2 * 60 * 60 * 1000)); // Add 2 hours
 
     try {
       const authData = localStorage.getItem('auth');
@@ -117,22 +115,18 @@ const RegisterTrainingSession = () => {
         try {
           const parsedAuthData = JSON.parse(authData);
           if (parsedAuthData && parsedAuthData.user && parsedAuthData.user.id) {
-            userId = parsedAuthData.user.id.toString(); // Get user ID from auth data
+            userId = parsedAuthData.user.id.toString();
           }
         } catch (parseError) {
           console.error('Error parsing auth data from localStorage:', parseError);
-          // Optionally set an error for the user
         }
       }
-      
-      const startDateTime = new Date(startTime);
-      const endDateTime = new Date(endTime);
       
       const requestBody = {
         userId: parseInt(userId),
         trainerId: parseInt(selectedTrainer),
         roomId: parseInt(selectedRoom),
-        date: startDateTime.toISOString().split('T')[0],
+        date: date,
         startTime: startDateTime.toISOString(),
         endTime: endDateTime.toISOString(),
         sessionType: sessionType || null,
@@ -153,8 +147,8 @@ const RegisterTrainingSession = () => {
         // Reset form
         setSelectedTrainer('');
         setSelectedRoom('');
+        setDate('');
         setStartTime('');
-        setEndTime('');
         setSessionType('');
       } else {
         const errorData = await response.json();
@@ -255,12 +249,12 @@ const RegisterTrainingSession = () => {
                   <div className="space-y-3">
                     <label className="flex items-center gap-2 text-white font-semibold text-lg">
                       <Calendar className="w-5 h-5 text-blue-400" />
-                      Start Time
+                      Date
                     </label>
                     <input
-                      type="datetime-local"
-                      value={startTime}
-                      onChange={(e) => setStartTime(e.target.value)}
+                      type="date"
+                      value={date}
+                      onChange={(e) => setDate(e.target.value)}
                       className="w-full bg-white/10 border border-white/20 rounded-2xl px-4 py-4 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
                       required
                     />
@@ -269,16 +263,21 @@ const RegisterTrainingSession = () => {
                   <div className="space-y-3">
                     <label className="flex items-center gap-2 text-white font-semibold text-lg">
                       <Clock className="w-5 h-5 text-blue-400" />
-                      End Time
+                      Start Time
                     </label>
                     <input
-                      type="datetime-local"
-                      value={endTime}
-                      onChange={(e) => setEndTime(e.target.value)}
+                      type="time"
+                      value={startTime}
+                      onChange={(e) => setStartTime(e.target.value)}
                       className="w-full bg-white/10 border border-white/20 rounded-2xl px-4 py-4 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
                       required
                     />
                   </div>
+                </div>
+
+                <div className="flex items-center gap-3 bg-blue-500/20 border border-blue-500/30 rounded-2xl p-4 mb-6">
+                  <Info className="w-5 h-5 text-blue-400" />
+                  <span className="text-blue-200">Each training session lasts for 2 hours</span>
                 </div>
 
                 <div className="space-y-3">

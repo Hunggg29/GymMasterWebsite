@@ -17,18 +17,12 @@ namespace GymMaster.API.Services.Implementations
         public async Task<IEnumerable<TrainningSession>> GetAllSessionsAsync()
         {
             return await _context.TrainingSessions
-                .Include(ts => ts.User)
-                .Include(ts => ts.Trainer)
-                .Include(ts => ts.GymRoom)
                 .ToListAsync();
         }
 
         public async Task<TrainningSession?> GetSessionByIdAsync(int id)
         {
             return await _context.TrainingSessions
-                .Include(ts => ts.User)
-                .Include(ts => ts.Trainer)
-                .Include(ts => ts.GymRoom)
                 .FirstOrDefaultAsync(ts => ts.Id == id);
         }
 
@@ -40,14 +34,9 @@ namespace GymMaster.API.Services.Implementations
                 throw new Exception("Trainer is not available at this time");
             }
 
-            if (!await IsRoomAvailableAsync(session.RoomId, session.StartTime, session.EndTime))
-            {
-                throw new Exception("Room is not available at this time");
-            }
-
             if (!await IsUserEligibleAsync(session.UserId))
             {
-                throw new Exception("User is not eligible for training session");
+                throw new Exception("You have not subcribed to any plan");
             }
 
             await _context.TrainingSessions.AddAsync(session);
@@ -137,8 +126,6 @@ namespace GymMaster.API.Services.Implementations
         public async Task<IEnumerable<TrainningSession>> GetSessionsByTrainerIdAsync(int trainerId)
         {
             return await _context.TrainingSessions
-                .Include(ts => ts.User)
-                .Include(ts => ts.GymRoom)
                 .Where(ts => ts.TrainerId == trainerId)
                 .ToListAsync();
         }
@@ -146,8 +133,6 @@ namespace GymMaster.API.Services.Implementations
         public async Task<IEnumerable<TrainningSession>> GetSessionsByUserIdAsync(int userId)
         {
             return await _context.TrainingSessions
-                .Include(ts => ts.Trainer)
-                .Include(ts => ts.GymRoom)
                 .Where(ts => ts.UserId == userId)
                 .ToListAsync();
         }
