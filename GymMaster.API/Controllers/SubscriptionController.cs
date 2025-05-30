@@ -213,5 +213,24 @@ namespace GymMaster.API.Controllers
                 return NotFound(ex.Message);
             }
         }
+
+        [HttpPut("toggle-auto-renew")]
+        [Authorize]
+        public async Task<IActionResult> ToggleAutoRenew([FromBody] ToggleAutoRenewDto toggleDto)
+        {
+            try
+            {
+                var result = await _subscriptionService.ToggleAutoRenewAsync(toggleDto.Id, toggleDto.AutoRenew);
+                if (!result)
+                {
+                    return NotFound("Subscription not found");
+                }
+                return Ok(new { message = "Auto-renew status updated successfully" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred while toggling auto-renew", error = ex.Message });
+            }
+        }
     }
 } 

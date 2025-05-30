@@ -6,6 +6,7 @@
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public bool IsActive { get; set; }
+        public bool AutoRenew { get; set; }
 
         // Trường từ User
         public string Username { get; set; }

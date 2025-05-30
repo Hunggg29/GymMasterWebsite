@@ -13,5 +13,6 @@ namespace GymMaster.API.Services.Interfaces
         Task<bool> UpdateSubscriptionAsync(Subscription subscription);
         Task<bool> CancelSubscriptionAsync(int id);
         Task<Subscription?> DeleteSubscriptionAsync(int id);
+        Task<bool> ToggleAutoRenewAsync(int id, bool autoRenew);
     }
 } 

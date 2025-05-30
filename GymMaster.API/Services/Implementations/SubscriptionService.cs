@@ -142,5 +142,16 @@ namespace GymMaster.API.Services.Implementations
             await _context.SaveChangesAsync();
             return subscription;
         }
+
+        public async Task<bool> ToggleAutoRenewAsync(int id, bool autoRenew)
+        {
+            var subscription = await _context.Subscriptions.FindAsync(id);
+            if (subscription == null)
+                return false;
+
+            subscription.AutoRenew = autoRenew;
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 } 
