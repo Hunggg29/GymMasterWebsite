@@ -45,7 +45,7 @@ namespace GymMaster.API.Controllers
             return CreatedAtAction(nameof(GetPlanById), new { id = createdPlan.Id }, createdPlan);
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin,staff" )]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdatePlan(int id, [FromBody] UpdatePlanDto updatePlanDto)
         {
@@ -68,7 +68,7 @@ namespace GymMaster.API.Controllers
             }
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin,staff")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePlan(int id)
         {

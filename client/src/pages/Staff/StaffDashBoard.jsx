@@ -14,6 +14,7 @@ const StaffDashBoard = () => {
   const [contactCount, setContactCount] = useState(null);
   const [feedbackCount, setFeedbackCount] = useState(null);
   const [loading, setLoading] = useState(false);
+    const [trainingSession, setTrainingSessionCount] = useState(null);
 
   // AOS Initialization
   useEffect(() => {
@@ -28,7 +29,8 @@ const StaffDashBoard = () => {
     getUsers();
     getPlans();
     getSubscriptions();
-    getContacts();
+    //getContacts();
+    getTrainingSession();
     getFeedbacks();
   }, []);
 
@@ -41,6 +43,18 @@ const StaffDashBoard = () => {
     } catch (err) {
       console.log(err);
       toast.error("Something went wrong in getting users");
+      setLoading(false);
+    }
+  }
+   const getTrainingSession = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get(`${BASE_URL}/api/TrainingSession`);
+      setTrainingSessionCount(Array.isArray(res.data) ? res.data.length : 0);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      toast.error("Something went wrong in getting Training Sessions");
       setLoading(false);
     }
   }
@@ -110,14 +124,24 @@ const StaffDashBoard = () => {
             <h2 className='text-white font-bold text-3xl'>Users: {userCount !== null ? userCount : "Loading..."}</h2>
           </Link>
          
-          <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/staff/plans`} data-aos="fade-up" data-aos-delay="200">
+          {/* <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/staff/plans`} data-aos="fade-up" data-aos-delay="200">
             <h2 className='text-white font-bold text-3xl'>Plans: {planCount !== null ? planCount : "Loading..."}</h2>
-          </Link>
+          </Link> */}
           
           {feedbackCount !== null && (
             <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/staff/feedbacks`} data-aos="fade-up" data-aos-delay="400">
               <h2 className='text-white font-bold text-3xl'>Feedbacks: {feedbackCount !== null ? feedbackCount : "Loading..."}</h2>
             </Link>
+          )}
+           {planCount !== null && (
+            <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/staff/plans`} data-aos="fade-up" data-aos-delay="200">
+                       <h2 className='text-white font-bold text-3xl'>Plans: {planCount !== null ? planCount : "Loading..."}</h2>
+                     </Link>
+          )}
+          {trainingSession !== null && (
+            <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/staff/sessions`} data-aos="fade-up" data-aos-delay="200">
+                       <h2 className='text-white font-bold text-3xl'>Training Session: {trainingSession !== null ? trainingSession : "Loading..."}</h2>
+                     </Link>
           )}
         </div>
       </div>

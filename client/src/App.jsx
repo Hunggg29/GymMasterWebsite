@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Header, Footer, ScrollButton, PrivateRoute, AdminRoute,StaffRoute} from "./components";
-import { Register, Login, ForgotPassword, Home, PlanSubscription, Error, Profile, UserDashBoard, PlanDetail, AdminDashBoard,StaffDashBoard, CreatePlan, UpdatePlan, Plans, SubscriberList, UserList, FavouriteExercises, PlanDetails, PlanFullDetail, ContactUs, TrainerDetails, Feedback, Feedbacks, FeedbackList, Payment} from "./pages";
+import { Header, Footer, ScrollButton, PrivateRoute, AdminRoute,StaffRoute,TrainerRoute} from "./components";
+import { Register, Login,UserListStaff, ForgotPassword, Home, PlanSubscription,UpdatePlanStaff, Error, Profile, UserDashBoard, PlanDetail, AdminDashBoard,StaffDashBoard, CreatePlan, UpdatePlan, Plans,PlansStaff, SubscriberList, UserList, FavouriteExercises, PlanDetails, PlanFullDetail, ContactUs, TrainerDetails, Feedback, Feedbacks, FeedbackList, Payment,TrainerDashBoard,SessionsList,SubscriptionList} from "./pages";
 import RegisterTrainingSession from './pages/User/RegisterTrainingSession';
 // import PlanFullDetail from './pages/User/planFullDetail';
 import { Toaster } from 'react-hot-toast';
@@ -60,14 +60,30 @@ const App = () => {
           <Route path='staff' element={<StaffDashBoard />} />
           <Route path='admin/profile' element={<Profile />} />
           <Route path='admin/create-plane' element={<CreatePlan />} />
+          <Route path='staff/plan/:planid' element={<UpdatePlanStaff />} />
+          <Route path='staff/plans' element={<PlansStaff />} />
+            <Route path='staff/user-list/subscription' element={<SubscriptionList />} />
+          <Route path='staff/user-list' element={<UserListStaff />} />
+          <Route path='staff/sessions' element={<SessionsList />} />
+          <Route path='admin/contact-us' element={<ContactUs />} />
+          <Route path='admin/subscriber-list' element={<SubscriberList />} />
+          <Route path='staff/feedbacks' element={<FeedbackList />} />
+        </Route>
+         {/* trainer routes ================================== */}
+                 <Route path='/dashboard' element={<TrainerRoute/>}>
+          <Route path='trainer' element={<TrainerDashBoard />} />
+          <Route path='admin/profile' element={<Profile />} />
+          <Route path='admin/create-plane' element={<CreatePlan />} />
           <Route path='admin/plan/:planid' element={<UpdatePlan />} />
-          <Route path='staff/plans' element={<Plans />} />
+          <Route path='staff/plans' element={<PlansStaff />} />
+          
           <Route path='staff/user-list' element={<UserList />} />
           <Route path='admin/contact-us' element={<ContactUs />} />
           <Route path='admin/subscriber-list' element={<SubscriberList />} />
           <Route path='staff/feedbacks' element={<FeedbackList />} />
          
         </Route>
+          
 
       </Routes>
       <Footer />

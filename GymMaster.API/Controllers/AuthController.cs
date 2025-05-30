@@ -48,6 +48,7 @@ namespace GymMaster.API.Controllers
                 FullName = request.FullName,
                 Role = "user"
             };
+          
 
             var (success, message) = await _authService.RegisterAsync(user, request.Password);
             if (!success)
@@ -130,6 +131,12 @@ namespace GymMaster.API.Controllers
         [Authorize(Roles = "staff")]
         [HttpGet("staff-auth")]
         public IActionResult StaffAuth()
+        {
+            return Ok(new { ok = true });
+        }
+        [Authorize(Roles = "trainer")]
+        [HttpGet("trainer-auth")]
+        public IActionResult TrainerAuth()
         {
             return Ok(new { ok = true });
         }

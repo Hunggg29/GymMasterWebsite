@@ -27,6 +27,7 @@ const Plans = () => {
     try {
       setLoading(true);
       const res = await axios.get(`${BASE_URL}/api/plan`);
+        console.log('res tra ve',res.data);
       if (res.data) {
         setPlans(res.data);
       }

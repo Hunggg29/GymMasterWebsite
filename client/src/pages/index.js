@@ -13,11 +13,16 @@ import UserDashBoard from "./User/UserDashBoard";
 import FavouriteExercises from "./User/FavouriteExercises";
 import AdminDashBoard from "./Admin/AdminDashBoard";
 import StaffDashBoard from "./Staff/StaffDashBoard";
+import TrainerDashBoard from "./Trainer/TrainerDashBoard"
 import SubscriberList from "./Admin/SubscriberList";
 import CreatePlan from "./Admin/CreatePlan";
 import Plans from "./Admin/Plans";
+import PlansStaff from"./Staff/Plans"
 import UpdatePlan from "./Admin/UpdatePlan";
+import UpdatePlanStaff from "./Staff/UpdatePlan";
 import UserList from "./Admin/UserList";
+import UserListStaff from "./Staff/UserList";
+import SubscriptionList from "./Staff/SubscriptionList"
 import PlanDetails from "./PlanDetails";
 import PlanFullDetail from "./User/PlanFullDetail";
 import ContactUs from "./Admin/ContactUs";
@@ -25,5 +30,6 @@ import TrainerDetails from "./TrainerDetails";
 import Feedback from "./Feedback";
 import Feedbacks from "./User/Feedbacks";
 import FeedbackList from "./Admin/FeedbackList";
+import SessionsList from "./Staff/SessionsList";
 import Payment from "./Payment";
-export {Home, Register, Login, ForgotPassword, PlanSubscription, Error, About, Exercise, ExerciseDetail, PlanDetail, Profile, UserDashBoard, FavouriteExercises, AdminDashBoard, SubscriberList, CreatePlan, Plans, UpdatePlan, UserList, PlanDetails, PlanFullDetail, ContactUs, TrainerDetails, Feedback, Feedbacks, FeedbackList, Payment,StaffDashBoard };
+export {Home, Register, Login,SubscriptionList, ForgotPassword,UpdatePlanStaff, PlanSubscription,PlansStaff, Error, About, Exercise, ExerciseDetail, PlanDetail, Profile, UserDashBoard, FavouriteExercises, AdminDashBoard, SubscriberList, CreatePlan, Plans, UpdatePlan, UserList, PlanDetails, PlanFullDetail, ContactUs, TrainerDetails, Feedback, Feedbacks, FeedbackList, Payment,StaffDashBoard,TrainerDashBoard,SessionsList,UserListStaff };

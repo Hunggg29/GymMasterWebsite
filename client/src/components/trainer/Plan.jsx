@@ -5,7 +5,7 @@ import { planImg1 } from "../../images";
 
 const Plan = ({ planName, price, duration, p_id,planImage }) => {
   return (
-    <Link to={`/dashboard/staff/plan/${p_id}`} key={p_id} className="group">
+    <Link to={`/dashboard/admin/plan/${p_id}`} key={p_id} className="group">
       <div className='bg-gradient-to-r from-blue-500 to-indigo-600  flex flex-col gap-5 justify-center items-center border-2 border-gray-300 rounded-lg p-4 transition-all ease-in-out duration-300 shadow-md hover:shadow-xl hover:bg-gray-50 transform hover:scale-105'>
         <h3 className='text-white font-bold text-center text-2xl group-hover:text-indigo-600 transition-all ease-in-out'>
           {planName}
