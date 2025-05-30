@@ -56,6 +56,7 @@ namespace GymMaster.API.Services.Implementations
         {
             return await _context.Subscriptions
                 .Include(s => s.Plan)
+                .Include(s => s.User)
                 .Where(s => s.UserId == userId)
                 .ToListAsync();
         }
