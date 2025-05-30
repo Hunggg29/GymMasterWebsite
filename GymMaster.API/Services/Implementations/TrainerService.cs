@@ -16,12 +16,14 @@ namespace GymMaster.API.Services.Implementations
         public async Task<IEnumerable<Trainer>> GetAllTrainersAsync()
         {
             return await _context.Trainers
+                .Include("User")
                 .ToListAsync();
         }
 
         public async Task<Trainer?> GetTrainerByIdAsync(int id)
         {
             return await _context.Trainers
+                .Include("User")
                 .FirstOrDefaultAsync(t => t.TrainerId == id);
         }
 

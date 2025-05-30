@@ -1,8 +1,10 @@
-    using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GymMaster.API.Data;
 using GymMaster.API.Models;
 using GymMaster.API.Services.Interfaces;
+using GymMaster.API.Models.DTO;
+using AutoMapper;
 
 namespace GymMaster.API.Controllers
 {
@@ -12,11 +14,22 @@ namespace GymMaster.API.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IUserService _userService;
+        private readonly ISubscriptionService _subscriptionService;
+        private readonly ITrainingSessionService _sessionService;
+        private readonly IMapper _mapper;
 
-        public UsersController(ApplicationDbContext context, IUserService userService)
+        public UsersController(
+            ApplicationDbContext context, 
+            IUserService userService, 
+            ISubscriptionService subscriptionService,
+            ITrainingSessionService sessionService,
+            IMapper mapper)
         {
             _context = context;
             _userService = userService;
+            _subscriptionService = subscriptionService;
+            _sessionService = sessionService;
+            _mapper = mapper;
         }
 
         // GET: api/Users
@@ -101,11 +114,20 @@ namespace GymMaster.API.Controllers
             return _context.Users.Any(e => e.Id == id);
         }
 
-        [HttpGet("{id}/trainningsession")]
-        public async Task<IActionResult> GetTrainningSessionByUserId(int id)
+        [HttpGet("{id}/subscriptions")]
+        public async Task<IActionResult> GetUserSubscriptions(int id)
         {
-            var trainningSession = await _userService.GetTrainningSessionByUserIdASync(id);
-            return Ok(trainningSession);
+            var subscriptions = await _subscriptionService.GetUserSubscriptionsAsync(id);
+            var subscriptionDtos = _mapper.Map<IEnumerable<GetAllSubscriptionDto>>(subscriptions);
+            return Ok(subscriptionDtos);
+        }
+
+        [HttpGet("{id}/trainingSessions")]
+        public async Task<IActionResult> GetUserTrainingSessions(int id)
+        {
+            var sessions = await _sessionService.GetSessionsByUserIdAsync(id);
+            var sessionDtos = _mapper.Map<IEnumerable<TrainingSessionDto>>(sessions);
+            return Ok(sessionDtos);
         }
     }
 } 
