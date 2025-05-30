@@ -14,6 +14,7 @@
         public string PlanName { get; set; }
         public string PlanImageUrl { get; set; }
         public string PlanDescription { get; set; }
+        public int DurationInDays { get; set; }
         public decimal PlanPrice { get; set; }
 
         // Trường từ Payment

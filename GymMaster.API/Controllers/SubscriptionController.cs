@@ -16,19 +16,18 @@ namespace GymMaster.API.Controllers
         private readonly ApplicationDbContext _context;
         private readonly ISubscriptionService _subscriptionService;
 
-        public SubscriptionController(ApplicationDbContext context, ISubscriptionService subcriptionService)
+        public SubscriptionController(ApplicationDbContext context, ISubscriptionService subscriptionService)
         {
             _context = context;
-            _subscriptionService = subcriptionService;
+            _subscriptionService = subscriptionService;
         }
 
         [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAllSubCription()
         {
-            var subcriptions = await _subscriptionService.GetAllSubscriptionsAsync();
-            return Ok(subcriptions);
-
+            var subscriptions = await _subscriptionService.GetAllSubscriptionsAsync();
+            return Ok(subscriptions);
         }
 
         [Authorize]
@@ -175,6 +174,43 @@ namespace GymMaster.API.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, new { message = "An error occurred while fetching subscriptions", error = ex.Message });
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> RenewSubscription(int id)
+        {
+            try
+            {
+                var renewedSubscription = await _subscriptionService.RenewSubscriptionAsync(id);
+                if (renewedSubscription == null)
+                {
+                    return NotFound("Subscription not found");
+                }
+                return Ok(renewedSubscription);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize]
+        public async Task<IActionResult> DeleteSubscription(int id)
+        {
+            try
+            {
+                var subscription = await _subscriptionService.DeleteSubscriptionAsync(id);
+                if (subscription == null)
+                {
+                    return NotFound("Subscription not found");
+                }
+                return Ok(subscription);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound(ex.Message);
             }
         }
     }

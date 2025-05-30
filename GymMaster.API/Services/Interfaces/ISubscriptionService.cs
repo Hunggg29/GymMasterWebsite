@@ -9,8 +9,9 @@ namespace GymMaster.API.Services.Interfaces
         Task<Subscription> GetSubscriptionByIdAsync(int id);
         Task<IEnumerable<Subscription>> GetUserSubscriptionsAsync(int userId);
         Task<Subscription> CreateSubscriptionAsync(Subscription subscription);
+        Task<RenewedSubscriptionDto> RenewSubscriptionAsync(int subscriptionId);
         Task<bool> UpdateSubscriptionAsync(Subscription subscription);
         Task<bool> CancelSubscriptionAsync(int id);
-        Task<bool> RenewSubscriptionAsync(int id);
+        Task<Subscription?> DeleteSubscriptionAsync(int id);
     }
 } 

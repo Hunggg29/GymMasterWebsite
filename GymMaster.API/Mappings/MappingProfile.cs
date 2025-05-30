@@ -21,6 +21,7 @@ namespace GymMaster.API.Mappings
                 .ForMember(dest => dest.PlanName, opt => opt.MapFrom(src => src.Plan.Name))
                 .ForMember(dest => dest.PlanImageUrl, opt => opt.MapFrom(src => src.Plan.ImageUrl))
                 .ForMember(dest => dest.PlanDescription, opt => opt.MapFrom(src => src.Plan.Description))
+                .ForMember(dest => dest.DurationInDays, opt => opt.MapFrom(src => src.Plan.DurationInDays))
                 .ForMember(dest => dest.PlanPrice, opt => opt.MapFrom(src => src.Plan.Price))
                 .ForMember(dest => dest.PaymentDate, opt => opt.MapFrom(src => src.Payment.PaymentDate))
                 .ForMember(dest => dest.PaymentAmount, opt => opt.MapFrom(src => src.Payment.Amount))

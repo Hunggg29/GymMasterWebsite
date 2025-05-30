@@ -10,10 +10,26 @@ namespace GymMaster.API.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            // Drop the foreign key constraint first
             migrationBuilder.DropForeignKey(
                 name: "FK_Users_Trainers_TrainerId",
                 table: "Users");
 
+            // Drop the index
+            migrationBuilder.DropIndex(
+                name: "IX_Users_TrainerId",
+                table: "Users");
+
+            // Drop the default constraint if it exists
+            migrationBuilder.Sql(
+                @"DECLARE @var2 sysname;
+                SELECT @var2 = [d].[name]
+                FROM [sys].[default_constraints] [d]
+                INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+                WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Users]') AND [c].[name] = N'TrainerId');
+                IF @var2 IS NOT NULL EXEC(N'ALTER TABLE [Users] DROP CONSTRAINT [' + @var2 + '];');");
+
+            // Now drop the column
             migrationBuilder.DropColumn(
                 name: "TrainerId",
                 table: "Users");
