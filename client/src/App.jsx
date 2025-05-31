@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Header, Footer, ScrollButton, PrivateRoute, AdminRoute,StaffRoute,TrainerRoute} from "./components";
-import { Register, Login,UserListStaff, ForgotPassword, Home, PlanSubscription,UpdatePlanStaff, Error, Profile, UserDashBoard, PlanDetail, AdminDashBoard,StaffDashBoard, CreatePlan, UpdatePlan, Plans,PlansStaff, SubscriberList, UserList, FavouriteExercises, PlanDetails, PlanFullDetail, ContactUs, TrainerDetails, Feedback, Feedbacks, FeedbackList, Payment,TrainerDashBoard,SessionsList,SubscriptionList} from "./pages";
+import { Register, Login,UserListStaff, ForgotPassword, Home, PlanSubscription,UpdatePlanStaff, Error, Profile, UserDashBoard, PlanDetail, AdminDashBoard,StaffDashBoard, CreatePlan, UpdatePlan, Plans,PlansStaff, SubscriberList, UserList, FavouriteExercises, PlanDetails, PlanFullDetail, ContactUs, TrainerDetails, Feedback, Feedbacks, FeedbackList, Payment,TrainerDashBoard,SessionsList,SubscriptionList, MemberList,SessionsListTrainer} from "./pages";
 import RegisterTrainingSession from './pages/User/RegisterTrainingSession';
 // import PlanFullDetail from './pages/User/planFullDetail';
 import { Toaster } from 'react-hot-toast';
@@ -70,14 +70,15 @@ const App = () => {
           <Route path='staff/feedbacks' element={<FeedbackList />} />
         </Route>
          {/* trainer routes ================================== */}
-                 <Route path='/dashboard' element={<TrainerRoute/>}>
+                <Route path='/dashboard' element={<TrainerRoute/>}>
+          <Route path='trainer/user-list' element={<MemberList />} />
+          <Route path='trainer/session-list' element={<SessionsListTrainer />} />
           <Route path='trainer' element={<TrainerDashBoard />} />
           <Route path='admin/profile' element={<Profile />} />
           <Route path='admin/create-plane' element={<CreatePlan />} />
           <Route path='admin/plan/:planid' element={<UpdatePlan />} />
           <Route path='staff/plans' element={<PlansStaff />} />
           
-          <Route path='staff/user-list' element={<UserList />} />
           <Route path='admin/contact-us' element={<ContactUs />} />
           <Route path='admin/subscriber-list' element={<SubscriberList />} />
           <Route path='staff/feedbacks' element={<FeedbackList />} />

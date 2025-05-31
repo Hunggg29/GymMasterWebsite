@@ -10,9 +10,7 @@
 
   const TrainerDashBoard = () => {
     const [userCount, setUserCount] = useState(null);
-    const [planCount, setPlanCount] = useState(null);
-    const [subscriberCount, setSubscriberCount] = useState(null);
-    const [contactCount, setContactCount] = useState(null);
+   const [sessioncount, setSessionCount] = useState(null);
     const [feedbackCount, setFeedbackCount] = useState(null);
     const [loading, setLoading] = useState(false);
     const { auth, setAuth } = useAuth();
@@ -28,7 +26,7 @@
 
       // Fetch data
       getUsers(auth.user.id);
-      
+      getSessions(auth.user.id);
     }, [auth]);
     
     const getUsers = async (id) => {
@@ -37,6 +35,19 @@
         setLoading(true);
         const res = await axios.get(`${BASE_URL}/api/Trainer/${id}/users`);
         setUserCount(Array.isArray(res.data) ? res.data.length : 0);
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
+        toast.error("Something went wrong in getting users");
+        setLoading(false);
+      }
+    }
+    const getSessions = async (id) => {
+      try { 
+        
+        setLoading(true);
+        const res = await axios.get(`${BASE_URL}/api/Trainer/${id}/sessions`);
+        setSessionCount(Array.isArray(res.data) ? res.data.length : 0);
         setLoading(false);
       } catch (err) {
         console.log(err);
@@ -56,7 +67,7 @@
         <Heading name="Trainer Dashboard" />
         <div className="container mx-auto px-6 py-20">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-stretch">
-            <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/staff/user-list`} data-aos="fade-up">
+            <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/trainer/user-list`} data-aos="fade-up">
               <h2 className='text-white font-bold text-3xl'>Member: {userCount !== null ? userCount : "Loading..."}</h2>
             </Link>
           
@@ -64,11 +75,14 @@
               <h2 className='text-white font-bold text-3xl'>Plans: {planCount !== null ? planCount : "Loading..."}</h2>
             </Link> */}
             
-            {feedbackCount !== null && (
+            {/* {feedbackCount !== null && (
               <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/staff/feedbacks`} data-aos="fade-up" data-aos-delay="400">
                 <h2 className='text-white font-bold text-3xl'>Feedbacks: {feedbackCount !== null ? feedbackCount : "Loading..."}</h2>
               </Link>
-            )}
+            )} */}
+             <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/trainer/session-list`} data-aos="fade-up">
+              <h2 className='text-white font-bold text-3xl'>Training Session: {sessioncount !== null ? sessioncount : "Loading..."}</h2>
+            </Link>
           </div>
         </div>
       </section>
