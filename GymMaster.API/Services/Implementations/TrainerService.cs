@@ -85,17 +85,5 @@ namespace GymMaster.API.Services.Implementations
                 .Distinct()
                 .ToListAsync();
         }
-
-        public async Task<IEnumerable<TrainningSession>> GetTrainingSessionsByTrainerIdAsync(int userId)
-        {
-            var trainer = await _context.Trainers.FirstOrDefaultAsync(t => t.UserId == userId);
-            if(trainer == null)
-            {
-                return new List<TrainningSession>();
-            }
-            return await _context.TrainingSessions
-                .Where(ts => ts.TrainerId == trainer.TrainerId)
-                .ToListAsync();
-        }
     }
 }

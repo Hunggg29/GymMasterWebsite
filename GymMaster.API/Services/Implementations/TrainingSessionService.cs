@@ -1,5 +1,6 @@
 using GymMaster.API.Data;
 using GymMaster.API.Models;
+using GymMaster.API.Models.DTO;
 using GymMaster.API.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -47,6 +48,11 @@ namespace GymMaster.API.Services.Implementations
                 throw new Exception("You have not subcribed to any plan");
             }
 
+            if (!await IsUserAvailableAsync(session.UserId, session.StartTime, session.EndTime))
+            {
+                throw new Exception("You have registered a session with the same time");
+            }
+
             await _context.TrainingSessions.AddAsync(session);
             await _context.SaveChangesAsync();
             return session;
@@ -79,8 +85,6 @@ namespace GymMaster.API.Services.Implementations
                 }
             }
 
-            existingSession.StartTime = session.StartTime;
-            existingSession.EndTime = session.EndTime;
             existingSession.SessionType = session.SessionType;
             existingSession.AttendanceStatus = session.AttendanceStatus;
             existingSession.Notes = session.Notes;
@@ -133,22 +137,39 @@ namespace GymMaster.API.Services.Implementations
             return !existingSessions.Any();
         }
 
-        public async Task<bool> IsUserEligibleAsync(int userId)
+        public async Task<bool> IsUserAvailableAsync(int userId, DateTime startTime, DateTime endTime)
         {
+            //Kiểm tra xem user có session nào trong khoảng thời gina này ko
+            var existingSessions = await _context.TrainingSessions
+                .Where(ts => ts.UserId == userId &&
+                            ((ts.StartTime <= startTime && ts.EndTime > startTime) ||
+                            (ts.StartTime < endTime && ts.EndTime >= endTime) ||
+                            (ts.StartTime >= startTime && ts.EndTime <= endTime)))
+                .ToListAsync();
+
+            return !existingSessions.Any();
+        }
+        public async Task<bool> IsUserEligibleAsync(int userId)
+        {   
+            //Kiểm tra xem người dùng đã đăng ký hay chưa
             var hasActiveSubcription = await _context.Subscriptions
                                                 .AnyAsync(s => s.UserId == userId && s.EndDate > DateTime.UtcNow);
    
             return hasActiveSubcription;
         }
 
-        public async Task<IEnumerable<TrainningSession>> GetSessionsByTrainerIdAsync(int trainerId)
+        public async Task<IEnumerable<TrainningSession>> GetSessionsByTrainerIdAsync(int userId)
         {
+            var trainer = await _context.Trainers.FirstOrDefaultAsync(t => t.UserId == userId);
+            if (trainer == null)
+                return new List<TrainningSession>();
+
             return await _context.TrainingSessions
                 .Include(ts => ts.User)
                 .Include(ts => ts.Trainer)
                     .ThenInclude(t => t.User)
                 .Include(ts => ts.GymRoom)
-                .Where(ts => ts.TrainerId == trainerId)
+                .Where(ts => ts.TrainerId == trainer.TrainerId)
                 .ToListAsync();
         }
 

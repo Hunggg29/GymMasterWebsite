@@ -13,11 +13,13 @@ namespace GymMaster.API.Controllers
     {
         
         private readonly ITrainerService _trainerService;
+        private readonly ITrainingSessionService _sessionService;
         private readonly IMapper mapper;
 
-        public TrainerController(ITrainerService trainerService, IMapper mapper)
+        public TrainerController(ITrainerService trainerService, IMapper mapper, ITrainingSessionService trainingSessionService)
         {
             _trainerService = trainerService;
+            _sessionService = trainingSessionService;
             this.mapper = mapper;
         }
 
@@ -51,8 +53,9 @@ namespace GymMaster.API.Controllers
         [HttpGet("{id}/sessions")]
         public async Task<IActionResult> GetTrainingSessionsByTrainerId(int id)
         {
-            var sessions = await _trainerService.GetTrainingSessionsByTrainerIdAsync(id);
-            return Ok(sessions);
+            var sessions = await _sessionService.GetSessionsByTrainerIdAsync(id);
+            var sessionDtos = mapper.Map<IEnumerable<TrainingSessionDto>>(sessions);
+            return Ok(sessionDtos);
         }
 
         [HttpPost]

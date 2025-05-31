@@ -16,7 +16,7 @@ namespace GymMaster.API.Services.Interfaces
         Task<bool> IsUserEligibleAsync(int userId);
         
         // Lấy danh sách session theo trainer
-        Task<IEnumerable<TrainningSession>> GetSessionsByTrainerIdAsync(int trainerId);
+        Task<IEnumerable<TrainningSession>> GetSessionsByTrainerIdAsync(int userId);
         
         // Lấy danh sách session theo user
         Task<IEnumerable<TrainningSession>> GetSessionsByUserIdAsync(int userId);
