@@ -1,24 +1,83 @@
 
-
-
 import React from 'react';
-import { Link } from 'react-router-dom';
+import axios from "axios";
+import toast from 'react-hot-toast';
+import { useAuth } from '../context/auth';
 
-const Trainer = ({ img, alt, id, name, age }) => {
+const Trainer = ({ userImg, name, email, contact, i,fullname,id,onDelete,experience,PricePerHour,specialty}) => {
+  const { auth } = useAuth();
+  
+  const handleRemove = async (e) =>{
+    e.preventDefault(); 
+    try{
+      const isConfirmed = window.confirm("Are you sure you want to delete this user?");
+      
+      if (!isConfirmed) {
+        return; 
+      }
+
+      const response = await axios.delete(`${BASE_URL}/api/Trainer/${id}`, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`
+        }
+      });
+      
+    
+      if (response.status === 204) {
+        toast.success('User deleted successfully');
+        if (onDelete) {
+          onDelete(); 
+        }
+      } else {
+        toast.error('Failed to delete user');
+      }
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      toast.error(error.response?.data?.message || 'Error deleting user');
+    }
+  }
   return (
-  <div className="text-black rounded-xl shadow-lg hover:shadow-xl transition-transform transform hover:scale-105 duration-300 text-center">
-      <img src={img} alt={alt} className="w-full  mx-auto rounded-t-lg" />
-      <div className="p-5 text-center">
-        <h3 className="text-xl font-semibold mb-1">{name}</h3>
-        <p className="text-gray-700 text-md">Age: {age}</p>
-        <div className="mt-1">
-          <Link to={`trainer/${id}`} className="mt-4 inline-block bg-blue-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-blue-800 transition-colors duration-300">
-            View Profile
-          </Link>
-        </div>
+    
+    <div 
+      key={i} 
+      className='flex flex-col gap-6 justify-center items-center border-2 border-gray-200 rounded-lg p-6 transition-all ease-in-out duration-300 group shadow-md hover:shadow-lg hover:bg-gray-50 w-full max-w-lg mx-auto'
+    >
+      <h3 className='text-indigo-600 font-bold text-center text-2xl group-hover:text-indigo-800 transition-all ease-in-out'>
+        {name}
+      </h3>
+      <img 
+        src={userImg} 
+        alt="Trainer" 
+        className='w-[100px] h-[100px] object-cover rounded-full border-4 border-gray-300 group-hover:scale-110 transition-transform duration-300' 
+      />
+      <div className='flex flex-col gap-4 w-full'>
+        <p className='text-gray-700 text-md bg-indigo-100 rounded-lg p-3'>
+          <span className='font-semibold text-indigo-600'>Email: </span>{email}
+        </p>
+        <p className='text-gray-700 text-md bg-teal-100 rounded-lg p-3'>
+          <span className='font-semibold text-teal-600'>Contact: </span>{contact}
+        </p>
+        <p className='text-gray-700 text-md bg-pink-100 rounded-lg p-3'>
+          <span className='font-semibold text-pink-600'>FullName: </span>{fullname}
+        </p>
+        <p className='text-gray-700 text-md bg-pink-100 rounded-lg p-3'>
+          <span className='font-semibold text-pink-600'>Experience: </span>{experience}
+        </p>
+        <p className='text-gray-700 text-md bg-pink-100 rounded-lg p-3'>
+          <span className='font-semibold text-pink-600'>PricePerHour: </span>{PricePerHour}
+        </p>
+        <p className='text-gray-700 text-md bg-pink-100 rounded-lg p-3'>
+          <span className='font-semibold text-pink-600'>Specialty: </span>{specialty}
+        </p>
+      </div>
+      <div className="justify-end flex w-full">
+       
+        <button onClick={handleRemove}  class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+        Delete
+        </button>
       </div>
     </div>
   );
-};
+}
 
 export default Trainer;

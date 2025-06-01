@@ -13,6 +13,8 @@ const AdminDashBoard = () => {
   const [subscriberCount, setSubscriberCount] = useState(null);
   const [contactCount, setContactCount] = useState(null);
   const [feedbackCount, setFeedbackCount] = useState(null);
+  const [trainerCount, setTrainerCount] = useState(null);
+  const [gymroomCount, setGymroomCount] = useState(null);
   const [loading, setLoading] = useState(false);
 
   // AOS Initialization
@@ -30,7 +32,35 @@ const AdminDashBoard = () => {
     getSubscriptions();
     getContacts();
     getFeedbacks();
+    getGymrooms();
+    getTrainers();
   }, []);
+
+  const getGymrooms = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get(`${BASE_URL}/api/GymRoom`);
+      setGymroomCount(Array.isArray(res.data) ? res.data.length : 0);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      toast.error("Something went wrong in getting gymrooms");
+      setLoading(false);
+    }
+  };
+
+  const getTrainers = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get(`${BASE_URL}/api/Trainer`);
+      setTrainerCount(Array.isArray(res.data) ? res.data.length : 0);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      toast.error("Something went wrong in getting trainers");
+      setLoading(false);
+    }
+  };
 
   const getUsers = async () => {
     try {
@@ -123,6 +153,12 @@ const AdminDashBoard = () => {
               <h2 className='text-white font-bold text-3xl'>Feedbacks: {feedbackCount !== null ? feedbackCount : "Loading..."}</h2>
             </Link>
           )}
+          <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/admin/trainers`} data-aos="fade-up" data-aos-delay="300">
+            <h2 className='text-white font-bold text-3xl'>Trainer: {trainerCount !== null ? trainerCount : "Loading..."}</h2>
+          </Link>
+          <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/admin/gymrooms`} data-aos="fade-up" data-aos-delay="300">
+            <h2 className='text-white font-bold text-3xl'>GymRoom: {gymroomCount !== null ? gymroomCount : "Loading..."}</h2>
+          </Link>
         </div>
       </div>
     </section>

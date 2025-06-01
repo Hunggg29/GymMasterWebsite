@@ -1,10 +1,10 @@
-import { BASE_URL } from '../../utils/fetchData'
+
 import React from 'react';
 import axios from "axios";
 import toast from 'react-hot-toast';
 import { useAuth } from '../../context/auth';
 
-const Trainer = ({ userImg, name, email, contact, i,fullname,id,onDelete }) => {
+const Trainer = ({ userImg, name, email, contact, i,fullname,id,onDelete,experience,PricePerHour,specialty}) => {
   const { auth } = useAuth();
   
   const handleRemove = async (e) =>{
@@ -17,7 +17,7 @@ const Trainer = ({ userImg, name, email, contact, i,fullname,id,onDelete }) => {
         return; // Exit if user cancels
       }
 
-      const response = await axios.delete(`${BASE_URL}/api/users/${id}`, {
+      const response = await axios.delete(`${BASE_URL}/api/Trainer/${id}`, {
         headers: {
           Authorization: `Bearer ${auth.token}`
         }
@@ -48,7 +48,7 @@ const Trainer = ({ userImg, name, email, contact, i,fullname,id,onDelete }) => {
       </h3>
       <img 
         src={userImg} 
-        alt="User" 
+        alt="Trainer" 
         className='w-[100px] h-[100px] object-cover rounded-full border-4 border-gray-300 group-hover:scale-110 transition-transform duration-300' 
       />
       <div className='flex flex-col gap-4 w-full'>
@@ -61,7 +61,15 @@ const Trainer = ({ userImg, name, email, contact, i,fullname,id,onDelete }) => {
         <p className='text-gray-700 text-md bg-pink-100 rounded-lg p-3'>
           <span className='font-semibold text-pink-600'>FullName: </span>{fullname}
         </p>
-
+        <p className='text-gray-700 text-md bg-pink-100 rounded-lg p-3'>
+          <span className='font-semibold text-pink-600'>Experience: </span>{experience}
+        </p>
+        <p className='text-gray-700 text-md bg-pink-100 rounded-lg p-3'>
+          <span className='font-semibold text-pink-600'>PricePerHour: </span>{PricePerHour}
+        </p>
+        <p className='text-gray-700 text-md bg-pink-100 rounded-lg p-3'>
+          <span className='font-semibold text-pink-600'>Specialty: </span>{specialty}
+        </p>
       </div>
       <div className="justify-end flex w-full">
        

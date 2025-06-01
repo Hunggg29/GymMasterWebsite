@@ -1,11 +1,18 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Header, Footer, ScrollButton, PrivateRoute, AdminRoute,StaffRoute,TrainerRoute} from "./components";
-import { Register, Login,UserListStaff, ForgotPassword, Home, PlanSubscription,UpdatePlanStaff, Error, Profile, UserDashBoard, PlanDetail, AdminDashBoard,StaffDashBoard, CreatePlan, UpdatePlan, Plans,PlansStaff, SubscriberList, UserList, FavouriteExercises, PlanDetails, PlanFullDetail, ContactUs, TrainerDetails, Feedback, Feedbacks, FeedbackList, Payment,TrainerDashBoard,SessionsList,SubscriptionList, MemberList,SessionsListTrainer} from "./pages";
+import { Header, Footer, ScrollButton, PrivateRoute, AdminRoute, StaffRoute, TrainerRoute } from "./components";
+import {
+  Register, Login, UserListStaff, ForgotPassword, Home, PlanSubscription, UpdatePlanStaff, Error, Profile,
+  UserDashBoard, PlanDetail, AdminDashBoard, StaffDashBoard, CreatePlan, UpdatePlan, Plans, PlansStaff,
+  SubscriberList, UserList, FavouriteExercises, PlanDetails, PlanFullDetail, ContactUs, TrainerDetails,
+  Feedback, Feedbacks, FeedbackList, Payment, TrainerDashBoard, SessionsList, SubscriptionList,
+  MemberList, SessionsListTrainer
+} from "./pages";
+import TrainerList from "./pages/Admin/TrainerList";
+import GymroomList from "./pages/Admin/GymroomList";
 import RegisterTrainingSession from './pages/User/RegisterTrainingSession';
-// import PlanFullDetail from './pages/User/planFullDetail';
+import Equipment from './pages/Admin/Equipment';
 import { Toaster } from 'react-hot-toast';
 import { useAuth } from "./context/auth";
-// import axios from 'axios';
 
 const App = () => {
   const { auth, setAuth } = useAuth();
@@ -53,7 +60,9 @@ const App = () => {
           <Route path='admin/contact-us' element={<ContactUs />} />
           <Route path='admin/subscriber-list' element={<SubscriberList />} />
           <Route path='admin/feedbacks' element={<FeedbackList />} />
-         
+           <Route path='admin/gymrooms' element={<GymroomList />} />
+          <Route path='admin/trainers' element={<TrainerList />} />
+          <Route path="admin/gymrooms/:id/equipments" element={<Equipment />} />
         </Route>
          {/* staff routes ================================== */}
          <Route path='/dashboard' element={<StaffRoute/>}>
@@ -82,7 +91,7 @@ const App = () => {
           <Route path='admin/contact-us' element={<ContactUs />} />
           <Route path='admin/subscriber-list' element={<SubscriberList />} />
           <Route path='staff/feedbacks' element={<FeedbackList />} />
-         
+          
         </Route>
           
 
