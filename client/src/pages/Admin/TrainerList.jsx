@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Heading, Trainer, Loader } from '../../components';
+import { Heading, Loader } from '../../components';
 import axios from 'axios';
+import Trainer from '../../components/admin/Trainer';
 import { toast } from "react-hot-toast";
 import { userImg } from "../../images";
 import { BASE_URL } from '../../utils/fetchData';
@@ -51,9 +52,9 @@ const TrainerList = () => {
                                     userImg={userImg}
                                     email={tr.user?.email}
                                     contact={tr.user?.phone}
-                                    spec = {tr.specialty}
-                                    exp ={tr.experience}
-                                    pph = {tr.pricePerHour}
+                                    specialty = {tr.specialty}
+                                    experience ={tr.experience}
+                                    PricePerHour = {tr.pricePerHour}
                                     onDelete={handleDelete}
                                 />
                             )

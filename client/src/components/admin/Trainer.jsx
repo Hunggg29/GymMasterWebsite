@@ -1,10 +1,10 @@
-
+import { BASE_URL } from '../../utils/fetchData';
 import React from 'react';
 import axios from "axios";
 import toast from 'react-hot-toast';
 import { useAuth } from '../../context/auth';
 
-const Trainer = ({ userImg, name, email, contact, i,fullname,id,onDelete,experience,PricePerHour,specialty}) => {
+const Trainer = ({ userImg, name, email, contact, i,id,onDelete,experience,PricePerHour,specialty}) => {
   const { auth } = useAuth();
   
   const handleRemove = async (e) =>{
@@ -57,9 +57,6 @@ const Trainer = ({ userImg, name, email, contact, i,fullname,id,onDelete,experie
         </p>
         <p className='text-gray-700 text-md bg-teal-100 rounded-lg p-3'>
           <span className='font-semibold text-teal-600'>Contact: </span>{contact}
-        </p>
-        <p className='text-gray-700 text-md bg-pink-100 rounded-lg p-3'>
-          <span className='font-semibold text-pink-600'>FullName: </span>{fullname}
         </p>
         <p className='text-gray-700 text-md bg-pink-100 rounded-lg p-3'>
           <span className='font-semibold text-pink-600'>Experience: </span>{experience}
