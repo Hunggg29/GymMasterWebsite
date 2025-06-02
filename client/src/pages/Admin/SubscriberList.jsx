@@ -4,17 +4,17 @@ import { Heading, Subscription, Loader } from '../../components';
 import { userImg } from "../../images";
 import { useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../../utils/fetchData';
+import toast from 'react-hot-toast';
 
 const SubscriberList = () => {
   const [subscriber, setSubscriber] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const [subId, setSubId] = useState(null); // Initialize subId as null
-console.log(subscriber);
+
   const getAllSubscribers = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${BASE_URL}/api/Subscription`);
+      const res = await axios.get(`${BASE_URL}/api/subscription`);
       setSubscriber(Array.isArray(res.data) ? res.data : []);
       setLoading(false); 
     } catch (err) {
@@ -23,26 +23,24 @@ console.log(subscriber);
     }
   };
 
-  useEffect(() => {
-    getAllSubscribers();
-  }, []);
-
-  const handleDelete = async (id) => {
+  const handleDelete = async (subscriptionId) => {
     try {
-      let answer = window.prompt("Are you sure you want to delete subscriber?");
-      if (!answer) return;
-         const { data } = await axios.delete(`${BASE_URL}/api/v1/subscription/delete-subscription/${id}`);
+      const { data } = await axios.delete(`${BASE_URL}/api/subscription/${subscriptionId}`);
       if (data?.success) {
-        console.log(data);
-        navigate("/dashboard/admin");
+        toast.success('Delete subscription successfully');
+        getAllSubscribers(); // Refresh the list after deletion
       } else {
-        console.error(data?.message);
+        toast.error(data?.message || 'Can not delete subscription');
       }
     } catch (error) {
-      console.error("Error deleting subscriber:", error);
+      console.error("Error deleting subscription:", error);
+      toast.error('Can not delete subscription');
     }
   };
 
+  useEffect(() => {
+    getAllSubscribers();
+  }, []);
 
   if(loading){
     return <Loader/>
@@ -57,14 +55,13 @@ console.log(subscriber);
             <Subscription
               key={i}
               userImg={userImg}
-              userName={s.userName}
-              planName={s.planName} 
-              planAmount={s.planAmount}
-              planType={s.planType}
-              createdAt={s.createdAt} 
-              planid={s.planId} 
-              subId={s.id} 
-              handleDelete={() => handleDelete(s.id)} 
+              userName={s.username}
+              planName={s.planName}
+              planPrice={s.planPrice}
+              durationInDays={s.durationInDays}
+              userId={s.userId}
+              subscriptionId={s.id}
+              onDelete={handleDelete}
             />
           ))}
         </div>

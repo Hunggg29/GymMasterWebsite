@@ -9,7 +9,11 @@
         public bool AutoRenew { get; set; }
 
         // Trường từ User
+        public int UserId { get; set; }
         public string Username { get; set; }
+        public string FullName { get; set; }
+
+        public string Phone { get; set; }
 
         // Trường từ Plan
         public string PlanName { get; set; }
