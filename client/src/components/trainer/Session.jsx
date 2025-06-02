@@ -35,7 +35,7 @@ const handleSave = async (data)=>{
         <div className="flex items-center gap-2">
           <Users className="text-blue-600" size={24} />
           <h3 className="text-xl font-semibold text-blue-600">
-            Người tập: {session.userName}
+            Trainer: {session.userName}
           </h3>
         </div>
       </div>
