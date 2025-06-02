@@ -15,7 +15,8 @@ const UserListStaff = () => {
   const getAllUsers = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${BASE_URL}/api/users`);
+      const res = await axios.get(`${BASE_URL}/api/Subscription`);
+      console.log(res.data)
       setUsers(Array.isArray(res.data) ? res.data : []);
       setLoading(false); 
     }
@@ -73,9 +74,9 @@ const handleDelete= async () =>{
             <Heading name="User List" />
           <div className="container mx-auto px-6 py-10">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {users.map((u, i) => ( u.role=== "user" &&
+              {users.map((u, i) => (  
                 
-                  <UserStaff  id={u.id} fullname={u.fullName} userImg={userImg} name={u.username} email={u.email} contact={u.phone} role={u.role}  i={i} key={i}/>
+                  <UserStaff  id={u.userId} fullname={u.fullName} userImg={userImg} name={u.username} email={u.email} contact={u.phone} role={u.role}  i={i} key={i}/>
                
               )
                

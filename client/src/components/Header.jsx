@@ -60,7 +60,7 @@ const Header = () => {
             </li>
             )
             }
-            {auth?.user?.role != "user" && (
+            {auth?.user?.role == "admin" && (
               <li>
                 <Link to="/dashboard/admin/create-plane" className="text-white hover:text-yellow-400 transition-all duration-300">
                   Create Plan

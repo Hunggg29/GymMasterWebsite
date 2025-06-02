@@ -37,7 +37,7 @@ const StaffDashBoard = () => {
   const getUsers = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${BASE_URL}/api/users`);
+      const res = await axios.get(`${BASE_URL}/api/Subscription`);
       setUserCount(Array.isArray(res.data) ? res.data.length : 0);
       setLoading(false);
     } catch (err) {
@@ -121,7 +121,7 @@ const StaffDashBoard = () => {
       <div className="container mx-auto px-6 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-stretch">
           <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/staff/user-list`} data-aos="fade-up">
-            <h2 className='text-white font-bold text-3xl'>Users: {userCount !== null ? userCount : "Loading..."}</h2>
+            <h2 className='text-white font-bold text-3xl'>Subcriber : {userCount !== null ? userCount : "Loading..."}</h2>
           </Link>
          
           {/* <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/staff/plans`} data-aos="fade-up" data-aos-delay="200">

@@ -5,7 +5,7 @@ import {
   UserDashBoard, PlanDetail, AdminDashBoard, StaffDashBoard, CreatePlan, UpdatePlan, Plans, PlansStaff,
   SubscriberList, UserList, FavouriteExercises, PlanDetails, PlanFullDetail, ContactUs, TrainerDetails,
   Feedback, Feedbacks, FeedbackList, Payment, TrainerDashBoard, SessionsList, SubscriptionList,
-  MemberList, SessionsListTrainer
+  MemberList, SessionsListTrainer,TrainingSession
 } from "./pages";
 import TrainerList from "./pages/Admin/TrainerList";
 import GymroomList from "./pages/Admin/GymroomList";
@@ -44,6 +44,7 @@ const App = () => {
           <Route path='user/favourite-exercises' element={<FavouriteExercises/>} />
           <Route path='user/feedbacks' element={<Feedbacks/>} />
           <Route path='user/payment' element={<Payment/>} />
+           <Route path='user/training-sessions' element={<TrainingSession/>} />
           <Route path='user/register-training' element={<RegisterTrainingSession />} />
         </Route>
 

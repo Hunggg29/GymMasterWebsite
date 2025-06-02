@@ -21,10 +21,10 @@ const UserDashBoard = () => {
       path: "/dashboard/user/plan-detail"
     },
     {
-      title: "Favourite Exercises",
-      description: "Access your saved exercises",
+      title: "Training Sessions",
+      description: "View Your Sessions",
       icon: <FaHeart className="text-4xl mb-4" />,
-      path: "/dashboard/user/favourite-exercises"
+      path: "/dashboard/user/training-sessions"
     },
     {
       title: "Profile",

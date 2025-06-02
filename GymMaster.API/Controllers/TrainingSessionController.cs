@@ -19,7 +19,7 @@ namespace GymMaster.API.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet]   
         public async Task<IActionResult> GetAllSessions()
         {
             var sessions = await _sessionService.GetAllSessionsAsync();
