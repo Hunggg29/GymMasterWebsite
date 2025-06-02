@@ -29,6 +29,8 @@ namespace GymMaster.API.Services.Implementations
                                     EndDate = s.EndDate,
                                     IsActive = s.IsActive,
                                     Username = s.User.Username,
+                                    FullName = s.User.FullName,
+                                    Phone = s.User.Phone,
                                     PlanName = s.Plan.Name,
                                     PlanImageUrl = s.Plan.ImageUrl,
                                     PlanDescription = s.Plan.Description,
