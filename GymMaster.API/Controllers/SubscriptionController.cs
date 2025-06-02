@@ -22,7 +22,6 @@ namespace GymMaster.API.Controllers
             _subscriptionService = subscriptionService;
         }
 
-        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAllSubCription()
         {
@@ -196,7 +195,6 @@ namespace GymMaster.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
         public async Task<IActionResult> DeleteSubscription(int id)
         {
             try

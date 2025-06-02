@@ -24,6 +24,7 @@ namespace GymMaster.API.Services.Implementations
                                 .Select(s => new GetAllSubscriptionDto
                                 {
                                     Id = s.Id,
+                                    UserId = s.UserId,
                                     StartDate = s.StartDate,
                                     EndDate = s.EndDate,
                                     IsActive = s.IsActive,
@@ -32,6 +33,7 @@ namespace GymMaster.API.Services.Implementations
                                     PlanImageUrl = s.Plan.ImageUrl,
                                     PlanDescription = s.Plan.Description,
                                     PlanPrice = s.Plan.Price,
+                                    DurationInDays = s.Plan.DurationInDays,
                                     PaymentDate = s.Payment.PaymentDate,
                                     PaymentAmount = s.Payment.Amount,
                                     PaymentStatus = s.Payment.Status

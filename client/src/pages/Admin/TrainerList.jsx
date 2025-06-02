@@ -48,13 +48,14 @@ const TrainerList = () => {
                                 <Trainer
                                     key={i}
                                     id={tr.trainerId}
+                                    userId={tr.userId}
                                     name={tr.user?.username}
                                     userImg={userImg}
                                     email={tr.user?.email}
                                     contact={tr.user?.phone}
-                                    specialty = {tr.specialty}
-                                    experience ={tr.experience}
-                                    PricePerHour = {tr.pricePerHour}
+                                    specialty={tr.specialty}
+                                    experience={tr.experience}
+                                    PricePerHour={tr.pricePerHour}
                                     onDelete={handleDelete}
                                 />
                             )
