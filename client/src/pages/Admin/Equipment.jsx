@@ -54,7 +54,7 @@ const Equipment = () => {
         headers: {
           Authorization: `Bearer ${auth.token}`,
           'Content-Type': 'application/json'
-        }
+        } 
       });
 
       if (response.status === 200) {
@@ -95,10 +95,10 @@ const Equipment = () => {
                     <span className='font-semibold text-teal-600'>RoomQuantity: </span>{eq.quantity}
                   </p>
                   <p className='text-gray-700 text-md bg-pink-100 rounded-lg p-3'>
-                    <span className='font-semibold text-pink-600'>ImportDate: </span>{eq.importDate}
+                    <span className='font-semibold text-pink-600'>ImportDate: </span>{eq.importDate.split('T')[0]}
                   </p>
                   <p className='text-gray-700 text-md bg-pink-100 rounded-lg p-3'>
-                    <span className='font-semibold text-pink-600'>Warranty: </span>{eq.warranty}
+                    <span className='font-semibold text-pink-600'>Warranty: </span>{eq.warranty.split('T')[0]}
                   </p>
                   <p className='text-gray-700 text-md bg-pink-100 rounded-lg p-3'>
                     <span className='font-semibold text-pink-600'>Status: </span>{eq.status}
