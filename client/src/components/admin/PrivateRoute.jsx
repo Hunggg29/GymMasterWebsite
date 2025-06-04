@@ -20,7 +20,8 @@ const PrivateRoute = () => {
                     return;
                 }
 
-                const res = await axios.get(`${BASE_URL}/api/auth/user-auth`,{
+                const res = await axios.get(`${BASE_URL}/api/auth/user-auth`,
+                    {
                     headers: {
                         Authorization: `Bearer ${auth.token}`
                     }

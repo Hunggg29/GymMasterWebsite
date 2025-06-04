@@ -66,7 +66,9 @@ const AdminDashBoard = () => {
     try {
       setLoading(true);
       const res = await axios.get(`${BASE_URL}/api/users`);
-      setUserCount(Array.isArray(res.data) ? res.data.length : 0);
+      const response = res.data;
+      const staff = response.filter(response => response.role=='staff')
+      setUserCount(Array.isArray(staff) ? staff.length : 0);
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -137,7 +139,7 @@ const AdminDashBoard = () => {
       <div className="container mx-auto px-6 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-stretch">
           <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/admin/user-list`} data-aos="fade-up">
-            <h2 className='text-white font-bold text-3xl'>Users: {userCount !== null ? userCount : "Loading..."}</h2>
+            <h2 className='text-white font-bold text-3xl'>StaffList: {userCount !== null ? userCount : "Loading..."}</h2>
           </Link>
           <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/admin/subscriber-list`} data-aos="fade-up" data-aos-delay="100">
             <h2 className='text-white font-bold text-3xl'>Subscribers: {subscriberCount !== null ? subscriberCount : "Loading..."}</h2>

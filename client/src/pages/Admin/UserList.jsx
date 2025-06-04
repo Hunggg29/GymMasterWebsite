@@ -44,10 +44,10 @@ const handleDelete= async () =>{
   </div>
         {user &&( 
          <div>
-            <Heading name="User List" />
+            <Heading name="Staff List" />
           <div className="container mx-auto px-6 py-10">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {users.map((u, i) => ( u.role=== "user" &&
+              {users.map((u, i) => ( u.role=== "staff" &&
                 <User onDelete={handleDelete} id={u.id} fullname={u.fullName} userImg={userImg} name={u.username} email={u.email} contact={u.phone} role={u.role}  i={i} key={i}/>
               )
               )}
