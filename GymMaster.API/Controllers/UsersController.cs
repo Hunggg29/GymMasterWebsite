@@ -5,6 +5,7 @@ using GymMaster.API.Models;
 using GymMaster.API.Services.Interfaces;
 using GymMaster.API.Models.DTO;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GymMaster.API.Controllers
 {
@@ -128,6 +129,21 @@ namespace GymMaster.API.Controllers
             var sessions = await _sessionService.GetSessionsByUserIdAsync(id);
             var sessionDtos = _mapper.Map<IEnumerable<TrainingSessionDto>>(sessions);
             return Ok(sessionDtos);
+        }
+
+        //[Authorize(Roles = "Admin")]
+        [HttpPost("create-by-admin")]
+        public async Task<IActionResult> CreateUserByAdmin([FromBody] CreateUserByAdminDto createUserDto)
+        {
+            try
+            {
+                var user = await _userService.CreateUserByAdminAsync(createUserDto);
+                return Ok(new { message = "User created successfully", userId = user.Id });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
     }
 } 

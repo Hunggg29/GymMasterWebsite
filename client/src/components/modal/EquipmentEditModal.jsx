@@ -17,7 +17,7 @@ const EquipmentEditModal = ({ isOpen, onClose, equipmentData, onSave }) => {
         name: equipmentData.name || '',
         quantity: equipmentData.quantity || '',
         importDate: equipmentData.importDate ? equipmentData.importDate.split('T')[0] : '', // Format date
-        warranty: equipmentData.warranty || '',
+        warranty: equipmentData.warranty ? equipmentData.warranty.split('T')[0] : '',
         status: equipmentData.status || '',
       });
     }
@@ -75,7 +75,7 @@ const EquipmentEditModal = ({ isOpen, onClose, equipmentData, onSave }) => {
           <div>
             <label className="block text-gray-700">Warranty</label>
             <input
-              type="text"
+              type="date"
               name="warranty"
               value={formData.warranty}
               onChange={handleChange}
