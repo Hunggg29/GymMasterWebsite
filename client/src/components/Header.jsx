@@ -19,12 +19,12 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-gradient-to-r from-blue-500 to-indigo-600 shadow-md py-4 sticky top-0 z-50">
+    <header className="bg-gradient-to-r from-emerald-500 to-teal-600 shadow-md py-4 sticky top-0 z-50">
       <div className="container mx-auto px-6 flex justify-between items-center">
         {/* Logo (Stylized Text) */}
         <Link to="/" className="flex items-center space-x-2">
-          <span className="text-3xl sm:text-4xl font-extrabold text-yellow-400 tracking-widest">
-            Gym<span className="text-white">Master</span>
+          <span className="text-3xl sm:text-4xl font-extrabold text-amber-400 tracking-widest">
+            Gym<span className="text-white">Master ITSS</span>
           </span>
         </Link>
 
@@ -42,19 +42,19 @@ const Header = () => {
         <nav className="hidden lg:flex space-x-8 items-center">
           <ul className="flex space-x-6 text-lg">
             <li>
-              <Link to="/" className="text-white hover:text-yellow-400 transition-all duration-300">
+              <Link to="/" className="text-white hover:text-amber-400 transition-all duration-300">
                 Home
               </Link>
             </li>
             {/* <li>
-              <Link to="/exercise" className="text-white hover:text-yellow-400 transition-all duration-300">
+              <Link to="/exercise" className="text-white hover:text-amber-400 transition-all duration-300">
                 Exercises
               </Link>
             </li> */}
             {auth?.user?.role === "user"&&(
 
               <li>
-              <Link to="/feedback" className="text-white hover:text-yellow-400 transition-all duration-300">
+              <Link to="/feedback" className="text-white hover:text-amber-400 transition-all duration-300">
                 Feedback
               </Link>
             </li>
@@ -62,7 +62,7 @@ const Header = () => {
             }
             {auth?.user?.role == "admin" && (
               <li>
-                <Link to="/dashboard/admin/create-plane" className="text-white hover:text-yellow-400 transition-all duration-300">
+                <Link to="/dashboard/admin/create-plane" className="text-white hover:text-amber-400 transition-all duration-300">
                   Create Plan
                 </Link>
               </li>
@@ -71,21 +71,21 @@ const Header = () => {
 
           {auth?.user ? (
             <>
-              <Link to={ `/dashboard/${auth.user.role}` } className="text-white font-semibold hover:text-yellow-400 transition-all duration-300 capitalize">
+              <Link to={ `/dashboard/${auth.user.role}` } className="text-white font-semibold hover:text-amber-400 transition-all duration-300 capitalize">
                 {auth.user.username}
               </Link>
               
              
-              <button onClick={handleLogout} className="text-white hover:text-yellow-400 transition-all duration-300">
+              <button onClick={handleLogout} className="text-white hover:text-amber-400 transition-all duration-300">
                 Logout
               </button>
             </>
           ) : (
             <>
-              <Link to="/register" className="text-white hover:text-yellow-400 transition-all duration-300">
+              <Link to="/register" className="text-white hover:text-amber-400 transition-all duration-300">
                 Register
               </Link>
-              <Link to="/login" className="text-white hover:text-yellow-400 transition-all duration-300">
+              <Link to="/login" className="text-white hover:text-amber-400 transition-all duration-300">
                 Login
               </Link>
             </>
@@ -95,45 +95,45 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden bg-blue-600 py-4">
+        <div className="lg:hidden bg-teal-600 py-4">
           <ul className="flex flex-col space-y-4 items-center text-lg">
             <li>
-              <Link to="/" className="text-white hover:text-yellow-400 transition-all duration-300" onClick={() => setMobileMenuOpen(false)}>
+              <Link to="/" className="text-white hover:text-amber-400 transition-all duration-300" onClick={() => setMobileMenuOpen(false)}>
                 Home
               </Link>
             </li>
             <li>
-              <Link to="/exercise" className="text-white hover:text-yellow-400 transition-all duration-300" onClick={() => setMobileMenuOpen(false)}>
+              <Link to="/exercise" className="text-white hover:text-amber-400 transition-all duration-300" onClick={() => setMobileMenuOpen(false)}>
                 Exercises
               </Link>
             </li>
             <li>
-              <Link to="/feedback" className="text-white hover:text-yellow-400 transition-all duration-300" onClick={() => setMobileMenuOpen(false)}>
+              <Link to="/feedback" className="text-white hover:text-amber-400 transition-all duration-300" onClick={() => setMobileMenuOpen(false)}>
                 Feedback
               </Link>
             </li>
             {auth?.user?.username === "admin" && (
               <li>
-                <Link to="/dashboard/admin/create-plane" className="text-white hover:text-yellow-400 transition-all duration-300" onClick={() => setMobileMenuOpen(false)}>
+                <Link to="/dashboard/admin/create-plane" className="text-white hover:text-amber-400 transition-all duration-300" onClick={() => setMobileMenuOpen(false)}>
                   Create Plan
                 </Link>
               </li>
             )}
             {auth?.user ? (
               <>
-                <Link to={auth.user.username === "admin" ? "/dashboard/admin" : "/dashboard/user"} className="text-white font-semibold hover:text-yellow-400 transition-all duration-300 capitalize" onClick={() => setMobileMenuOpen(false)}>
+                <Link to={auth.user.username === "admin" ? "/dashboard/admin" : "/dashboard/user"} className="text-white font-semibold hover:text-amber-400 transition-all duration-300 capitalize" onClick={() => setMobileMenuOpen(false)}>
                   {auth.user.username}
                 </Link>
-                <button onClick={() => { handleLogout(); setMobileMenuOpen(false); }} className="text-white hover:text-yellow-400 transition-all duration-300">
+                <button onClick={() => { handleLogout(); setMobileMenuOpen(false); }} className="text-white hover:text-amber-400 transition-all duration-300">
                   Logout
                 </button>
               </>
             ) : (
               <>
-                <Link to="/register" className="text-white hover:text-yellow-400 transition-all duration-300" onClick={() => setMobileMenuOpen(false)}>
+                <Link to="/register" className="text-white hover:text-amber-400 transition-all duration-300" onClick={() => setMobileMenuOpen(false)}>
                   Register
                 </Link>
-                <Link to="/login" className="text-white hover:text-yellow-400 transition-all duration-300" onClick={() => setMobileMenuOpen(false)}>
+                <Link to="/login" className="text-white hover:text-amber-400 transition-all duration-300" onClick={() => setMobileMenuOpen(false)}>
                   Login
                 </Link>
               </>
