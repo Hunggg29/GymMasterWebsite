@@ -1,58 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Heading from './Heading';
-import Trainer from './Trainer';
+import { Trainer } from ".";
+import { trainerImg1, trainerImg2, trainerImg3, trainerImg4 } from "../images";
 import AOS from 'aos';
-import 'aos/dist/aos.css';
-import axios from 'axios';
-import { userImg } from '../images';
-import { BASE_URL } from '../utils/fetchData';
-import { trainerImg1,trainerImg2,trainerImg3,trainerImg4 } from '../images';
-const trainerImages = [trainerImg1, trainerImg2, trainerImg3, trainerImg4];
+import 'aos/dist/aos.css'; // Import AOS styles
 
 const Trainers = () => {
-  const [trainers, setTrainers] = useState([]);
-
+  // Initialize AOS
   useEffect(() => {
-    AOS.init({ duration: 2000, offset: -200, easing: "ease-in-out" });
-
-    const fetchTrainers = async () => {
-      try {
-        const response = await axios.get(`${BASE_URL}/api/Trainer`);
-        setTrainers(response.data);
-      } catch (error) {
-        console.error("Error fetching trainers:", error);
-      }
-    };
-
-    fetchTrainers();
+    AOS.init({ duration: 2000, offset:-200, easing:"ease-in-out" }); // You can customize the duration and options here
   }, []);
-
-  const handleDelete = async () => {
-    await getTrainers();
-  };
 
   return (
     <section className='pt-10 relative'>
       <Heading name="Our Trainers" />
       <div className="container py-16 mx-auto px-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {trainers.slice(0, 4).map((tr, i) => (
-            <div key={tr._id || i} data-aos="fade-up" data-aos-delay={i * 200}>
-              <Trainer
-                key={i}
-                id={tr.trainerId}
-                userId={tr.userId}
-                name={tr.user?.username}
-                userImg={trainerImages[i]}
-                email={tr.user?.email}
-                contact={tr.user?.phone}
-                specialty={tr.specialty}
-                experience={tr.experience}
-                PricePerHour={tr.pricePerHour}
-                onDelete={handleDelete}
-              />
-            </div>
-          ))}
+          <div data-aos="fade-up">
+            <Trainer img={trainerImg1} alt="trainer-1" id="1" name="John" age="48" data-aos-delay="100" />
+          </div>
+          <div data-aos="fade-in" data-aos-delay="300">
+            <Trainer img={trainerImg2} alt="trainer-2" id="2" name="Alish" age="40" />
+          </div>
+          <div data-aos="fade-down" data-aos-delay="500">
+            <Trainer img={trainerImg3} alt="trainer-3" id="3" name="Rey" age="33" />
+          </div>
+          <div data-aos="zoom-in" data-aos-delay="700">
+            <Trainer img={trainerImg4} alt="trainer-4" id="4" name="Akon" age="35" />
+          </div>
         </div>
       </div>
       <div className="absolute inset-0 bg-gradient-to-b from-blue-800 to-green-300 opacity-80 pointer-events-none z-[-1]"></div>
@@ -61,3 +36,5 @@ const Trainers = () => {
 };
 
 export default Trainers;
+
+
