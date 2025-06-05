@@ -27,9 +27,7 @@ namespace GymMaster.API.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Users_TrainerId",
                 table: "Users",
-                column: "TrainerId",
-                unique: true,
-                filter: "[TrainerId] IS NOT NULL");
+                column: "TrainerId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Users_Trainers_TrainerId",

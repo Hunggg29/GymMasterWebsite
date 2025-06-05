@@ -131,7 +131,7 @@ namespace GymMaster.API.Controllers
             return Ok(sessionDtos);
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "admin")]
         [HttpPost("create-by-admin")]
         public async Task<IActionResult> CreateUserByAdmin([FromBody] CreateUserByAdminDto createUserDto)
         {
