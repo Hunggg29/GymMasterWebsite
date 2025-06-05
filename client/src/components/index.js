@@ -34,4 +34,5 @@ import FeedbackComponent from "./admin/FeedbackComponent";
 import Loader from "./Loader";
 import Member from "./trainer/Member"
 import SessionTrainer from "./trainer/Session"
-export {Header,Session,UserStaff, Footer,Hero,SessionTrainer, Heading, Plan, Plans, Trainers, Trainer, Reviews, Review, FAQ, ScrollButton, FaqComponent, ButtonOutline, Button, Input, TextArea, ExerciseCard, ExerciseVideos, BodyPart, SearchInput, Spinner, AdminRoute, PrivateRoute, PlanForm, Subscription, User, ContactComponent, FeedbackComponent, Loader,StaffRoute,TrainerRoute,Member};
+import GymRoomStaff from "./staff/GymRoom"
+export {Header,Session,GymRoomStaff,UserStaff, Footer,Hero,SessionTrainer, Heading, Plan, Plans, Trainers, Trainer, Reviews, Review, FAQ, ScrollButton, FaqComponent, ButtonOutline, Button, Input, TextArea, ExerciseCard, ExerciseVideos, BodyPart, SearchInput, Spinner, AdminRoute, PrivateRoute, PlanForm, Subscription, User, ContactComponent, FeedbackComponent, Loader,StaffRoute,TrainerRoute,Member};

@@ -4,9 +4,9 @@ import toast from 'react-hot-toast';
 import { BASE_URL } from '../../utils/fetchData';
 import { useAuth } from '../../context/auth';
 import { useNavigate } from 'react-router-dom';
-import GymRoomEditModal from './GymRoomEditModal';
+import GymRoomEditModal from '../admin/GymRoomEditModal';
 
-const GymRoom = ({ id, roomName, roomType, roomQuantity, roomStatus, onDelete, i }) => {
+const GymRoomStaff = ({ id, roomName, roomType, roomQuantity, roomStatus, onDelete, i }) => {
   const { auth } = useAuth();
   const [showEditModal, setShowEditModal] = useState(false);
   const [currentRoomData, setCurrentRoomData] = useState({ id, roomName, roomType, roomQuantity, roomStatus });
@@ -45,7 +45,7 @@ const GymRoom = ({ id, roomName, roomType, roomQuantity, roomStatus, onDelete, i
   const navigate = useNavigate();
 
   const handleEquipmentsClick = () => {
-    navigate(`/dashboard/admin/gymrooms/${id}/equipments`);
+    navigate(`/dashboard/staff/gymrooms/${id}/equipments`);
   };
 
   return (
@@ -89,4 +89,4 @@ const GymRoom = ({ id, roomName, roomType, roomQuantity, roomStatus, onDelete, i
   );
 };
 
-export default GymRoom;
+export default GymRoomStaff;

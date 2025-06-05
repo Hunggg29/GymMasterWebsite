@@ -6,6 +6,7 @@ import { toast } from "react-hot-toast";
 import { BASE_URL } from "../../utils/fetchData";
 import AOS from 'aos';
 import 'aos/dist/aos.css'; // Import AOS styles
+import AddStaffModal from '../../components/AddStaffModal';
 
 const AdminDashBoard = () => {
   const [userCount, setUserCount] = useState(null);
@@ -16,6 +17,7 @@ const AdminDashBoard = () => {
   const [trainerCount, setTrainerCount] = useState(null);
   const [gymroomCount, setGymroomCount] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [isAddStaffModalOpen, setIsAddStaffModalOpen] = useState(false);
 
   // AOS Initialization
   useEffect(() => {
@@ -66,7 +68,9 @@ const AdminDashBoard = () => {
     try {
       setLoading(true);
       const res = await axios.get(`${BASE_URL}/api/users`);
-      setUserCount(Array.isArray(res.data) ? res.data.length : 0);
+      const response = res.data;
+      const staff = response.filter(response => response.role=='staff')
+      setUserCount(Array.isArray(staff) ? staff.length : 0);
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -135,9 +139,22 @@ const AdminDashBoard = () => {
     <section className='pt-10 bg-gray-900'>
       <Heading name="Admin Dashboard" />
       <div className="container mx-auto px-6 py-20">
+        {/* Add Staff Button - Moved to right */}
+        <div className="flex justify-end mb-6">
+          <button
+            onClick={() => setIsAddStaffModalOpen(true)}
+            className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 flex items-center"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
+            </svg>
+            Add New Staff
+          </button>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-stretch">
           <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/admin/user-list`} data-aos="fade-up">
-            <h2 className='text-white font-bold text-3xl'>Users: {userCount !== null ? userCount : "Loading..."}</h2>
+            <h2 className='text-white font-bold text-3xl'>StaffList: {userCount !== null ? userCount : "Loading..."}</h2>
           </Link>
           <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/admin/subscriber-list`} data-aos="fade-up" data-aos-delay="100">
             <h2 className='text-white font-bold text-3xl'>Subscribers: {subscriberCount !== null ? subscriberCount : "Loading..."}</h2>
@@ -157,6 +174,16 @@ const AdminDashBoard = () => {
             <h2 className='text-white font-bold text-3xl'>GymRoom: {gymroomCount !== null ? gymroomCount : "Loading..."}</h2>
           </Link>
         </div>
+
+        {/* Add Staff Modal */}
+        <AddStaffModal
+          isOpen={isAddStaffModalOpen}
+          onClose={() => setIsAddStaffModalOpen(false)}
+          onSuccess={() => {
+            // Refresh data if needed
+            setIsAddStaffModalOpen(false);
+          }}
+        />
       </div>
     </section>
   )

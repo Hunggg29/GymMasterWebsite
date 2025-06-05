@@ -1,0 +1,125 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useAuth } from '../../context/auth';
+import { BASE_URL } from '../../utils/fetchData';
+import { Heading, Loader } from '../../components';
+import { format } from 'date-fns';
+import { CalendarDays, Clock, UserIcon, Users, Home, ClipboardList, Dumbbell } from "lucide-react";
+
+const TrainingSession = () => {
+  const { auth } = useAuth();
+const [trainingSessions, setTrainingSessions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchSubscriptions = async () => {
+      try {
+        setLoading(true);
+         const res = await axios.get(`${BASE_URL}/api/Users/${auth.user.id}/trainingSessions`,
+          {
+            headers: {
+              Authorization: `Bearer ${auth.token}`
+            }
+          }
+         );
+
+        setTrainingSessions(res.data);
+      } catch (err) {
+        console.error('Error fetching subscriptions:', err);
+        setError('Failed to load subscription details');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (auth) {
+      fetchSubscriptions();
+    }
+  }, [auth]);
+
+  if (loading) return <Loader />;
+
+  if (error) {
+    return (
+      <div className="bg-gray-900 min-h-screen py-12">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center text-red-500">{error}</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!trainingSessions.length) {
+    return (
+      <div className="bg-gray-900 min-h-screen py-12">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center text-white text-xl">
+            You don't have any active Sessions.
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <section className="bg-gray-900 min-h-screen py-12">
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="text-center mb-12">
+          <Heading name="Your Training Sessions" />
+          <p className="text-gray-400 text-lg mt-2">View Your Sessions Details</p>
+        </div>
+
+        <div className="space-y-4 max-h-[70vh] overflow-y-auto pr-2 custom-scrollbar">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {trainingSessions.map((session, index) => {
+              const dateOnly=session.startTime.split("T")[0]
+              const timeOnly=session.startTime.split("T")[1].slice(0,5);
+              return (
+                <div key={index} className="bg-white shadow-lg rounded-xl p-6 hover:shadow-xl transition-shadow">
+                  {/* Header Section */}
+                  <div className="space-y-2 mb-4 border-b pb-4">
+                    <div className="flex items-center gap-2">
+                      <UserIcon className="text-blue-600" size={24} />
+                      <h3 className="text-xl font-semibold text-blue-600">
+                        Trainer: {session.trainerName}
+                      </h3>
+                    </div>
+                  </div>
+
+                  {/* Time Information Section */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="flex items-center gap-3 text-gray-700">
+                      <CalendarDays className="text-blue-500" size={20} />
+                      <span>Date: {dateOnly}</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-gray-700">
+                      <Clock className="text-blue-500" size={20} />
+                      <span>Start Time: {timeOnly}</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-gray-700">
+                      <Home className="text-blue-500" size={20} />
+                      <span>Room: {session.roomName}</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-gray-700">
+                      <Dumbbell className="text-blue-500" size={20} />
+                      <span>Session Type: {session.sessionType}</span>
+                    </div>
+                    <div className="col-span-2 flex items-start gap-3 text-gray-700">
+                      <ClipboardList className="text-blue-500 mt-1" size={20} />
+                      <span>Notes: {session.notes}</span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default TrainingSession;
+
+

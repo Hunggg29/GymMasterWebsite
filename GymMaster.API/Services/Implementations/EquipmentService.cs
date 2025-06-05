@@ -44,10 +44,8 @@ namespace GymMaster.API.Services.Implementations
             existEquipment.Status = equipment.Status;
             existEquipment.Quantity = equipment.Quantity;
             existEquipment.Warranty = equipment.Warranty;
-            existEquipment.RoomId = equipment.RoomId;
             await _context.SaveChangesAsync();
             return existEquipment;
-
         }
 
         public async Task<Equipment?> DeleteEquipmentAsync(int id)

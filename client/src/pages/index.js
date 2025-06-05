@@ -34,4 +34,6 @@ import SessionsList from "./Staff/SessionsList";
 import Payment from "./Payment";
 import MemberList from "./Trainer/MemberList";
 import SessionsListTrainer from "./Trainer/SessionsList"
-export {Home, Register, Login,SubscriptionList, ForgotPassword,UpdatePlanStaff, PlanSubscription,PlansStaff, Error, About, Exercise, ExerciseDetail, PlanDetail, Profile, UserDashBoard, FavouriteExercises, AdminDashBoard, SubscriberList, CreatePlan, Plans, UpdatePlan, UserList, PlanDetails, PlanFullDetail, ContactUs, TrainerDetails, Feedback, Feedbacks, FeedbackList, Payment,StaffDashBoard,TrainerDashBoard,SessionsList,UserListStaff,MemberList,SessionsListTrainer };
+import TrainingSession from "./User/TrainingSessions"
+import GymroomListStaff from "./Staff/GymroomList"
+export {Home,GymroomListStaff, Register,TrainingSession, Login,SubscriptionList, ForgotPassword,UpdatePlanStaff, PlanSubscription,PlansStaff, Error, About, Exercise, ExerciseDetail, PlanDetail, Profile, UserDashBoard, FavouriteExercises, AdminDashBoard, SubscriberList, CreatePlan, Plans, UpdatePlan, UserList, PlanDetails, PlanFullDetail, ContactUs, TrainerDetails, Feedback, Feedbacks, FeedbackList, Payment,StaffDashBoard,TrainerDashBoard,SessionsList,UserListStaff,MemberList,SessionsListTrainer };
