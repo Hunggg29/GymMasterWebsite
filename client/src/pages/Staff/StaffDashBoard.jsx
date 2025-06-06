@@ -6,6 +6,7 @@ import { toast } from "react-hot-toast";
 import { BASE_URL } from "../../utils/fetchData";
 import AOS from 'aos';
 import 'aos/dist/aos.css'; // Import AOS styles
+import { FaUsers, FaComments, FaDumbbell, FaBuilding, FaCalendarCheck } from 'react-icons/fa';
 
 const StaffDashBoard = () => {
   const [userCount, setUserCount] = useState(null);
@@ -15,7 +16,7 @@ const StaffDashBoard = () => {
   const [feedbackCount, setFeedbackCount] = useState(null);
   const [loading, setLoading] = useState(false);
   const [gymroomCount, setGymroomCount] = useState(null);
-    const [trainingSession, setTrainingSessionCount] = useState(null);
+  const [trainingSession, setTrainingSessionCount] = useState(null);
 
   // AOS Initialization
   useEffect(() => {
@@ -35,7 +36,8 @@ const StaffDashBoard = () => {
     getFeedbacks();
     getGymrooms();
   }, []);
-const getGymrooms = async () => {
+
+  const getGymrooms = async () => {
     try {
       setLoading(true);
       const res = await axios.get(`${BASE_URL}/api/GymRoom`);
@@ -47,6 +49,7 @@ const getGymrooms = async () => {
       setLoading(false);
     }
   };
+
   const getUsers = async () => {
     try {
       setLoading(true);
@@ -59,7 +62,8 @@ const getGymrooms = async () => {
       setLoading(false);
     }
   }
-   const getTrainingSession = async () => {
+  
+  const getTrainingSession = async () => {
     try {
       setLoading(true);
       const res = await axios.get(`${BASE_URL}/api/TrainingSession`);
@@ -128,37 +132,66 @@ const getGymrooms = async () => {
     return <Loader />
   }
 
+  const dashboardItems = [
+    {
+      title: "Subscribers",
+      description: "View and manage subscribers",
+      icon: <FaUsers className="text-4xl mb-4" />,
+      count: userCount,
+      path: "/dashboard/staff/user-list"
+    },
+    {
+      title: "Feedbacks",
+      description: "View customer feedbacks",
+      icon: <FaComments className="text-4xl mb-4" />,
+      count: feedbackCount,
+      path: "/dashboard/staff/feedbacks"
+    },
+    {
+      title: "Training Sessions",
+      description: "Manage training sessions",
+      icon: <FaCalendarCheck className="text-4xl mb-4" />,
+      count: trainingSession,
+      path: "/dashboard/staff/sessions"
+    },
+    {
+      title: "Gym Rooms",
+      description: "View and manage gym facilities",
+      icon: <FaBuilding className="text-4xl mb-4" />,
+      count: gymroomCount,
+      path: "/dashboard/staff/gymrooms"
+    }
+  ];
+
   return (
-    <section className='pt-10 bg-gray-900'>
+    <section className='min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 py-10'>
       <Heading name="Staff Dashboard" />
-      <div className="container mx-auto px-6 py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-stretch">
-          <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/staff/user-list`} data-aos="fade-up">
-            <h2 className='text-white font-bold text-3xl'>Subcriber : {userCount !== null ? userCount : "Loading..."}</h2>
-          </Link>
-         
-          {/* <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/staff/plans`} data-aos="fade-up" data-aos-delay="200">
-            <h2 className='text-white font-bold text-3xl'>Plans: {planCount !== null ? planCount : "Loading..."}</h2>
-          </Link> */}
-          
-          {feedbackCount !== null && (
-            <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/staff/feedbacks`} data-aos="fade-up" data-aos-delay="400">
-              <h2 className='text-white font-bold text-3xl'>Feedbacks: {feedbackCount !== null ? feedbackCount : "Loading..."}</h2>
+      <div className="container mx-auto px-6 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {dashboardItems.map((item, index) => (
+            <Link 
+              key={index}
+              className='group p-6 rounded-xl bg-gray-800/50 border border-gray-700 hover:border-blue-500 hover:bg-gray-800 transition-all duration-300 transform hover:-translate-y-1' 
+              to={item.path}
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
+            >
+              <div className="flex flex-col items-center text-center">
+                <div className="text-blue-500 group-hover:text-blue-400 transition-colors">
+                  {item.icon}
+                </div>
+                <h2 className='text-white font-bold text-2xl mb-2 group-hover:text-blue-400 transition-colors'>
+                  {item.title}
+                </h2>
+                <p className='text-gray-400 group-hover:text-gray-300 transition-colors mb-3'>
+                  {item.description}
+                </p>
+                <div className="text-3xl font-bold text-blue-500 group-hover:text-blue-400 transition-colors">
+                  {item.count !== null ? item.count : "..."}
+                </div>
+              </div>
             </Link>
-          )}
-           {/* {planCount !== null && (
-            <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/staff/plans`} data-aos="fade-up" data-aos-delay="200">
-                       <h2 className='text-white font-bold text-3xl'>Plans: {planCount !== null ? planCount : "Loading..."}</h2>
-                     </Link>
-          )} */}
-          {trainingSession !== null && (
-            <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/staff/sessions`} data-aos="fade-up" data-aos-delay="200">
-                       <h2 className='text-white font-bold text-3xl'>Training Session: {trainingSession !== null ? trainingSession : "Loading..."}</h2>
-                     </Link>
-          )}
-          <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/staff/gymrooms`} data-aos="fade-up" data-aos-delay="300">
-                      <h2 className='text-white font-bold text-3xl'>GymRoom: {gymroomCount !== null ? gymroomCount : "Loading..."}</h2>
-                    </Link>
+          ))}
         </div>
       </div>
     </section>

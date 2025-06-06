@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
-import { Heading, Loader,Statistics } from '../../components';
+import { Heading, Loader, Statistics } from '../../components';
 import { toast } from "react-hot-toast";
 import { BASE_URL } from "../../utils/fetchData";
 import AOS from 'aos';
-import 'aos/dist/aos.css'; // Import AOS styles
-import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'aos/dist/aos.css';
+import { FaUserTie, FaUsers, FaClipboardList, FaComments, FaDumbbell, FaBuilding, FaUserPlus } from 'react-icons/fa';
 import AddStaffModal from '../../components/AddStaffModal';
 
 const AdminDashBoard = () => {
@@ -20,16 +20,14 @@ const AdminDashBoard = () => {
   const [loading, setLoading] = useState(false);
   const [isAddStaffModalOpen, setIsAddStaffModalOpen] = useState(false);
 
-  // AOS Initialization
   useEffect(() => {
     AOS.init({
-      duration: 1000, // Animation duration in milliseconds
-      easing: 'ease-in-out', // Animation easing
-      offset: 120, // Trigger animation before the element comes into view
-      once: true // Animation should happen only once while scrolling down
+      duration: 1000,
+      easing: 'ease-in-out',
+      offset: 120,
+      once: true
     });
 
-    // Fetch data
     getUsers();
     getPlans();
     getSubscriptions();
@@ -136,76 +134,103 @@ const AdminDashBoard = () => {
     return <Loader />
   }
 
+  const dashboardItems = [
+    {
+      title: "Staff",
+      description: "Manage staff members",
+      icon: <FaUserTie className="text-4xl mb-4" />,
+      count: userCount,
+      path: "/dashboard/admin/user-list"
+    },
+    {
+      title: "Subscribers",
+      description: "View all subscribers",
+      icon: <FaUsers className="text-4xl mb-4" />,
+      count: subscriberCount,
+      path: "/dashboard/admin/subscriber-list"
+    },
+    {
+      title: "Plans",
+      description: "Manage training plans",
+      icon: <FaClipboardList className="text-4xl mb-4" />,
+      count: planCount,
+      path: "/dashboard/admin/plans"
+    },
+    {
+      title: "Feedbacks",
+      description: "View customer feedbacks",
+      icon: <FaComments className="text-4xl mb-4" />,
+      count: feedbackCount,
+      path: "/dashboard/admin/feedbacks"
+    },
+    {
+      title: "Trainers",
+      description: "Manage gym trainers",
+      icon: <FaDumbbell className="text-4xl mb-4" />,
+      count: trainerCount,
+      path: "/dashboard/admin/trainers"
+    },
+    {
+      title: "Gym Rooms",
+      description: "Manage gym facilities",
+      icon: <FaBuilding className="text-4xl mb-4" />,
+      count: gymroomCount,
+      path: "/dashboard/admin/gymrooms"
+    }
+  ];
+
   return (
-    <section className='pt-10 bg-gray-900'>
+    <section className='min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 py-10'>
       <Heading name="Admin Dashboard" />
-      <div className="container mx-auto px-6 py-20">
-        {/* Add Staff Button - Moved to right */}
-        <div className="flex justify-end mb-6">
+      <div className="container mx-auto px-6 py-12">
+        {/* Add Staff Button */}
+        <div className="flex justify-end mb-8">
           <button
             onClick={() => setIsAddStaffModalOpen(true)}
-            className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 flex items-center"
+            className="group px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 transition-all duration-300 flex items-center space-x-2"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
-            </svg>
-            Add New Staff
+            <FaUserPlus className="text-xl text-white" />
+            <span className="text-white font-medium">Add New Staff</span>
           </button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-stretch">
-          <Link className='p-5 border border-white hover:bg-blue-600 transition-all flex items-center gap-4 relative overflow-hidden group' to={`/dashboard/admin/user-list`} data-aos="fade-up">
-            <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-blue-500/20 group-hover:bg-blue-500/40 transition-all">
-              <i className="fas fa-user-tie text-2xl text-blue-400"></i>
-            </div>
-            <h2 className='text-white font-bold text-3xl'>Staff: {userCount !== null ? userCount : "Loading..."}</h2>
-          </Link>
-
-          <Link className='p-5 border border-white hover:bg-blue-600 transition-all flex items-center gap-4 relative overflow-hidden group' to={`/dashboard/admin/subscriber-list`} data-aos="fade-up" data-aos-delay="100">
-            <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-purple-500/20 group-hover:bg-purple-500/40 transition-all">
-              <i className="fas fa-users text-2xl text-purple-400"></i>
-            </div>
-            <h2 className='text-white font-bold text-3xl'>Subscribers: {subscriberCount !== null ? subscriberCount : "Loading..."}</h2>
-          </Link>
-
-          <Link className='p-5 border border-white hover:bg-blue-600 transition-all flex items-center gap-4 relative overflow-hidden group' to={`/dashboard/admin/plans`} data-aos="fade-up" data-aos-delay="200">
-            <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-green-500/20 group-hover:bg-green-500/40 transition-all">
-              <i className="fas fa-clipboard-list text-2xl text-green-400"></i>
-            </div>
-            <h2 className='text-white font-bold text-3xl'>Plans: {planCount !== null ? planCount : "Loading..."}</h2>
-          </Link>
-
-          {feedbackCount !== null && (
-            <Link className='p-5 border border-white hover:bg-blue-600 transition-all flex items-center gap-4 relative overflow-hidden group' to={`/dashboard/admin/feedbacks`} data-aos="fade-up" data-aos-delay="400">
-              <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-yellow-500/20 group-hover:bg-yellow-500/40 transition-all">
-                <i className="fas fa-comments text-2xl text-yellow-400"></i>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {dashboardItems.map((item, index) => (
+            <Link 
+              key={index}
+              className='group p-6 rounded-xl bg-gray-800/50 border border-gray-700 hover:border-blue-500 hover:bg-gray-800 transition-all duration-300 transform hover:-translate-y-1' 
+              to={item.path}
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
+            >
+              <div className="flex flex-col items-center text-center">
+                <div className="text-blue-500 group-hover:text-blue-400 transition-colors">
+                  {item.icon}
+                </div>
+                <h2 className='text-white font-bold text-2xl mb-2 group-hover:text-blue-400 transition-colors'>
+                  {item.title}
+                </h2>
+                <p className='text-gray-400 group-hover:text-gray-300 transition-colors mb-3'>
+                  {item.description}
+                </p>
+                <div className="text-3xl font-bold text-blue-500 group-hover:text-blue-400 transition-colors">
+                  {item.count !== null ? item.count : "..."}
+                </div>
               </div>
-              <h2 className='text-white font-bold text-3xl'>Feedbacks: {feedbackCount !== null ? feedbackCount : "Loading..."}</h2>
             </Link>
-          )}
-
-          <Link className='p-5 border border-white hover:bg-blue-600 transition-all flex items-center gap-4 relative overflow-hidden group' to={`/dashboard/admin/trainers`} data-aos="fade-up" data-aos-delay="300">
-            <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-red-500/20 group-hover:bg-red-500/40 transition-all">
-              <i className="fas fa-dumbbell text-2xl text-red-400"></i>
-            </div>
-            <h2 className='text-white font-bold text-3xl'>Trainer: {trainerCount !== null ? trainerCount : "Loading..."}</h2>
-          </Link>
-
-          <Link className='p-5 border border-white hover:bg-blue-600 transition-all flex items-center gap-4 relative overflow-hidden group' to={`/dashboard/admin/gymrooms`} data-aos="fade-up" data-aos-delay="300">
-            <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-indigo-500/20 group-hover:bg-indigo-500/40 transition-all">
-              <i className="fas fa-building text-2xl text-indigo-400"></i>
-            </div>
-            <h2 className='text-white font-bold text-3xl'>GymRoom: {gymroomCount !== null ? gymroomCount : "Loading..."}</h2>
-          </Link>
+          ))}
         </div>
-          <Statistics></Statistics>
-        {/* Add Staff Modal */}
+
+        <div className="mt-12">
+          <Statistics />
+        </div>
+
         <AddStaffModal
           isOpen={isAddStaffModalOpen}
           onClose={() => setIsAddStaffModalOpen(false)}
           onSuccess={() => {
-            // Refresh data if needed
             setIsAddStaffModalOpen(false);
+            getUsers(); // Refresh staff count
           }}
         />
       </div>

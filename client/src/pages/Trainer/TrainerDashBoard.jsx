@@ -1,92 +1,112 @@
-  import React, { useContext, useEffect, useState } from 'react';
-  import { Link } from 'react-router-dom';
-  import axios from "axios";
-  import { Heading, Loader } from '../../components';
-  import { toast } from "react-hot-toast";
-  import { BASE_URL } from "../../utils/fetchData";
-  import { useAuth } from "../../context/auth";
-  import AOS from 'aos';
-  import 'aos/dist/aos.css'; // Import AOS styles
+import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import axios from "axios";
+import { Heading, Loader } from '../../components';
+import { toast } from "react-hot-toast";
+import { BASE_URL } from "../../utils/fetchData";
+import { useAuth } from "../../context/auth";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { FaUsers, FaCalendarCheck } from 'react-icons/fa';
 
-  const TrainerDashBoard = () => {
-    const [userCount, setUserCount] = useState(null);
-   const [sessioncount, setSessionCount] = useState(null);
-    const [feedbackCount, setFeedbackCount] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const { auth, setAuth } = useAuth();
-    // AOS Initialization
-    useEffect(() => {
+const TrainerDashBoard = () => {
+  const [userCount, setUserCount] = useState(null);
+  const [sessioncount, setSessionCount] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const { auth, setAuth } = useAuth();
 
-      AOS.init({
-        duration: 1000, // Animation duration in milliseconds
-        easing: 'ease-in-out', // Animation easing
-        offset: 120, // Trigger animation before the element comes into view
-        once: true // Animation should happen only once while scrolling down
-      });
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      easing: 'ease-in-out',
+      offset: 120,
+      once: true
+    });
 
-      // Fetch data
-      getUsers(auth.user.id);
-      getSessions(auth.user.id);
-    }, [auth]);
+    getUsers(auth.user.id);
+    getSessions(auth.user.id);
+  }, [auth]);
     
-    const getUsers = async (id) => {
-      try { 
-        console.log('auth la',auth)
-        setLoading(true);
-        const res = await axios.get(`${BASE_URL}/api/Trainer/${id}/users`);
-        setUserCount(Array.isArray(res.data) ? res.data.length : 0);
-        setLoading(false);
-      } catch (err) {
-        console.log(err);
-        toast.error("Something went wrong in getting users");
-        setLoading(false);
-      }
+  const getUsers = async (id) => {
+    try { 
+      setLoading(true);
+      const res = await axios.get(`${BASE_URL}/api/Trainer/${id}/users`);
+      setUserCount(Array.isArray(res.data) ? res.data.length : 0);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      toast.error("Something went wrong in getting users");
+      setLoading(false);
     }
-    const getSessions = async (id) => {
-      try { 
-        
-        setLoading(true);
-        const res = await axios.get(`${BASE_URL}/api/Trainer/${id}/sessions`);
-        setSessionCount(Array.isArray(res.data) ? res.data.length : 0);
-        setLoading(false);
-      } catch (err) {
-        console.log(err);
-        toast.error("Something went wrong in getting users");
-        setLoading(false);
-      }
-    }
-
-   
-
-    if (loading) {
-      return <Loader />
-    }
-
-    return (
-      <section className='pt-10 bg-gray-900'>
-        <Heading name="Trainer Dashboard" />
-        <div className="container mx-auto px-6 py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-stretch">
-            <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/trainer/user-list`} data-aos="fade-up">
-              <h2 className='text-white font-bold text-3xl'>Member: {userCount !== null ? userCount : "Loading..."}</h2>
-            </Link>
-          
-            {/* <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/staff/plans`} data-aos="fade-up" data-aos-delay="200">
-              <h2 className='text-white font-bold text-3xl'>Plans: {planCount !== null ? planCount : "Loading..."}</h2>
-            </Link> */}
-            
-            {/* {feedbackCount !== null && (
-              <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/staff/feedbacks`} data-aos="fade-up" data-aos-delay="400">
-                <h2 className='text-white font-bold text-3xl'>Feedbacks: {feedbackCount !== null ? feedbackCount : "Loading..."}</h2>
-              </Link>
-            )} */}
-             <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/trainer/session-list`} data-aos="fade-up">
-              <h2 className='text-white font-bold text-3xl'>Training Session: {sessioncount !== null ? sessioncount : "Loading..."}</h2>
-            </Link>
-          </div>
-        </div>
-      </section>
-    )
   }
 
-  export default TrainerDashBoard;
+  const getSessions = async (id) => {
+    try { 
+      setLoading(true);
+      const res = await axios.get(`${BASE_URL}/api/Trainer/${id}/sessions`);
+      setSessionCount(Array.isArray(res.data) ? res.data.length : 0);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      toast.error("Something went wrong in getting sessions");
+      setLoading(false);
+    }
+  }
+
+  if (loading) {
+    return <Loader />
+  }
+
+  const dashboardItems = [
+    {
+      title: "Members",
+      description: "View and manage your members",
+      icon: <FaUsers className="text-4xl mb-4" />,
+      count: userCount,
+      path: "/dashboard/trainer/user-list"
+    },
+    {
+      title: "Training Sessions",
+      description: "Manage your training sessions",
+      icon: <FaCalendarCheck className="text-4xl mb-4" />,
+      count: sessioncount,
+      path: "/dashboard/trainer/session-list"
+    }
+  ];
+
+  return (
+    <section className='min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 py-10'>
+      <Heading name="Trainer Dashboard" />
+      <div className="container mx-auto px-6 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {dashboardItems.map((item, index) => (
+            <Link 
+              key={index}
+              className='group p-6 rounded-xl bg-gray-800/50 border border-gray-700 hover:border-blue-500 hover:bg-gray-800 transition-all duration-300 transform hover:-translate-y-1' 
+              to={item.path}
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
+            >
+              <div className="flex flex-col items-center text-center">
+                <div className="text-blue-500 group-hover:text-blue-400 transition-colors">
+                  {item.icon}
+                </div>
+                <h2 className='text-white font-bold text-2xl mb-2 group-hover:text-blue-400 transition-colors'>
+                  {item.title}
+                </h2>
+                <p className='text-gray-400 group-hover:text-gray-300 transition-colors mb-3'>
+                  {item.description}
+                </p>
+                <div className="text-3xl font-bold text-blue-500 group-hover:text-blue-400 transition-colors">
+                  {item.count !== null ? item.count : "..."}
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default TrainerDashBoard;
