@@ -35,4 +35,5 @@ import Loader from "./Loader";
 import Member from "./trainer/Member"
 import SessionTrainer from "./trainer/Session"
 import GymRoomStaff from "./staff/GymRoom"
-export {Header,Session,GymRoomStaff,UserStaff, Footer,Hero,SessionTrainer, Heading, Plan, Plans, Trainers, Trainer, Reviews, Review, FAQ, ScrollButton, FaqComponent, ButtonOutline, Button, Input, TextArea, ExerciseCard, ExerciseVideos, BodyPart, SearchInput, Spinner, AdminRoute, PrivateRoute, PlanForm, Subscription, User, ContactComponent, FeedbackComponent, Loader,StaffRoute,TrainerRoute,Member};
+import Statistics from "./Statistic"
+export {Header,Session,GymRoomStaff,UserStaff, Footer,Hero,SessionTrainer, Heading, Plan, Plans, Trainers, Trainer, Reviews, Review, FAQ, ScrollButton, FaqComponent, ButtonOutline, Button, Input, TextArea, ExerciseCard, ExerciseVideos, BodyPart, SearchInput, Spinner, AdminRoute, PrivateRoute, PlanForm, Subscription, User, ContactComponent, FeedbackComponent, Loader,StaffRoute,TrainerRoute,Member,Statistics};

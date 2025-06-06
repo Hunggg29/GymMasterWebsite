@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
-import { Heading, Loader } from '../../components';
+import { Heading, Loader,Statistics } from '../../components';
 import { toast } from "react-hot-toast";
 import { BASE_URL } from "../../utils/fetchData";
 import AOS from 'aos';
 import 'aos/dist/aos.css'; // Import AOS styles
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import AddStaffModal from '../../components/AddStaffModal';
 
 const AdminDashBoard = () => {
@@ -153,28 +154,51 @@ const AdminDashBoard = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-stretch">
-          <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/admin/user-list`} data-aos="fade-up">
-            <h2 className='text-white font-bold text-3xl'>StaffList: {userCount !== null ? userCount : "Loading..."}</h2>
+          <Link className='p-5 border border-white hover:bg-blue-600 transition-all flex items-center gap-4 relative overflow-hidden group' to={`/dashboard/admin/user-list`} data-aos="fade-up">
+            <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-blue-500/20 group-hover:bg-blue-500/40 transition-all">
+              <i className="fas fa-user-tie text-2xl text-blue-400"></i>
+            </div>
+            <h2 className='text-white font-bold text-3xl'>Staff: {userCount !== null ? userCount : "Loading..."}</h2>
           </Link>
-          <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/admin/subscriber-list`} data-aos="fade-up" data-aos-delay="100">
+
+          <Link className='p-5 border border-white hover:bg-blue-600 transition-all flex items-center gap-4 relative overflow-hidden group' to={`/dashboard/admin/subscriber-list`} data-aos="fade-up" data-aos-delay="100">
+            <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-purple-500/20 group-hover:bg-purple-500/40 transition-all">
+              <i className="fas fa-users text-2xl text-purple-400"></i>
+            </div>
             <h2 className='text-white font-bold text-3xl'>Subscribers: {subscriberCount !== null ? subscriberCount : "Loading..."}</h2>
           </Link>
-          <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/admin/plans`} data-aos="fade-up" data-aos-delay="200">
+
+          <Link className='p-5 border border-white hover:bg-blue-600 transition-all flex items-center gap-4 relative overflow-hidden group' to={`/dashboard/admin/plans`} data-aos="fade-up" data-aos-delay="200">
+            <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-green-500/20 group-hover:bg-green-500/40 transition-all">
+              <i className="fas fa-clipboard-list text-2xl text-green-400"></i>
+            </div>
             <h2 className='text-white font-bold text-3xl'>Plans: {planCount !== null ? planCount : "Loading..."}</h2>
           </Link>
+
           {feedbackCount !== null && (
-            <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/admin/feedbacks`} data-aos="fade-up" data-aos-delay="400">
+            <Link className='p-5 border border-white hover:bg-blue-600 transition-all flex items-center gap-4 relative overflow-hidden group' to={`/dashboard/admin/feedbacks`} data-aos="fade-up" data-aos-delay="400">
+              <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-yellow-500/20 group-hover:bg-yellow-500/40 transition-all">
+                <i className="fas fa-comments text-2xl text-yellow-400"></i>
+              </div>
               <h2 className='text-white font-bold text-3xl'>Feedbacks: {feedbackCount !== null ? feedbackCount : "Loading..."}</h2>
             </Link>
           )}
-          <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/admin/trainers`} data-aos="fade-up" data-aos-delay="300">
+
+          <Link className='p-5 border border-white hover:bg-blue-600 transition-all flex items-center gap-4 relative overflow-hidden group' to={`/dashboard/admin/trainers`} data-aos="fade-up" data-aos-delay="300">
+            <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-red-500/20 group-hover:bg-red-500/40 transition-all">
+              <i className="fas fa-dumbbell text-2xl text-red-400"></i>
+            </div>
             <h2 className='text-white font-bold text-3xl'>Trainer: {trainerCount !== null ? trainerCount : "Loading..."}</h2>
           </Link>
-          <Link className='p-5 border border-white hover:bg-blue-600 transition-all' to={`/dashboard/admin/gymrooms`} data-aos="fade-up" data-aos-delay="300">
+
+          <Link className='p-5 border border-white hover:bg-blue-600 transition-all flex items-center gap-4 relative overflow-hidden group' to={`/dashboard/admin/gymrooms`} data-aos="fade-up" data-aos-delay="300">
+            <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-indigo-500/20 group-hover:bg-indigo-500/40 transition-all">
+              <i className="fas fa-building text-2xl text-indigo-400"></i>
+            </div>
             <h2 className='text-white font-bold text-3xl'>GymRoom: {gymroomCount !== null ? gymroomCount : "Loading..."}</h2>
           </Link>
         </div>
-
+          <Statistics></Statistics>
         {/* Add Staff Modal */}
         <AddStaffModal
           isOpen={isAddStaffModalOpen}
