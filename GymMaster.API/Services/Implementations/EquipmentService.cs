@@ -40,12 +40,19 @@ namespace GymMaster.API.Services.Implementations
 
         public async Task<Equipment?> UpdateEquipmentAsync(int id, Equipment equipment)
         {
-            var existEquipment = await _context.Equipment.FirstOrDefaultAsync(e => e.Id == id);
+            var existEquipment = await _context.Equipment
+                .FirstOrDefaultAsync(e => e.Id == id);
+            
             if (existEquipment == null) 
             {
                 return null;
             }
-            existEquipment.ImportDate = equipment.ImportDate;
+
+            // Check if status changed to "Broken"
+            if (equipment.Status == "Broken" && existEquipment.Status != "Broken")
+            {
+                await _emailService.SendEquipmentMaintenanceEmailAsync(
+                    equipment.Name,
                     id.ToString()
                 );
             }
