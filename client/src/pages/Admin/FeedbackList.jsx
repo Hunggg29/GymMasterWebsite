@@ -9,7 +9,6 @@ const FeedbackList = () => {
   const navigate = useNavigate();
   const [feedbacks, setFeedbacks] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [feedbackId, setFeedbackId] = useState(null); // Initialize subId as null
   const getAllFeedbacks = async () => {
     try {
       setLoading(true);
@@ -27,20 +26,16 @@ const FeedbackList = () => {
 
   const handleDelete = async (id) => {
     try {
-      let answer = window.prompt("Are you sure you want to delete feedback?");
-      if (!answer) return;
-      // const { data } = await axios.delete(`http://localhost:5000/api/v1/feedback/delete-feedback/${id}`);
-      const { data } = await axios.delete(`${BASE_URL}/api/v1/feedback/delete-feedback/${id}`);
-      if (data?.success) {
-   
-        console.log(data);
-        toast.success(data.message);
-        navigate("/dashboard/admin");
+      const response = await axios.delete(`${BASE_URL}/api/feedback/${id}`);
+      if (response.status === 200) {
+        toast.success('Feedback deleted successfully');
+        getAllFeedbacks(); // Refresh the list
       } else {
-        console.error(data?.message);
+        toast.error('Failed to delete feedback');
       }
     } catch (error) {
       console.error("Error deleting feedback:", error);
+      toast.error(error.response?.data?.message || 'Error deleting feedback');
     }
   };
 
@@ -60,7 +55,7 @@ const FeedbackList = () => {
       <div className="container mx-auto px-6 py-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-5">
           {feedbacks.map((f, i) => (
-            <FeedbackComponent userImg={userImg} rating={f.rating} comment={f.message} name={f.userName} date={f.date} i={i} key={i} feedbackId={f.id} handleDelete={() => handleDelete(f.id)} />
+            <FeedbackComponent userImg={userImg} rating={f.rating} comment={f.message} name={f.userName} date={f.createdAt} i={i} key={i} feedbackId={f.id} handleDelete={() => handleDelete(f.id)} />
           ))}
         </div>
       </div>

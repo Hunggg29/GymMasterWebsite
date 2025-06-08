@@ -12,12 +12,12 @@ const Session = ({ u }) => {
         <div className="flex items-center gap-2">
           <UserIcon className="text-blue-600" size={24} />
           <h3 className="text-xl font-semibold text-blue-600">
-            Huấn luyện viên: {u.trainerName}
+            Trainer: {u.trainerName}
           </h3>
         </div>
         <div className="flex items-center gap-2 text-gray-700">
           <Users size={20} />
-          <p>Người tập: {u.userName}</p>
+          <p>Trainee: {u.userName}</p>
         </div>
       </div>
 
@@ -37,7 +37,7 @@ const Session = ({ u }) => {
         <div className="space-y-3">
           <div className="flex items-center gap-3 text-gray-700">
             <Clock className="text-blue-500" size={20} />
-            <span>Giờ bắt đầu: {timeOnly}</span>
+            <span>Start Time: {timeOnly}</span>
           </div>
           <div className="flex items-center gap-3 text-gray-700">
             <ClipboardList className="text-blue-500" size={20} />

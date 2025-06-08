@@ -61,10 +61,10 @@ const GymRoom = ({ id, roomName, roomType, roomQuantity, roomStatus, onDelete, i
           <span className='font-semibold text-indigo-600'>Room Type: </span>{currentRoomData.roomType}
         </p>
         <p className='text-gray-700 text-md bg-teal-100 rounded-lg p-3'>
-          <span className='font-semibold text-teal-600'>RoomQuantity: </span>{currentRoomData.roomQuantity}
+          <span className='font-semibold text-teal-600'>Capacity: </span>{currentRoomData.roomQuantity} people
         </p>
         <p className='text-gray-700 text-md bg-pink-100 rounded-lg p-3'>
-          <span className='font-semibold text-pink-600'>RoomStatus: </span>{currentRoomData.roomStatus}
+          <span className='font-semibold text-pink-600'>Room Status: </span>{currentRoomData.roomStatus}
         </p>
       </div>
 

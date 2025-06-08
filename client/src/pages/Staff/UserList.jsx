@@ -22,7 +22,7 @@ const UserListStaff = () => {
     }
     catch (err) {
       console.log(err);
-      toast.error("Something went wrong in getting all users || internet issue");
+      toast.error("Something went wrong in getting all subcriptions || internet issue");
       setLoading(false);
     }
   }
@@ -32,7 +32,7 @@ const UserListStaff = () => {
   }, []);
 
 const handleDelete= async () =>{
-  const res = await axios.get(`${BASE_URL}/api/users`);
+  const res = await axios.get(`${BASE_URL}/api/Subscription`);
   setUsers(Array.isArray(res.data) ? res.data : []);
 }
   if(loading){
@@ -47,7 +47,7 @@ const handleDelete= async () =>{
         
       <section className=' pt-10 bg-gray-900'>
          <div className="px-6">
-    <div className="flex justify-end mb-4">
+    {/* <div className="flex justify-end mb-4">
       <select onChange={(e)=>{
        const value = e.target.value;
        if(value==0)
@@ -67,11 +67,11 @@ const handleDelete= async () =>{
         <option value="1">User</option>
         <option value="2">Trainer</option>
       </select>
-    </div>
+    </div> */}
   </div>
        
          <div>
-            <Heading name="User List" />
+            <Heading name="Subscriber List" />
           <div className="container mx-auto px-6 py-10">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {users.map((u, i) => (  

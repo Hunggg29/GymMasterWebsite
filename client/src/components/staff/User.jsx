@@ -50,9 +50,6 @@ setTrainingHistory(filteredHistory);
         <p className='text-gray-700 text-md bg-pink-100 rounded-lg p-3'>
           <span className='font-semibold text-pink-600'>FullName: </span>{fullname}
         </p>
-        <p className='text-gray-700 text-md bg-indigo-100 rounded-lg p-3'>
-          <span className='font-semibold text-indigo-600'>Role: </span>{role}
-        </p>
       </div>
 
       <div className="flex flex-col sm:flex-row gap-4 w-full mt-2">

@@ -1,27 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-const EquipmentEditModal = ({ isOpen, onClose, equipmentData, onSave }) => {
+const CreateEquipmentModal = ({ isOpen, onClose, onSave, roomId }) => {
   const [formData, setFormData] = useState({
-    id: '',
     name: '',
     quantity: '',
     importDate: '',
     warranty: '',
-    status: '',
+    status: 'Active',
+    roomId: roomId
   });
-
-  useEffect(() => {
-    if (equipmentData) {
-      setFormData({
-        id: equipmentData.id || '',
-        name: equipmentData.name || '',
-        quantity: equipmentData.quantity || '',
-        importDate: equipmentData.importDate ? equipmentData.importDate.split('T')[0] : '', // Format date
-        warranty: equipmentData.warranty ? equipmentData.warranty.split('T')[0] : '',
-        status: equipmentData.status || '',
-      });
-    }
-  }, [equipmentData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,9 +17,15 @@ const EquipmentEditModal = ({ isOpen, onClose, equipmentData, onSave }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Ensure quantity is a number and include id
-    const dataToSave = { ...formData, quantity: parseInt(formData.quantity, 10), id: formData.id };
-    onSave(dataToSave);
+    onSave(formData);
+    setFormData({
+      name: '',
+      quantity: '',
+      importDate: '',
+      warranty: '',
+      status: 'Active',
+      roomId: roomId
+    });
   };
 
   if (!isOpen) return null;
@@ -40,7 +33,7 @@ const EquipmentEditModal = ({ isOpen, onClose, equipmentData, onSave }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-lg p-6 max-w-md w-full">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">Edit Equipment</h2>
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">Add New Equipment</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-gray-700">Name</label>
@@ -50,6 +43,7 @@ const EquipmentEditModal = ({ isOpen, onClose, equipmentData, onSave }) => {
               value={formData.name}
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+              required
             />
           </div>
           <div>
@@ -60,6 +54,7 @@ const EquipmentEditModal = ({ isOpen, onClose, equipmentData, onSave }) => {
               value={formData.quantity}
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+              required
             />
           </div>
           <div>
@@ -70,6 +65,7 @@ const EquipmentEditModal = ({ isOpen, onClose, equipmentData, onSave }) => {
               value={formData.importDate}
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+              required
             />
           </div>
           <div>
@@ -80,6 +76,7 @@ const EquipmentEditModal = ({ isOpen, onClose, equipmentData, onSave }) => {
               value={formData.warranty}
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+              required
             />
           </div>
           <div>
@@ -106,7 +103,7 @@ const EquipmentEditModal = ({ isOpen, onClose, equipmentData, onSave }) => {
               type="submit"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
-              Save Changes
+              Create
             </button>
           </div>
         </form>
@@ -115,4 +112,4 @@ const EquipmentEditModal = ({ isOpen, onClose, equipmentData, onSave }) => {
   );
 };
 
-export default EquipmentEditModal; 
+export default CreateEquipmentModal; 

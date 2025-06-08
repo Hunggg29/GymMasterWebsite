@@ -2,6 +2,7 @@
 using GymMaster.API.Data;
 using GymMaster.API.Models;
 using GymMaster.API.Services.Interfaces;
+using GymMaster.API.Models.DTO;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,9 +11,14 @@ namespace GymMaster.API.Services.Implementations
     public class EquipmentService : IEquipmentService
     {   
         private readonly ApplicationDbContext _context;
-        public EquipmentService(ApplicationDbContext context)
+        private readonly IEmailService _emailService;
+        private readonly IMapper _mapper;
+
+        public EquipmentService(ApplicationDbContext context, IEmailService emailService, IMapper mapper)
         {
             _context = context;
+            _emailService = emailService;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<Equipment>> GetAllEquipmentAsync()
@@ -40,10 +46,17 @@ namespace GymMaster.API.Services.Implementations
                 return null;
             }
             existEquipment.ImportDate = equipment.ImportDate;
+                    id.ToString()
+                );
+            }
+
+            // Update equipment properties
             existEquipment.Name = equipment.Name;
-            existEquipment.Status = equipment.Status;
             existEquipment.Quantity = equipment.Quantity;
+            existEquipment.ImportDate = equipment.ImportDate;
             existEquipment.Warranty = equipment.Warranty;
+            existEquipment.Status = equipment.Status;
+
             await _context.SaveChangesAsync();
             return existEquipment;
         }

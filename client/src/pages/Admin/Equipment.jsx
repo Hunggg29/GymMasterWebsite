@@ -5,6 +5,7 @@ import { BASE_URL } from '../../utils/fetchData';
 import { useAuth } from '../../context/auth';
 import { Heading, Loader } from '../../components';
 import EquipmentEditModal from '../../components/modal/EquipmentEditModal';
+import CreateEquipmentModal from '../../components/modal/CreateEquipmentModal';
 import { toast } from "react-hot-toast";
 
 const Equipment = () => {
@@ -13,6 +14,7 @@ const Equipment = () => {
   const [equipments, setEquipments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showCreateModal, setShowCreateModal] = useState(false);
   const [currentEquipmentData, setCurrentEquipmentData] = useState(null);
 
   const fetchEquipments = async () => {
@@ -46,6 +48,26 @@ const Equipment = () => {
     setCurrentEquipmentData(null);
   };
 
+  const handleCreateEquipment = async (equipmentData) => {
+    try {
+      const response = await axios.post(`${BASE_URL}/api/Equipment`, equipmentData, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.status === 201) {
+        toast.success('Equipment created successfully');
+        setShowCreateModal(false);
+        fetchEquipments();
+      }
+    } catch (error) {
+      console.error('Error creating equipment:', error);
+      toast.error(error.response?.data?.message || 'Error creating equipment');
+    }
+  };
+
   const handleUpdateEquipment = async (updatedData) => {
     try {
       const { roomId, ...dataToUpdate } = updatedData;
@@ -59,6 +81,14 @@ const Equipment = () => {
 
       if (response.status === 200) {
         toast.success('Equipment updated successfully');
+        
+        // Check if status is changed to "Broken"
+        if (dataToUpdate.status === 'Broken') {
+          toast.success('Maintenance team has been notified', {
+            duration: 5000,
+          });
+        }
+
         fetchEquipments();
         handleCloseModal();
       } else {
@@ -75,10 +105,17 @@ const Equipment = () => {
   return (
     <div>
       <section className='pt-10 bg-gray-900'>
-        <div className="px-6">
-          <div className="flex justify-end mb-4"></div>
-        </div>
         <Heading name="Equipment List" />
+        <div className="px-6">
+          <div className="flex justify-end mb-4 mr-5">
+            <button
+              onClick={() => setShowCreateModal(true)}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              + Add New Equipment
+            </button>
+          </div>
+        </div>
         <div className="container mx-auto px-6 py-10">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {equipments.map((eq, i) => (
@@ -92,16 +129,24 @@ const Equipment = () => {
 
                 <div className='flex flex-col gap-4 w-full'>
                   <p className='text-gray-700 text-md bg-teal-100 rounded-lg p-3'>
-                    <span className='font-semibold text-teal-600'>RoomQuantity: </span>{eq.quantity}
+                    <span className='font-semibold text-teal-600'>Quantity: </span>{eq.quantity}
                   </p>
                   <p className='text-gray-700 text-md bg-pink-100 rounded-lg p-3'>
-                    <span className='font-semibold text-pink-600'>ImportDate: </span>{eq.importDate.split('T')[0]}
+                    <span className='font-semibold text-pink-600'>Import Date: </span>{eq.importDate.split('T')[0]}
                   </p>
                   <p className='text-gray-700 text-md bg-pink-100 rounded-lg p-3'>
                     <span className='font-semibold text-pink-600'>Warranty: </span>{eq.warranty.split('T')[0]}
                   </p>
-                  <p className='text-gray-700 text-md bg-pink-100 rounded-lg p-3'>
-                    <span className='font-semibold text-pink-600'>Status: </span>{eq.status}
+                  <p className={`text-gray-700 text-md rounded-lg p-3 ${
+                    eq.status === 'Broken' ? 'bg-red-100' : 
+                    eq.status === 'Active' ? 'bg-green-100' : 
+                    'bg-yellow-100'
+                  }`}>
+                    <span className={`font-semibold ${
+                      eq.status === 'Broken' ? 'text-red-600' : 
+                      eq.status === 'Active' ? 'text-green-600' : 
+                      'text-yellow-600'
+                    }`}>Status: </span>{eq.status}
                   </p>
                 </div>
 
@@ -114,8 +159,7 @@ const Equipment = () => {
                   </button>
                 </div>
               </div>
-            ))
-            }
+            ))}
           </div>
         </div>
       </section>
@@ -126,6 +170,15 @@ const Equipment = () => {
           onClose={handleCloseModal}
           equipmentData={currentEquipmentData}
           onSave={handleUpdateEquipment}
+        />
+      )}
+
+      {showCreateModal && (
+        <CreateEquipmentModal
+          isOpen={showCreateModal}
+          onClose={() => setShowCreateModal(false)}
+          onSave={handleCreateEquipment}
+          roomId={id}
         />
       )}
     </div>

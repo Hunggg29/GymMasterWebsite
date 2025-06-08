@@ -22,7 +22,15 @@ namespace GymMaster.API.Controllers
         public async Task<IActionResult> GetAllFeedbacks()
         {
             var feedbacks = await _feedbackService.GetAllFeedbacksAsync();
-            return Ok(feedbacks);
+            var feedbackDtos = feedbacks.Select(f => new FeedbackDto
+            {
+                Id = f.Id,
+                UserName = f.User.Username,
+                Message = f.Message,
+                Rating = f.Rating,
+                CreatedAt = f.CreatedAt
+            }).ToList();
+            return Ok(feedbackDtos);
         }
 
         [HttpGet("{id}")]
