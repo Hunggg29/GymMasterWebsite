@@ -4,8 +4,6 @@ namespace GymMaster.API.Models.DTO
 {
     public class UpdateTrainerDto
     {
-        [Required]
-        public int UserId { get; set; }
 
         [StringLength(100)]
         public string? Specialty { get; set; }

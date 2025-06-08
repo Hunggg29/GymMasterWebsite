@@ -42,7 +42,7 @@ namespace GymMaster.API.Services.Implementations
                 return null;
             }
 
-            existTrainer.UserId = trainer.UserId;
+
             existTrainer.PricePerHour = trainer.PricePerHour;
             existTrainer.Specialty = trainer.Specialty;
             existTrainer.Experience = trainer.Experience;
@@ -58,6 +58,13 @@ namespace GymMaster.API.Services.Implementations
             {
                 return null;
             }
+
+            // Find and remove all training sessions associated with this trainer
+            var sessions = await _context.TrainingSessions
+                                 .Where(s => s.TrainerId == id)
+                                 .ToListAsync();
+            _context.TrainingSessions.RemoveRange(sessions);
+
             _context.Trainers.Remove(trainer);
             await _context.SaveChangesAsync();
             return trainer;

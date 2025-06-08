@@ -89,7 +89,6 @@ namespace GymMaster.API.Controllers
                 return NotFound();
             }
             return Ok(trainer);
-
         }
 
        
