@@ -59,11 +59,13 @@ const App = () => {
           <Route path='admin/plans' element={<Plans />} />
           <Route path='admin/user-list' element={<UserList />} />
           <Route path='admin/contact-us' element={<ContactUs />} />
-          <Route path='admin/subscriber-list' element={<SubscriberList />} />
+          <Route path='admin/subscriber-list' element={<UserListStaff />} />
           <Route path='admin/feedbacks' element={<FeedbackList />} />
            <Route path='admin/gymrooms' element={<GymroomList />} />
           <Route path='admin/trainers' element={<TrainerList />} />
           <Route path="admin/gymrooms/:id/equipments" element={<Equipment />} />
+                      <Route path='admin/subscriber-list/subscription' element={<SubscriptionList />} />
+
         </Route>
          {/* staff routes ================================== */}
          <Route path='/dashboard' element={<StaffRoute/>}>
@@ -76,7 +78,6 @@ const App = () => {
           <Route path='staff/user-list' element={<UserListStaff />} />
           <Route path='staff/sessions' element={<SessionsList />} />
           <Route path='admin/contact-us' element={<ContactUs />} />
-          <Route path='admin/subscriber-list' element={<SubscriberList />} />
           <Route path='staff/feedbacks' element={<FeedbackList />} />
           <Route path='staff/gymrooms' element={<GymroomListStaff />} />
            <Route path="staff/gymrooms/:id/equipments" element={<Equipment />} />
