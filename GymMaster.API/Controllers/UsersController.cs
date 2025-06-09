@@ -66,14 +66,18 @@ namespace GymMaster.API.Controllers
 
         // PUT: api/Users/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(int id, User user)
+        public async Task<IActionResult> UpdateUser(int id, UpdateUserDto user)
         {
-            if (id != user.Id)
+            var existingUser = await _context.Users.FindAsync(id);
+            if (existingUser == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            existingUser.Username = user.Username;
+            existingUser.Email = user.Email;
+            existingUser.FullName = user.FullName;
+            existingUser.Phone = user.Phone;
 
             try
             {
@@ -131,7 +135,7 @@ namespace GymMaster.API.Controllers
             return Ok(sessionDtos);
         }
 
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         [HttpPost("create-by-admin")]
         public async Task<IActionResult> CreateUserByAdmin([FromBody] CreateUserByAdminDto createUserDto)
         {

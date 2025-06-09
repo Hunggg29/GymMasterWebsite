@@ -4,38 +4,9 @@ import axios from "axios";
 import toast from 'react-hot-toast';
 import { useAuth } from '../../context/auth';
 
-const User = ({ userImg, name, email, contact, i,fullname,id,onDelete }) => {
+const User = ({ userImg, name, email, contact, i, fullname, id, onEditClick }) => {
   const { auth } = useAuth();
   
-  const handleRemove = async (e) =>{
-    e.preventDefault(); 
-    try{
-      // Ask for confirmation using the browser's confirm dialog
-      const isConfirmed = window.confirm("Are you sure you want to delete this user?");
-      
-      if (!isConfirmed) {
-        return; // Exit if user cancels
-      }
-
-      const response = await axios.delete(`${BASE_URL}/api/users/${id}`, {
-        headers: {
-          Authorization: `Bearer ${auth.token}`
-        }
-      });
-      
-      if (response.status === 204) {
-        toast.success('User deleted successfully');
-        if (onDelete) {
-          onDelete(); // Refresh the user list
-        }
-      } else {
-        toast.error('Failed to delete user');
-      }
-    } catch (error) {
-      console.error("Error deleting user:", error);
-      toast.error(error.response?.data?.message || 'Error deleting user');
-    }
-  }
   return (
     
     <div 
@@ -63,9 +34,11 @@ const User = ({ userImg, name, email, contact, i,fullname,id,onDelete }) => {
 
       </div>
       <div className="justify-end flex w-full">
-       
-        <button onClick={handleRemove}  class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-        Delete
+        <button
+          className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded text-sm mr-2"
+          onClick={() => onEditClick({ id, username: name, email, phone: contact, fullName: fullname })}
+        >
+          Edit
         </button>
       </div>
     </div>

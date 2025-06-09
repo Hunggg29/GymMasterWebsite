@@ -5,40 +5,11 @@ import toast from 'react-hot-toast';
 import { useAuth } from '../../context/auth';
 import TrainingHistoryModal from '../modal/TrainingHistoryModal';
 
-const Trainer = ({ userImg, name, email, contact, i, id, onDelete, experience, PricePerHour, specialty, userId }) => {
+const Trainer = ({ userImg, name, email, contact, i, id, userId, specialty, experience, PricePerHour, fullName, onEditClick }) => {
   const { auth } = useAuth();
   const [showModal, setShowModal] = useState(false);
   const [trainingHistory, setTrainingHistory] = useState([]);
   
-  const handleRemove = async (e) => {
-    e.preventDefault(); 
-    try {
-      const isConfirmed = window.confirm("Are you sure you want to delete this trainer?");
-      
-      if (!isConfirmed) {
-        return;
-      }
-
-      const response = await axios.delete(`${BASE_URL}/api/Trainer/${id}`, {
-        headers: {
-          Authorization: `Bearer ${auth.token}`
-        }
-      });
-      
-      if (response.status === 204) {
-        toast.success('Trainer deleted successfully');
-        if (onDelete) {
-          onDelete();
-        }
-      } else {
-        toast.error('Failed to delete trainer');
-      }
-    } catch (error) {
-      console.error("Error deleting trainer:", error);
-      toast.error(error.response?.data?.message || 'Error deleting trainer');
-    }
-  };
-
   useEffect(() => {
     if (showModal) {
       const fetchHistory = async () => {
@@ -69,20 +40,20 @@ const Trainer = ({ userImg, name, email, contact, i, id, onDelete, experience, P
         className='w-[100px] h-[100px] object-cover rounded-full border-4 border-gray-300 group-hover:scale-110 transition-transform duration-300' 
       />
       <div className='flex flex-col gap-4 w-full'>
-        <p className='text-gray-700 text-md bg-indigo-100 rounded-lg p-3'>
-          <span className='font-semibold text-indigo-600'>Email: </span>{email}
-        </p>
-        <p className='text-gray-700 text-md bg-teal-100 rounded-lg p-3'>
-          <span className='font-semibold text-teal-600'>Contact: </span>{contact}
-        </p>
         <p className='text-gray-700 text-md bg-pink-100 rounded-lg p-3'>
-          <span className='font-semibold text-pink-600'>Experience: </span>{experience}
+          <span className='font-semibold text-pink-600'>Email: </span>{email}
         </p>
-        <p className='text-gray-700 text-md bg-pink-100 rounded-lg p-3'>
-          <span className='font-semibold text-pink-600'>PricePerHour: </span>{PricePerHour}
+        <p className='text-gray-700 text-md bg-yellow-100 rounded-lg p-3'>
+          <span className='font-semibold text-yellow-600'>Contact: </span>{contact}
         </p>
-        <p className='text-gray-700 text-md bg-pink-100 rounded-lg p-3'>
-          <span className='font-semibold text-pink-600'>Specialty: </span>{specialty}
+        <p className='text-gray-700 text-md bg-purple-100 rounded-lg p-3'>
+          <span className='font-semibold text-purple-600'>Specialization: </span>{specialty}
+        </p>
+        <p className='text-gray-700 text-md bg-green-100 rounded-lg p-3'>
+          <span className='font-semibold text-green-600'>Experience: </span>{experience} years
+        </p>
+        <p className='text-gray-700 text-md bg-blue-100 rounded-lg p-3'>
+          <span className='font-semibold text-blue-600'>Price Per Hour: </span>${PricePerHour}
         </p>
       </div>
 
@@ -95,10 +66,10 @@ const Trainer = ({ userImg, name, email, contact, i, id, onDelete, experience, P
         </button>
 
         <button
-          className="flex-1 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 text-sm font-medium"
-          onClick={handleRemove}
+          className="flex-1 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded text-sm"
+          onClick={() => onEditClick({ trainerId: id, userId, specialization: specialty, experience, pricePerHour: PricePerHour, fullName, username: name, email, phone: contact })}
         >
-          Delete
+          Edit
         </button>
       </div>
 
