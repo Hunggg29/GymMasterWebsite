@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Heading } from ".";
-import { planImg1, planImg2, planImg3, planImg4 } from '../images';
 import { Plan } from '.';
 import axios from 'axios';
 import { BASE_URL } from '../utils/fetchData';
@@ -15,19 +14,18 @@ const Plans = () => {
 
   useEffect(() => {
     AOS.init({
-      duration: 1000,  // Animation duration in milliseconds
-      offset: -200,     // Offset from the top
-      easing: 'ease-in-out', // Easing function
-      once: true       
+      duration: 1000,
+      offset: 100,
+      easing: 'ease-out-cubic',
+      once: true,
+      mirror: true
     });
   }, []);
 
-  // Handle get Plans
   const getAllPlans = async () => {
     try {
       setLoading(true);
       const res = await axios.get(`${BASE_URL}/api/plan`);
-        console.log('res tra ve',res.data);
       if (res.data) {
         setPlans(res.data);
       }
@@ -47,35 +45,43 @@ const Plans = () => {
     return <Loader />;
   }
 
-  return (
-    <section className=" pt-10 relative">
-       <div
-             data-aos="zoom-in">
-      <Heading name="Trending Plans" />
-             </div>
-      <div className="container py-16 mx-auto px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {plans.map((p, i) => (
-             <div
-             key={i}
-             data-aos="zoom-in" 
-           >
-            <Plan
-              img={p.imageUrl} 
-              alt={`plan-img-${i}`}
-              name={p.name}
-              p_id={p.id}
-              price={p.price}
-              durationInDays={p.durationInDays}
-              key={i}
-            />
-             </div>
-          ))}
-        </div>
-      </div>
-      <div className="absolute inset-0 bg-gradient-to-b from-blue-800 to-yellow-300 opacity-80 pointer-events-none z-[-1]"></div>
+  const animationDirections = ['fade-right', 'fade-up', 'fade-down', 'fade-left'];
 
-    </section>
+  return (
+    <div className="h-full">
+      <div className="text-center mb-8" data-aos="fade-down" data-aos-delay="100">
+        <h3 className="text-2xl font-bold text-white mb-2 hover:text-indigo-400 transition-colors duration-300">
+          Training Plans
+        </h3>
+        <p className="text-gray-400 hover:text-gray-300 transition-colors duration-300">
+          Choose the perfect plan for your fitness journey
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {plans.slice(0, 4).map((p, i) => (
+          <div
+            key={i}
+            data-aos={animationDirections[i]}
+            data-aos-delay={i * 200}
+            data-aos-duration="1200"
+            className="h-full transform hover:scale-105 transition-all duration-300 hover:z-10"
+          >
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
+              <Plan
+                img={p.imageUrl} 
+                alt={`plan-img-${i}`}
+                name={p.name}
+                p_id={p.id}
+                price={p.price}
+                durationInDays={p.durationInDays}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 

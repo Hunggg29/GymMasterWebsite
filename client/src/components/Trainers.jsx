@@ -1,37 +1,93 @@
 import React, { useEffect } from 'react';
-import Heading from './Heading';
-import { Trainer } from ".";
+import { Trainer } from '.';
 import { trainerImg1, trainerImg2, trainerImg3, trainerImg4 } from "../images";
 import AOS from 'aos';
-import 'aos/dist/aos.css'; // Import AOS styles
+import 'aos/dist/aos.css';
 
 const Trainers = () => {
-  // Initialize AOS
   useEffect(() => {
-    AOS.init({ duration: 2000, offset:-200, easing:"ease-in-out" }); // You can customize the duration and options here
+    AOS.init({
+      duration: 1000,
+      offset: 100,
+      easing: 'ease-out-cubic',
+      once: true,
+      mirror: true
+    });
   }, []);
 
+  const trainersData = [
+    {
+      img: trainerImg1,
+      name: "John Smith",
+      age: "35",
+      specialization: "Strength Training Expert",
+      experience: "10",
+      id: "1"
+    },
+    {
+      img: trainerImg2,
+      name: "Sarah Wilson",
+      age: "28",
+      specialization: "Yoga & Pilates Specialist",
+      experience: "6",
+      id: "2"
+    },
+    {
+      img: trainerImg3,
+      name: "Mike Johnson",
+      age: "42",
+      specialization: "CrossFit Master",
+      experience: "15",
+      id: "3"
+    },
+    {
+      img: trainerImg4,
+      name: "Emily Davis",
+      age: "31",
+      specialization: "Cardio & HIIT Expert",
+      experience: "8",
+      id: "4"
+    }
+  ];
+
+  const animationDirections = ['zoom-in-right', 'zoom-in-up', 'zoom-in-down', 'zoom-in-left'];
+
   return (
-    <section className='pt-10 relative'>
-      <Heading name="Our Trainers" />
-      <div className="container py-16 mx-auto px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div data-aos="fade-up">
-            <Trainer img={trainerImg1} alt="trainer-1" id="1" name="John" age="48" data-aos-delay="100" />
-          </div>
-          <div data-aos="fade-in" data-aos-delay="300">
-            <Trainer img={trainerImg2} alt="trainer-2" id="2" name="Alish" age="40" />
-          </div>
-          <div data-aos="fade-down" data-aos-delay="500">
-            <Trainer img={trainerImg3} alt="trainer-3" id="3" name="Rey" age="33" />
-          </div>
-          <div data-aos="zoom-in" data-aos-delay="700">
-            <Trainer img={trainerImg4} alt="trainer-4" id="4" name="Akon" age="35" />
-          </div>
-        </div>
+    <div className="h-full">
+      <div className="text-center mb-8" data-aos="fade-down" data-aos-delay="100">
+        <h3 className="text-2xl font-bold text-white mb-2 hover:text-indigo-400 transition-colors duration-300">
+          Expert Trainers
+        </h3>
+        <p className="text-gray-400 hover:text-gray-300 transition-colors duration-300">
+          Meet our professional fitness experts
+        </p>
       </div>
-      <div className="absolute inset-0 bg-gradient-to-b from-blue-800 to-green-300 opacity-80 pointer-events-none z-[-1]"></div>
-    </section>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {trainersData.map((trainer, i) => (
+          <div
+            key={i}
+            data-aos={animationDirections[i]}
+            data-aos-delay={i * 200}
+            data-aos-duration="1200"
+            className="h-full transform hover:scale-105 transition-all duration-300 hover:z-10"
+          >
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-teal-500 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
+              <Trainer
+                img={trainer.img}
+                alt={`trainer-${i + 1}`}
+                id={trainer.id}
+                name={trainer.name}
+                age={trainer.age}
+                specialization={trainer.specialization}
+                experience={trainer.experience}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 

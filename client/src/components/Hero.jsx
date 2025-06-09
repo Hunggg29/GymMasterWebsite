@@ -1,5 +1,3 @@
-
-
 import React, { useEffect } from 'react';
 import { ButtonOutline, Button } from "./";
 import { Link } from 'react-router-dom';
@@ -22,7 +20,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <main className="relative">
+    <main className="relative bg-black-900">
       <div className="container mx-auto px-6 py-10 md:py-16 lg:py-24 overflow-x-hidden overflow-y-hidden">
         <div className="flex flex-col-reverse md:flex-row justify-between items-center gap-10">
 
@@ -34,7 +32,7 @@ const Hero = () => {
             <img
               src={otherimg}
               alt="hero-img"
-              className="w-full rounded-lg shadow-lg transform transition-all duration-500 hover:scale-105 animate-img"
+              className="w-full rounded-lg shadow-xl transform transition-all duration-500 hover:scale-105 animate-img"
             />
           </div>
 
@@ -44,11 +42,11 @@ const Hero = () => {
             data-aos="fade-right" // AOS fade-right animation
           >
             <h1 className="text-white text-5xl lg:text-7xl xl:text-7xl font-bold leading-tight uppercase heading">
-              make <span className="text-blue-400 animate-heading">your</span> <br />
+              make <span className="text-indigo-500 animate-heading">your</span> <br />
               day special <br />
               anytime
             </h1>
-            <p className="text-gray-300 text-lg md:text-xl mt-4 lg:mt-6 max-w-md mx-auto md:mx-0">
+            <p className="text-gray-400 text-lg md:text-xl mt-4 lg:mt-6 max-w-md mx-auto md:mx-0">
               Achieve your fitness goals with personalized plans, expert trainers, and a community that supports you!
             </p>
 
@@ -70,7 +68,7 @@ const Hero = () => {
       </div>
 
       {/* Background Decoration */}
-      <div className="absolute inset-0 bg-gradient-to-b from-blue-800 to-gray-500 opacity-100 pointer-events-none z-[-1]"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-900 to-gray-800 opacity-100 pointer-events-none z-[-1]"></div>
     </main>
   );
 }

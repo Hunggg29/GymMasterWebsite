@@ -70,69 +70,145 @@ const Contact = () => {
   }
 
   return (
-    <section className='pt-10 contact'>
+    <section className='pt-10 contact bg-gray-900'>
       <Heading name="Contact Us" />
 
-      <div className="container py-10">
-        <form className='flex flex-col gap-8 justify-center items-center' onSubmit={createQuery}>
+      <div className="container py-10 px-4 mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Contact Form */}
+          <div data-aos="fade-right">
+            <form className='flex flex-col gap-6 bg-gray-800 p-8 rounded-xl' onSubmit={createQuery}>
+              <div className='w-full'>
+                <Input
+                  type="text"
+                  placeholder="Name"
+                  name="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
 
-          <div data-aos="fade-up" className='w-full max-w-[750px] '> {/* AOS fade-up animation for name input */}
-            <Input
-              type="text"
-              placeholder="Name"
-              name="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
+              <div className='w-full'>
+                <Input
+                  type="email"
+                  placeholder="Email"
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+
+              <div className='w-full'>
+                <Input
+                  type="text"
+                  placeholder="City"
+                  name="city"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                />
+              </div>
+
+              <div className='w-full'>
+                <Input
+                  type="text"
+                  placeholder="Phone"
+                  name="phone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </div>
+
+              <div className='w-full'>
+                <TextArea
+                  value={message}
+                  name="message"
+                  placeholder="Write Your Message"
+                  onChange={(e) => setMessage(e.target.value)}
+                />
+              </div>
+
+              <div className='w-full'>
+                <button
+                  className='w-full bg-indigo-600 px-4 py-3 text-white text-center text-xl font-medium hover:bg-indigo-700 transition-all ease-in rounded-lg'
+                  type='submit'>
+                  Submit
+                </button>
+              </div>
+            </form>
           </div>
 
-          <div data-aos="fade-up" className='w-full max-w-[750px]'  data-aos-delay="100"> {/* AOS fade-up with delay for email input */}
-            <Input
-              type="email"
-              placeholder="Email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
+          {/* Contact Information */}
+          <div data-aos="fade-left" className="space-y-6">
+            {/* Email */}
+            <div className="bg-gray-800 p-6 rounded-xl hover:bg-gray-700 transition-colors duration-300">
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center">
+                  <i className="fas fa-envelope text-xl text-white"></i>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-white">Email</h3>
+                  <p className="text-gray-300">GymMaster@gmail.com</p>
+                </div>
+              </div>
+            </div>
 
-          <div data-aos="fade-up" className='w-full max-w-[750px]' data-aos-delay="200"> {/* AOS fade-up with delay for city input */}
-            <Input
-              type="text"
-              placeholder="City"
-              name="city"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-            />
-          </div>
+            {/* Phone */}
+            <div className="bg-gray-800 p-6 rounded-xl hover:bg-gray-700 transition-colors duration-300">
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center">
+                  <i className="fas fa-phone text-xl text-white"></i>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-white">Hotline</h3>
+                  <p className="text-gray-300">0828458793</p>
+                </div>
+              </div>
+            </div>
 
-          <div data-aos="fade-up" className='w-full max-w-[750px]' data-aos-delay="300"> {/* AOS fade-up with delay for phone input */}
-            <Input
-              type="text"
-              placeholder="Phone"
-              name="phone"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-            />
-          </div>
+            {/* Address */}
+            <div className="bg-gray-800 p-6 rounded-xl hover:bg-gray-700 transition-colors duration-300">
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center">
+                  <i className="fas fa-map-marker-alt text-xl text-white"></i>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-white">Address</h3>
+                  <p className="text-gray-300">
+                    Wrottesley Road Tettenhall<br/>
+                    Wolverhampton WV6 8SE<br/>
+                    UNITED KINGDOM
+                  </p>
+                </div>
+              </div>
+            </div>
 
-          <div data-aos="fade-up" className='w-full max-w-[750px]' data-aos-delay="300"> {/* AOS fade-up with delay for message input */}
-            <TextArea
-              value={message}
-              name="message"
-              placeholder="Write Your Message"
-              onChange={(e) => setMessage(e.target.value)}
-            />
+            {/* Opening Hours */}
+            <div className="bg-gray-800 p-6 rounded-xl hover:bg-gray-700 transition-colors duration-300">
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center">
+                  <i className="fas fa-clock text-xl text-white"></i>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-white">Opening Hours</h3>
+                  <div className="text-gray-300">
+                    <p className="flex justify-between">
+                      <span>Monday - Friday: </span>
+                      <span className="ml-3"> 6:00 AM - 10:00 PM</span>
+                    </p>
+                    <p className="flex justify-between">
+                      <span>Saturday:</span>
+                      <span>7:00 AM - 8:00 PM</span>
+                    </p>
+                    <p className="flex justify-between">
+                      <span >Sunday:</span>
+                      <span>8:00 AM - 6:00 PM</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-
-          <div data-aos="zoom-in" className='w-full max-w-[750px]' data-aos-delay="300" > {/* AOS zoom-in for submit button */}
-            <button
-              className='w-full max-w-[750px] border-2 px-4 py-3 text-white border-white text-center text-xl font-medium hover:bg-white transition-all ease-in hover:text-black'
-              type='submit'>
-              Submit
-            </button>
-          </div>
-        </form>
+        </div>
       </div>
     </section>
   );

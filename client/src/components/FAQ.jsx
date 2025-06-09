@@ -1,10 +1,35 @@
 // aos
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Heading, FaqComponent } from ".";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 const FAQ = () => {
+  const [activeIndex, setActiveIndex] = useState(null);
+
+  const faqs = [
+    {
+      question: "What are your operating hours?",
+      answer: "We are open 24/7, allowing our members to work out at their convenience."
+    },
+    {
+      question: "Do you offer personal training?",
+      answer: "Yes, we have certified personal trainers available for one-on-one sessions. You can book sessions through our front desk or mobile app."
+    },
+    {
+      question: "Is there a free trial available?",
+      answer: "Yes, we offer a 7-day free trial for new members to experience our facilities and classes."
+    },
+    {
+      question: "What types of classes do you offer?",
+      answer: "We offer a wide variety of classes including yoga, HIIT, spinning, strength training, and more. Check our schedule for timings."
+    }
+  ];
+
+  const toggleAccordion = (index) => {
+    setActiveIndex(activeIndex === index ? null : index);
+  };
+
   useEffect(() => {
     AOS.init({
       duration: 1200,       // Duration of the animation
@@ -20,41 +45,33 @@ const FAQ = () => {
       <Heading name="Frequently Asked Questions" />
 
       <div className="container mx-auto py-10 px-6">
-        <div className="flex flex-col">
-          <div data-aos="fade-up">
-            <FaqComponent
-              question="How To SignUp And Login?"
-              answer="To sign up, click the 'Sign Up' button on the top right corner of our website. Fill in your details including name, email, and password. Once registered, you can login using your email and password. If you forget your password, use the 'Forgot Password' option to reset it."
-            />
-          </div>
+        <div className="text-center mb-8">
+          <h3 className="text-2xl font-bold text-white mb-2">Common Questions</h3>
+          <p className="text-gray-400">Find answers to frequently asked questions</p>
+        </div>
 
-          <div data-aos="fade-up" data-aos-delay="100">
-            <FaqComponent
-              question="What Is The Fees Of The Plans?"
-              answer="We offer various membership plans to suit your needs. Basic plan starts at $29.99/month, Premium plan at $49.99/month, and Elite plan at $79.99/month. Each plan includes different features and access levels. Corporate and student discounts are available."
-            />
-          </div>
-
-          <div data-aos="fade-up" data-aos-delay="200">
-            <FaqComponent
-              question="Is The Fees Refundable?"
-              answer="Yes, we offer a 7-day money-back guarantee if you're not satisfied with our services. After this period, refunds are processed on a case-by-case basis. Membership cancellation requires a 30-day notice, and any unused prepaid amounts will be refunded."
-            />
-          </div>
-
-          <div data-aos="fade-up" data-aos-delay="300">
-            <FaqComponent
-              question="Is It Reliable To Buy Our Packs?"
-              answer="Absolutely! We are a licensed and certified fitness center with years of experience. Our training packs are designed by certified fitness professionals and come with a satisfaction guarantee. We have thousands of satisfied members and maintain high safety and quality standards."
-            />
-          </div>
-
-          <div data-aos="fade-up" data-aos-delay="400">
-            <FaqComponent
-              question="How Much Time Does It Take to Complete A Pack?"
-              answer="Training pack duration varies based on your goals and commitment. Most of our fitness packs are designed for 12 weeks, with 3-4 sessions per week. However, results may vary depending on individual dedication, consistency, and adherence to the program guidelines."
-            />
-          </div>
+        <div className="space-y-4">
+          {faqs.map((faq, index) => (
+            <div 
+              key={index}
+              className="border border-gray-700 rounded-lg overflow-hidden"
+            >
+              <button
+                className="w-full px-6 py-4 text-left bg-gray-700/50 hover:bg-gray-700/70 transition-colors duration-200 flex justify-between items-center"
+                onClick={() => toggleAccordion(index)}
+              >
+                <span className="text-white font-medium">{faq.question}</span>
+                <i className={`fas fa-chevron-down text-indigo-400 transition-transform duration-200 ${activeIndex === index ? 'transform rotate-180' : ''}`}></i>
+              </button>
+              <div 
+                className={`px-6 overflow-hidden transition-all duration-200 ${
+                  activeIndex === index ? 'max-h-40 py-4' : 'max-h-0'
+                }`}
+              >
+                <p className="text-gray-300">{faq.answer}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 

@@ -1,38 +1,82 @@
+import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Autoplay, EffectCards } from 'swiper/modules';
+import { review1, review2, review3 } from '../images';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/effect-cards';
 
-
-import React,{useEffect} from 'react';
-import { Review, Heading } from "./";
-import { review1, review2, review3, review4 } from "../images";
-import AOS from 'aos';
-import 'aos/dist/aos.css'; 
 const Reviews = () => {
-  useEffect(() => {
-    AOS.init({
-      duration: 1000, // Animation duration in milliseconds
-      offset: -100, // Trigger animation after scrolling 200px
-      easing: 'ease-in-back', // Animation easing
-    });
-  }, []);
+  const reviews = [
+    {
+      name: "Sarah Johnson",
+      role: "Fitness Enthusiast",
+      review: "Amazing gym with top-notch equipment and trainers. The atmosphere is motivating and the community is supportive.",
+      rating: 5,
+      image: review1
+    },
+    {
+      name: "Mike Thompson",
+      role: "Professional Athlete",
+      review: "Best gym I've ever been to. The trainers are knowledgeable and the facilities are always clean.",
+      rating: 5,
+      image: review2
+    },
+    {
+      name: "Emily Davis",
+      role: "Yoga Practitioner",
+      review: "Great variety of classes and excellent instructors. The yoga sessions are particularly amazing.",
+      rating: 4,
+      image: review3
+    }
+  ];
+
   return (
-    <section className='pt-10 relative'>
-      <Heading name="Our Reviews" />
-      <div className="container py-16 mx-auto px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {[{ img: review1, name: "Kyle" }, { img: review2, name: "River" }, { img: review3, name: "Akon" }, { img: review4, name: "Arnold" }].map((review, index) => (
-                  <div
-                  key={index}
-                  data-aos="fade-zoom-in" // AOS fade-up animation
-                  data-aos-delay={`${index * 300}`} // Delay the animation for each plan
-                >
-            <div className="" key={index}>
-              <Review img={review.img} alt={`review-${index + 1}`} name={review.name} />
-            </div>
-            </div>
-          ))}
-        </div>
+    <div className="h-full">
+      <div className="text-center mb-8">
+        <h3 className="text-2xl font-bold text-white mb-2">Client Reviews</h3>
+        <p className="text-gray-400">What our members say about us</p>
       </div>
-      <div className="absolute inset-0 bg-gradient-to-b from-blue-800 to-rose-300 opacity-80 pointer-events-none z-[-1]"></div>
-    </section>
+
+      <Swiper
+        effect={'cards'}
+        grabCursor={true}
+        modules={[Pagination, Autoplay, EffectCards]}
+        className="h-[400px]"
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
+        }}
+      >
+        {reviews.map((review, index) => (
+          <SwiperSlide key={index}>
+            <div className="bg-gray-800 p-6 rounded-xl h-full flex flex-col">
+              <div className="flex flex-col items-center mb-6">
+                <div className="w-24 h-24 rounded-full overflow-hidden mb-4 border-2 border-indigo-500">
+                  <img 
+                    src={review.image} 
+                    alt={review.name} 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <h4 className="text-white font-semibold text-xl mb-1">{review.name}</h4>
+                <p className="text-indigo-400 mb-2">{review.role}</p>
+                <div className="flex justify-center mb-4">
+                  {[...Array(review.rating)].map((_, i) => (
+                    <i key={i} className="fas fa-star text-yellow-500 mx-1"></i>
+                  ))}
+                </div>
+              </div>
+              <div className="flex-1 flex items-center justify-center">
+                <p className="text-gray-300 text-lg text-center italic leading-relaxed">
+                  "{review.review}"
+                </p>
+              </div>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
   );
 };
 
