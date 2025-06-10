@@ -88,6 +88,7 @@ const App = () => {
           <Route path='trainer/session-list' element={<SessionsListTrainer />} />
           <Route path='trainer' element={<TrainerDashBoard />} />
           <Route path='trainer/profile' element={<Profile />} />
+          
           <Route path='admin/create-plane' element={<CreatePlan />} />
           <Route path='admin/plan/:planid' element={<UpdatePlan />} />
           <Route path='staff/plans' element={<PlansStaff />} />
