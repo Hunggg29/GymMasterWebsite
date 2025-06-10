@@ -15,6 +15,7 @@ const Payment = () => {
   const planData = location.state || {};
   const [amount, setAmount] = useState(planData.amount || '');
   const [paymentMethod, setPaymentMethod] = useState('Cash');
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const userId = auth?.user?.id;
 
   // Redirect if no plan data
@@ -53,12 +54,17 @@ const Payment = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!amount || !paymentMethod) {
       toast.error('Please enter all required fields');
       return;
     }
+    setShowConfirmDialog(true); // Show confirmation dialog
+  };
+
+  const handleConfirmPayment = async () => {
+    setShowConfirmDialog(false); // Close confirmation dialog immediately
 
     try {
       // Create payment first
@@ -101,6 +107,10 @@ const Payment = () => {
                          'Payment failed: Server error';
       toast.error(errorMessage);
     }
+  };
+
+  const handleCancelConfirm = () => {
+    setShowConfirmDialog(false);
   };
 
   if (!location.state?.planId) {
@@ -162,6 +172,30 @@ const Payment = () => {
           Confirm Payment
         </button>
       </form>
+
+      {/* Confirmation Dialog */}
+      {showConfirmDialog && (
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-70 flex items-center justify-center px-4">
+          <div className="bg-white rounded-lg shadow-xl p-8 max-w-sm w-full text-center">
+            <h3 className="text-xl font-semibold text-gray-800 mb-4">Confirm Payment</h3>
+            <p className="text-gray-600 mb-6">Are you sure you want to proceed with this payment?</p>
+            <div className="flex justify-center gap-4">
+              <button
+                onClick={handleCancelConfirm}
+                className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold px-6 py-2 rounded-full"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleConfirmPayment}
+                className="bg-blue-600 hover:bg-blue-800 text-white font-bold px-6 py-2 rounded-full shadow-md"
+              >
+                Confirm Payment
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

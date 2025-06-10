@@ -103,9 +103,12 @@ const RegisterTrainingSession = () => {
       return;
     }
 
-    // Calculate end time (start time + 2 hours)
-    const startDateTime = new Date(`${date}T${startTime}`);
-    const endDateTime = new Date(startDateTime.getTime() + (2 * 60 * 60 * 1000)); // Add 2 hours
+    const [year, month, day] = date.split('-').map(Number);
+    const [hours, minutes] = startTime.split(':').map(Number);
+
+    // Create a UTC date object directly from local date/time components
+    const startDateTimeUTC = new Date(Date.UTC(year, month - 1, day, hours, minutes));
+    const endDateTimeUTC = new Date(startDateTimeUTC.getTime() + (2 * 60 * 60 * 1000)); // Add 2 hours in UTC
 
     try {
       const authData = localStorage.getItem('auth');
@@ -127,8 +130,8 @@ const RegisterTrainingSession = () => {
         trainerId: parseInt(selectedTrainer),
         roomId: parseInt(selectedRoom),
         date: date,
-        startTime: startDateTime.toISOString(),
-        endTime: endDateTime.toISOString(),
+        startTime: startDateTimeUTC.toISOString(),
+        endTime: endDateTimeUTC.toISOString(),
         sessionType: sessionType || null,
       };
 
@@ -160,6 +163,14 @@ const RegisterTrainingSession = () => {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const getMinDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = (today.getMonth() + 1).toString().padStart(2, '0');
+    const day = today.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
   };
 
   return (
@@ -257,6 +268,7 @@ const RegisterTrainingSession = () => {
                       onChange={(e) => setDate(e.target.value)}
                       className="w-full bg-white/10 border border-white/20 rounded-2xl px-4 py-4 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
                       required
+                      min={getMinDate()}
                     />
                   </div>
 
