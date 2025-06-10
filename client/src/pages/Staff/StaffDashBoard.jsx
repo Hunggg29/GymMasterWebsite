@@ -6,7 +6,7 @@ import { toast } from "react-hot-toast";
 import { BASE_URL } from "../../utils/fetchData";
 import AOS from 'aos';
 import 'aos/dist/aos.css'; // Import AOS styles
-import { FaUsers, FaComments, FaDumbbell, FaBuilding, FaCalendarCheck } from 'react-icons/fa';
+import { FaUser,FaUsers, FaComments, FaDumbbell, FaBuilding, FaCalendarCheck } from 'react-icons/fa';
 
 const StaffDashBoard = () => {
   const [userCount, setUserCount] = useState(null);
@@ -133,6 +133,12 @@ const StaffDashBoard = () => {
   }
 
   const dashboardItems = [
+     {
+          title: "Profile",
+          description: "Update your personal information",
+          icon: <FaUser className="text-4xl mb-4" />,
+          path: "/dashboard/staff/profile"
+        },
     {
       title: "Subscribers",
       description: "View and manage subscribers",
@@ -147,6 +153,7 @@ const StaffDashBoard = () => {
       count: feedbackCount,
       path: "/dashboard/staff/feedbacks"
     },
+
     {
       title: "Training Sessions",
       description: "Manage training sessions",

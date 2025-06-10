@@ -7,7 +7,7 @@ import { BASE_URL } from "../../utils/fetchData";
 import { useAuth } from "../../context/auth";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { FaUsers, FaCalendarCheck } from 'react-icons/fa';
+import { FaUser,FaUsers, FaCalendarCheck } from 'react-icons/fa';
 
 const TrainerDashBoard = () => {
   const [userCount, setUserCount] = useState(null);
@@ -58,6 +58,12 @@ const TrainerDashBoard = () => {
   }
 
   const dashboardItems = [
+     {
+          title: "Profile",
+          description: "Update your personal information",
+          icon: <FaUser className="text-4xl mb-4" />,
+          path: "/dashboard/trainer/profile"
+        },
     {
       title: "Members",
       description: "View and manage your members",

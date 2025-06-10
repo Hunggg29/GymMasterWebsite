@@ -70,7 +70,7 @@ const App = () => {
          {/* staff routes ================================== */}
          <Route path='/dashboard' element={<StaffRoute/>}>
           <Route path='staff' element={<StaffDashBoard />} />
-          <Route path='admin/profile' element={<Profile />} />
+          <Route path='staff/profile' element={<Profile />} />
           <Route path='admin/create-plane' element={<CreatePlan />} />
           <Route path='staff/plan/:planid' element={<UpdatePlanStaff />} />
           <Route path='staff/plans' element={<PlansStaff />} />
@@ -87,7 +87,7 @@ const App = () => {
           <Route path='trainer/user-list' element={<MemberList />} />
           <Route path='trainer/session-list' element={<SessionsListTrainer />} />
           <Route path='trainer' element={<TrainerDashBoard />} />
-          <Route path='admin/profile' element={<Profile />} />
+          <Route path='trainer/profile' element={<Profile />} />
           <Route path='admin/create-plane' element={<CreatePlan />} />
           <Route path='admin/plan/:planid' element={<UpdatePlan />} />
           <Route path='staff/plans' element={<PlansStaff />} />

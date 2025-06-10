@@ -6,7 +6,7 @@ import { toast } from "react-hot-toast";
 import { BASE_URL } from "../../utils/fetchData";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { FaUserTie, FaUsers, FaClipboardList, FaComments, FaDumbbell, FaBuilding, FaUserPlus } from 'react-icons/fa';
+import { FaUser,FaUserTie, FaUsers, FaClipboardList, FaComments, FaDumbbell, FaBuilding, FaUserPlus } from 'react-icons/fa';
 import AddStaffModal from '../../components/AddStaffModal';
 
 const AdminDashBoard = () => {
@@ -176,7 +176,13 @@ const AdminDashBoard = () => {
       icon: <FaBuilding className="text-4xl mb-4" />,
       count: gymroomCount,
       path: "/dashboard/admin/gymrooms"
-    }
+    },
+      {
+          title: "Profile",
+          description: "Update your personal information",
+          icon: <FaUser className="text-4xl mb-4" />,
+          path: "/dashboard/admin/profile"
+        },
   ];
 
   return (
