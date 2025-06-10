@@ -33,6 +33,7 @@ ChartJS.register(
 function Statistics() {
     const [stats, setStats] = useState([]);
     const [dataCount,setDataCount]=useState([]);
+    const [dataplans,setDataPlans]=useState([])
        const {auth} = useAuth();
     useEffect(() => {
         try {
@@ -62,9 +63,26 @@ function Statistics() {
                 console.log(response.data);
                 
             }
+            const fetchPlans=async()=>{
+                  const res = await axios.get(`${BASE_URL}/api/subscription`);
+                  console.log('res plans',res.data)
+                  if(res.data){
+                    const cheapPlans =res.data?.filter(a=>a.planName =='Standard').length
+                    const mediumPlans = res.data?.filter(a=>a.planName =='Basic').length
+                    const vipPlans = res.data?.filter(a => a.planName =="Premium ").length
+                    const diamondPlans=res.data?.filter(a=>a.planName =='Diamond').length
+                    setDataPlans([
+                        cheapPlans,
+                        mediumPlans,
+                        vipPlans,
+                        diamondPlans
+                    ])
+                  }
+            } 
 
             fetchData();
             fetchAccount();
+            fetchPlans();
         } catch(error) {
             console.log(error);
             toast.error('Không thể tải dữ liệu thống kê');
@@ -74,14 +92,35 @@ function Statistics() {
     const monthlyTrend = useMemo(() => {
         if(stats) {
             const labels = stats.map(item => `T${item.month}/${item.year}`);
+            const revenues = stats.map(item => item.totalAmount);
+            
+            // Tính tỷ lệ tăng trưởng
+            const growthRates = revenues.map((value, index) => {
+                if (index === 0) return null;
+                const prevValue = revenues[index - 1];
+                return prevValue ? Number(((value - prevValue) / prevValue * 100).toFixed(1)) : null;
+            });
+
             return {
                 labels,
                 datasets: [
                     {
-                        label: 'Revenue($)',
-                        data: stats.map(item => (item.totalAmount)),
+                        type: 'line',
+                        label: 'Revenue',
+                        data: revenues,
                         borderColor: 'rgba(75,192,192,1)',
                         backgroundColor: 'rgba(75,192,192,0.2)',
+                        yAxisID: 'y',
+                        tension: 0.3
+                    },
+                    {
+                        type: 'line',
+                        label: 'Growth Rate',
+                        data: growthRates,
+                        borderColor: 'rgba(255,99,132,1)',
+                        backgroundColor: 'rgba(255,99,132,0.2)',
+                        borderDash: [5, 5],
+                        yAxisID: 'y1',
                         tension: 0.3
                     }
                 ]
@@ -92,13 +131,17 @@ function Statistics() {
     const lineChartOptions = {
         responsive: true,
         maintainAspectRatio: false,
+        interaction: {
+            mode: 'index',
+            intersect: false,
+        },
         plugins: {
             legend: {
                 position: 'top',
             },
             title: {
                 display: true,
-                text: 'Doanh thu 6 tháng gần nhất',
+                text: 'Monthly Revenue & Growth Rate',
                 font: {
                     size: 16,
                     weight: 'bold'
@@ -107,31 +150,44 @@ function Statistics() {
             tooltip: {
                 callbacks: {
                     label: function(context) {
-                        const label = context.dataset.label || '';
-                        const value = context.raw  || 0;
-                        
-                        return `${label}: ${value}$`;
-                    },
-                    // afterLabel:function(context){
-                    //     const value = context.dataIndex;
-                    //     const totalOrders = stats[value]?.totalOrders||0;
-                    //     return `Tổng đơn hàng : ${totalOrders}`;
-                    // }
+                        if (context.dataset.label === 'Revenue') {
+                            return `Revenue: $${context.raw}`;
+                        }
+                        return `Growth Rate: ${context.raw}%`;
+                    }
                 }
             }
         },
         scales: {
             y: {
-                beginAtZero: true,
+                type: 'linear',
+                display: true,
+                position: 'left',
                 title: {
                     display: true,
-                    text: 'Revenue  ($)',
+                    text: 'Revenue ($)'
                 },
                 ticks: {
                     callback: function(value) {
-                        const valuereal = value ;
-                        return `${valuereal}$`;
+                        return `$${value}`;
                     }
+                }
+            },
+            y1: {
+                type: 'linear',
+                display: true,
+                position: 'right',
+                title: {
+                    display: true,
+                    text: 'Growth Rate (%)'
+                },
+                ticks: {
+                    callback: function(value) {
+                        return `${value}%`;
+                    }
+                },
+                grid: {
+                    drawOnChartArea: false
                 }
             }
         }
@@ -183,54 +239,57 @@ function Statistics() {
         }
     }
 
-    // const revenueTypePay=useMemo(()=>{
-    //     return{
-    //         labels:['Đã Thanh Toán','Chưa thanh toán'],
-    //         datasets:[{
-    //             label:'Doanh thu: ',
-    //             data:[stats[5]?.revenueisPay ||"0",stats[5]?.revenuenotPay|| "0"],
-    //             backgroundColor: ['#2ecc71', '#e74c3c']
-    //         },]
-    //     }
-    // },[stats[5]])
+    const revenueTypePay=useMemo(()=>{
+        return{
+            labels:['Standard Plan','Basic Plans','Premium Plans','Diamond Plans'],
+            datasets:[{
+                label:'Plans Count: ',
+                data:dataplans,
+                backgroundColor: [
+                    'rgba(76, 175, 80, 0.85)',  // Xanh lá
+                    'rgba(255, 99, 132, 0.85)',  // Hồng
+                    'rgba(255, 206, 86, 0.85)',  // Vàng
+                    'rgba(59, 173, 244, 0.85)'     // Đen
+                ],
+                borderWidth: 1
+            },]
+        }
+    },[dataplans])
 
-    // const piechartOptions =useMemo(()=>({
-    //     responsive:true,
-    //     maintainAspectRatio:false,
-    //     plugins:{
-    //         legend:{
-    //             position:'right',
-    //             labels:{
-    //                 boxWidth: 15,
-    //                 padding: 15,
-    //                 font: {
-    //                     size: 12
-    //                 }
-    //             }
-    //         },
-    //         title:{
-    //             display:true,
-    //             text:'Tỷ lệ doanh thu tháng hiện tại đã thanh toán',
-    //             font: {
-    //                 size: 16,
-    //                 weight: 'bold'
-    //             }
-    //         },
-    //         tooltip:{
-    //             callbacks:{
-    //                 label:function(context){
-    //                     const value =context.raw *1000|| 0;
-    //                     const total = context.chart._metasets[context.datasetIndex].total || 0;
-    //                     const percentage=Math.round((value / total)*100);
-    //                     return `${value.toLocaleString()} VND (${percentage}%)`;
-    //                 }
-    //             },
-    //             title:function(context){
-    //                 return context[0].label;
-    //             }
-    //         }
-    //     }
-    // }),[stats])
+    const piechartOptions =useMemo(()=>({
+        responsive:true,
+        maintainAspectRatio:false,
+        plugins:{
+            legend:{
+                position:'right',
+                labels:{
+                    boxWidth: 15,
+                    padding: 15,
+                    font: {
+                        size: 12
+                    }
+                }
+            },
+            title:{
+                display:true,
+                text:'Membership Plan Distribution',
+                font: {
+                    size: 16,
+                    weight: 'bold'
+                }
+            },
+            tooltip:{
+                callbacks:{
+                    label:function(context){
+                        const value =context.raw || 0;
+                        const total = context.chart._metasets[context.datasetIndex].total || 0;
+                        const percentage=Math.round((value / total)*100);
+                        return `${context.label}: ${value} (${percentage}%)`;
+                    }
+                }
+            }
+        }
+    }),[dataplans])
 
     return ( 
         <div className="container mx-auto p-4">
@@ -244,68 +303,17 @@ function Statistics() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Revenue Chart Section */}
+                {/* Plan Distribution Section */}
                 <div className="bg-gray-800 p-6 rounded-lg shadow-xl border border-gray-700">
-                    <div className="flex items-center mb-4">
-                        <i className="fa-solid fa-money-bill-trend-up text-green-400 text-xl mr-2"></i>
-                        <h2 className="text-xl font-bold text-white">Revenue Chart - Last 6 Months</h2>
+                    <div className="flex items-center mb-6">
+                        <i className="fa-solid fa-chart-pie text-purple-400 text-xl mr-2"></i>
+                        <div>
+                            <h2 className="text-xl font-bold text-white">Plan Distribution</h2>
+                            <p className="text-sm text-gray-400">Current  plan distribution</p>
+                        </div>
                     </div>
-                    <div className="h-[400px] bg-gray-900 rounded-lg p-4">
-                        {monthlyTrend && monthlyTrend.labels.length > 0 && 
-                            <Line 
-                                data={monthlyTrend} 
-                                options={{
-                                    ...lineChartOptions,
-                                    plugins: {
-                                        ...lineChartOptions.plugins,
-                                        title: {
-                                            ...lineChartOptions.plugins.title,
-                                            text: 'Monthly Revenue Trend',
-                                            color: '#fff',
-                                            font: {
-                                                size: 18,
-                                                weight: 'bold'
-                                            }
-                                        },
-                                        legend: {
-                                            ...lineChartOptions.plugins.legend,
-                                            labels: {
-                                                color: '#fff',
-                                                font: {
-                                                    size: 12
-                                                }
-                                            }
-                                        }
-                                    },
-                                    scales: {
-                                        y: {
-                                            ...lineChartOptions.scales.y,
-                                            grid: {
-                                                color: 'rgba(255, 255, 255, 0.1)'
-                                            },
-                                            ticks: {
-                                                color: '#fff',
-                                                callback: function(value) {
-                                                    const valuereal = value;
-                                                    return `$${valuereal}`;
-                                                }
-                                            }
-                                        },
-                                        x: {
-                                            grid: {
-                                                color: 'rgba(255, 255, 255, 0.1)'
-                                            },
-                                            ticks: {
-                                                color: '#fff'
-                                            }
-                                        }
-                                    }
-                                }}
-                            />
-                        }
-                    </div>
-                    <div className="mt-4 text-sm text-gray-400 text-center">
-                        <p>* Revenue data is shown in USD ($)</p>
+                    <div className="h-[300px] bg-gray-900 rounded-lg p-4">
+                        {dataplans && <Pie data={revenueTypePay} options={piechartOptions}/>}
                     </div>
                 </div>
 
@@ -319,7 +327,7 @@ function Statistics() {
                         </div>
                     </div>
                     
-                    <div className="h-[400px] bg-gray-900 rounded-lg p-4">
+                    <div className="h-[300px] bg-gray-900 rounded-lg p-4">
                         {dataCount && dataCount.length > 0 && 
                             <Bar 
                                 data={countsComparisonData} 
@@ -390,6 +398,25 @@ function Statistics() {
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            {/* Revenue Chart Section - Full Width */}
+            <div className="mt-6 bg-gray-800 p-6 rounded-lg shadow-xl border border-gray-700">
+                <div className="flex items-center mb-4">
+                    <i className="fa-solid fa-money-bill-trend-up text-green-400 text-xl mr-2"></i>
+                    <h2 className="text-xl font-bold text-white">Revenue Chart - Last 6 Months</h2>
+                </div>
+                <div className="h-[400px] bg-gray-900 rounded-lg p-4">
+                    {monthlyTrend && monthlyTrend.labels.length > 0 && 
+                        <Line 
+                            data={monthlyTrend} 
+                            options={lineChartOptions}
+                        />
+                    }
+                </div>
+                <div className="mt-4 text-sm text-gray-400 text-center">
+                    <p>* Revenue data is shown in USD ($)</p>
                 </div>
             </div>
         </div>
