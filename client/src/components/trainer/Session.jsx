@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { BASE_URL } from '../../utils/fetchData'
 import { CalendarDays, Clock, Users, Home, ClipboardList, Dumbbell, Pencil } from "lucide-react";
@@ -11,6 +11,10 @@ const SessionTrainer = ({ u }) => {
   const [session, setSession] = useState(u);
   const navigate = useNavigate();
  const [showModal,setShowModal]=useState(false);
+
+  useEffect(() => {
+    setSession(u);
+  }, [u]);
 
 const handleSave = async (data)=>{
  try{
@@ -35,7 +39,7 @@ const handleSave = async (data)=>{
         <div className="flex items-center gap-2">
           <Users className="text-blue-600" size={24} />
           <h3 className="text-xl font-semibold text-blue-600">
-            Trainer: {session.userName}
+            Trainee: {session.userName}
           </h3>
         </div>
       </div>
