@@ -18,7 +18,13 @@ const TrainerRoute = () => {
                     return;
                 }
 
-                const res = await axios.get(`${BASE_URL}/api/auth/trainer-auth`);
+                const res = await axios.get(`${BASE_URL}/api/auth/trainer-auth`,
+                      {
+                    headers: {
+                        Authorization: `Bearer ${auth.token}`
+                    }
+                }
+                );
                 setOk(true);
             } catch (err) {
                 console.error("Auth check error:", err);
