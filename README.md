@@ -1,6 +1,7 @@
 # GymMasterWebsite
 
-GymMasterWebsite là một nền tảng quản lý phòng tập gym hiện đại, cung cấp các công cụ quản lý toàn diện cho cả chủ phòng tập và người dùng.
+GymMasterWebsite là một nền tảng quản lý phòng tập gym hiện đại, cung cấp các công cụ quản lý toàn diện cho cả chủ phòng tập, người tập và huấn luyện viên cá nhân.
+Link web demo: https://gym-master-website-five.vercel.app/
 
 ## Tính năng chính
 
