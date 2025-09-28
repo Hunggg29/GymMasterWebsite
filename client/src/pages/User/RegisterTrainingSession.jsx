@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, User, MapPin, Dumbbell, CheckCircle, AlertCircle, Info } from 'lucide-react';
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 const RegisterTrainingSession = () => {
   const [trainers, setTrainers] = useState([]);
   const [rooms, setRooms] = useState([]);
@@ -17,8 +19,7 @@ const RegisterTrainingSession = () => {
   useEffect(() => {
     const fetchTrainers = async () => {
       try {
-        console.log('Fetching trainers from:', 'http://localhost:5242/api/trainer');
-        const response = await fetch('http://localhost:5242/api/trainer');
+        const response = await fetch(`${BASE_URL}/trainer`);
         console.log('Trainers response status:', response.status);
         
         if (response.ok) {
@@ -27,7 +28,7 @@ const RegisterTrainingSession = () => {
           // Include user information for each trainer
           const trainersWithUserInfo = await Promise.all(
             data.map(async (trainer) => {
-              const userResponse = await fetch(`http://localhost:5242/api/users/${trainer.userId}`);
+              const userResponse = await fetch(`${BASE_URL}/users/${trainer.userId}`);
               if (userResponse.ok) {
                 const userData = await userResponse.json();
                 return {
@@ -55,8 +56,8 @@ const RegisterTrainingSession = () => {
 
     const fetchRooms = async () => {
       try {
-        console.log('Fetching rooms from:', 'http://localhost:5242/api/gymroom');
-        const response = await fetch('http://localhost:5242/api/gymroom');
+        console.log('Fetching rooms from:', `${BASE_URL}/gymroom`);
+        const response = await fetch(`${BASE_URL}/gymroom`);
         console.log('Rooms response status:', response.status);
         
         if (response.ok) {
@@ -137,7 +138,7 @@ const RegisterTrainingSession = () => {
 
       console.log('Sending request:', requestBody);
 
-      const response = await fetch('http://localhost:5242/api/trainingsession', {
+      const response = await fetch(`${BASE_URL}/trainingsession`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

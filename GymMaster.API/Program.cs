@@ -35,7 +35,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend",
         policy => policy
-            .WithOrigins("https://gym-master-website-v2.vercel.app") // Thay bằng domain thật của bạn
+            .WithOrigins("https://gym-master-website-five.vercel.app") // Thay bằng domain thật của bạn
             .AllowAnyHeader()
             .AllowAnyMethod());
 });
