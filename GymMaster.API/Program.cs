@@ -33,15 +33,11 @@ builder.Services.AddSwaggerGen();
 // Add CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll",
-        builder =>
-        {
-            builder
-                .SetIsOriginAllowed(origin => true) // Allow any origin
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                .AllowCredentials();
-        });
+    options.AddPolicy("AllowFrontend",
+        policy => policy
+            .WithOrigins("https://gym-master-website-v2.vercel.app") // Thay bằng domain thật của bạn
+            .AllowAnyHeader()
+            .AllowAnyMethod());
 });
 
 // Add JWT authentication
@@ -91,7 +87,7 @@ if (app.Environment.IsDevelopment())
 }
 
 // Use CORS before other middleware
-app.UseCors("AllowAll");
+app.UseCors("AllowFrontend");
 
 // Remove HTTPS redirection for development
 // app.UseHttpsRedirection();

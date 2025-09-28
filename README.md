@@ -56,7 +56,7 @@ GymMasterWebsite là một nền tảng quản lý phòng tập gym hiện đạ
 ## Cài đặt và Chạy dự án
 
 ### Yêu cầu hệ thống
-- .NET 7.0 SDK
+- .NET 8.0 SDK
 - SQL Server
 - Node.js (phiên bản 14.0.0 trở lên)
 - npm hoặc yarn

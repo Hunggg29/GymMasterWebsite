@@ -21,7 +21,7 @@ const fetchData = async (url, options) => {
   return data;
 };
 
-const BASE_URL = "http://localhost:5242";
+const BASE_URL = "https://gymmasterapi20250514152301-h7e6h6gpcbbvbpfb.indonesiacentral-01.azurewebsites.net";
 // const BASE_URL="https://gym-master.onrender.com";
 
 export { fetchData, exerciseOptions, youtubeExerciseOptions, BASE_URL };
